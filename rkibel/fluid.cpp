@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <charconv>
 
 int main(int argc, char* argv[]) {
     if (argc != 4) {
@@ -6,8 +8,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    const std::string input_str = argv[1];
     int nts;
-    std::string inputfile, outputfile;
 
     return 0;
 }

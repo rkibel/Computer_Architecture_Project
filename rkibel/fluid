@@ -1,0 +1,5 @@
+#!/bin/bash
+
+g++ fluid.cpp -o main
+
+./main "$@"
