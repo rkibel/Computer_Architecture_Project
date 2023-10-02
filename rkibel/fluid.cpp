@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <set>
 #include <charconv>
 #include <fstream>
 #include <sstream>
@@ -17,15 +18,19 @@ struct particle {
     double vx;
     double vy;
     double vz;
+    bool operator<(const particle& other) const {
+        return id < other.id;
+    }
 };
-
 
 float ppm;
 int np;
 double mass;
 double smoothing_length;
 std::vector<int> grid_size;
-std::vector<double> block_size; 
+std::vector<double> block_size;
+std::vector<particle> particles; // think of this as a dictionary of the particles, ie in position 2 is info about particle with id=2
+std::vector<std::vector<std::vector<std::set<int>>>> grid; // store only the particle ids in the grid
 
 int parseInt(char* arg) {
     const std::string input_str = arg;
@@ -42,7 +47,7 @@ int parseInt(char* arg) {
     return res;
 }
 
-std::vector<particle> parseInput(char* inputFile) {
+void parseInput(char* inputFile) {
     std::ifstream fileReader;
     fileReader.open(inputFile, std::ios::binary);
     if (!fileReader) {
@@ -56,8 +61,17 @@ std::vector<particle> parseInput(char* inputFile) {
         exit(-5);
     }
 
+    mass = constants::rho / ppm / ppm / ppm;
+    smoothing_length = constants::r / ppm;
+    grid_size = {static_cast<int>(std::floor((constants::xmax - constants::xmin) / smoothing_length)), 
+                 static_cast<int>(std::floor((constants::ymax - constants::ymin) / smoothing_length)),
+                 static_cast<int>(std::floor((constants::zmax - constants::zmin) / smoothing_length))};
+    block_size = {(constants::xmax - constants::xmin) / grid_size[0], 
+                  (constants::ymax - constants::ymin) / grid_size[1],
+                  (constants::zmax - constants::zmin) / grid_size[2]};
+    grid.resize(grid_size[0], std::vector<std::vector<std::set<int>>>(grid_size[1], std::vector<std::set<int>>(grid_size[2])));
+
     int counter = 0;
-    std::vector<particle> particles;
     while (!fileReader.eof()) {
         float px, py, pz, hvx, hvy, hvz, vx, vy, vz;
         fileReader.read(reinterpret_cast<char*>(&px), sizeof(float));
@@ -69,25 +83,24 @@ std::vector<particle> parseInput(char* inputFile) {
         fileReader.read(reinterpret_cast<char*>(&vx), sizeof(float));
         fileReader.read(reinterpret_cast<char*>(&vy), sizeof(float));
         fileReader.read(reinterpret_cast<char*>(&vz), sizeof(float));
+
+        int i = static_cast<int>(std::floor((px - constants::xmin) / block_size[0]));
+        int j = static_cast<int>(std::floor((py - constants::ymin) / block_size[1]));
+        int k = static_cast<int>(std::floor((pz - constants::zmin) / block_size[2]));
         particles.push_back(particle {counter, px, py, pz, hvx, hvy, hvz, vx, vy, vz});
+        
+        //not working, not sure why
+        //grid[i][j][k].insert(counter);
         counter++;
     }
     particles.pop_back();
 
-    if (particles.size() != np) {
+    if (counter-1 != np) {
         std::cerr << "Error: Number of particles mismatch. Header: " << np << ", "
-                     "Found: " << particles.size() << ".\n";
+                     "Found: " << counter-1 << ".\n";
         exit(-5);
     }
 
-    mass = constants::rho / ppm / ppm / ppm;
-    smoothing_length = constants::r / ppm;
-    grid_size = {static_cast<int>(std::floor((constants::xmax - constants::xmin) / smoothing_length)), 
-                 static_cast<int>(std::floor((constants::ymax - constants::ymin) / smoothing_length)),
-                 static_cast<int>(std::floor((constants::zmax - constants::zmin) / smoothing_length))};
-    block_size = {(constants::xmax - constants::xmin) / grid_size[0], 
-                  (constants::ymax - constants::ymin) / grid_size[1],
-                  (constants::zmax - constants::zmin) / grid_size[2]};
 
     std::cout << "Number of particles: " << np << "\n"
             "Particles per meter: " << ppm << "\n"
@@ -96,8 +109,6 @@ std::vector<particle> parseInput(char* inputFile) {
             "Grid size: " << grid_size[0] << " x " << grid_size[1] << " x " << grid_size[2] << "\n"
             "Number of blocks: " << grid_size[0] * grid_size[1] * grid_size[2] << "\n"
             "Block size: " << block_size[0] << " x " << block_size[1] << " x " << block_size[2] << "\n";
-
-    return particles;
 }
 
 void testOutput(char* outputFile) {
@@ -145,14 +156,13 @@ int main(int argc, char* argv[]) {
     }
 
     int nts = parseInt(argv[1]);
-    std::vector<particle> particles = parseInput(argv[2]);
+    parseInput(argv[2]);
+    std::cout << std::endl;
     testOutput(argv[3]);
 
+    for (particle p: particles) std::cout << p.id << " px: " << p.px << " py: " << p.py << " pz: " << p.pz << "\n";
 
     std::vector<particle> segmented;
-    for (int i = 0; i < 4000; ++i) {
-        segmented.push_back(particles[i]);
-    }
     writeFile("test.fld", 0, 3000, segmented);
 
     return 0;
