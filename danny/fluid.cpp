@@ -1,14 +1,15 @@
-#include <iostream>
-#include <vector>
+#include "constants.hpp"
+
 #include <charconv>
-#include <fstream>
-#include <sstream>
 #include <cmath>
-
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include <typeinfo>
+#include <vector>
 
-struct particle_read {
-    int id;
+struct particle {
+    int const id;
     double px;
     double py;
     double pz;
@@ -20,108 +21,168 @@ struct particle_read {
     double vz;
 };
 
-struct constants {
-    double radius_multiplier_r = 1.695;
-    double fluid_density_rho = 1000;
-    double stiffness_presure_ps = 3.0;
-    double stiffness collisions_sc = 30000;
-    double damping_dv = 128.0;
-    double viscosity_mu = 0.4;
-    double particle_size_dp= .0002;
-    double time_step_delta_t = .001;
-    vector<double> gravity_g{0.0, 9.8, 0.0};
-    vector<double> box_upper_bound_bmin{0.065, 0.1, 0.065};    
-    vector<double> box_lower_bound_bmax{-0.065, -0.08, -0.065};   
-}
-
-struct parameters {
-    double particle_mass_m;
+struct simulation_blocks {
+    double mass;
     double smoothing_length_h;
-    vector<int> number_blocks_by_dim_n;
-    vector<double> sizes_blocks_by_dim_s;
+    std::vector<int> grid_size;
+    std::vector<double> block_size;
+};
+
+int parseInt(char * arg) {
+  const std::string input_str = arg;
+  int res;
+  auto result = std::from_chars(input_str.data(), input_str.data() + input_str.size(), res);
+  if (result.ec != std::errc()) {
+    std::cerr << "Error: time steps must be numeric.\n";
+    exit(1);
+  }
+  if (res < 0) {
+    std::cerr << "Error: Invalid number of time steps.\n";
+    exit(1);
+  }
+  return res;
 }
 
-int parseInt(char* arg) {
-    const std::string input_str = arg;
-    int res;
-    auto result = std::from_chars(input_str.data(), input_str.data() + input_str.size(), res);
-    if (result.ec != std::errc()) {
-        std::cerr << "Error: time steps must be numeric.\n";
-        exit(1);
-    }
-    if (res < 0) {
-        std::cerr << "Error: Invalid number of time steps.\n";
-        exit(1);
-    }
-    return res;
+std::vector<particle> parseInput(char * inputFile, simulation_blocks & blocks) {
+  std::ifstream fileReader;
+  fileReader.open(inputFile, std::ios::binary);
+  if (!fileReader) {
+    std::cerr << "Error: Cannot open " << inputFile << " for reading";
+    exit(1);
+  }
+  float ppm_read;
+  int np;
+  fileReader.read(reinterpret_cast<char *>(&ppm_read), sizeof(ppm_read));
+  fileReader.read(reinterpret_cast<char *>(&np), sizeof(np));
+
+  double const ppm = static_cast<double>(ppm_read);
+
+  int counter = 0;
+  std::vector<particle> particles;
+  while (!fileReader.eof()) {
+    float px, py, pz, hvx, hvy, hvz, vx, vy, vz;
+    fileReader.read(reinterpret_cast<char *>(&px), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&py), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&pz), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&hvx), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&hvy), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&hvz), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&vx), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&vy), sizeof(float));
+    fileReader.read(reinterpret_cast<char *>(&vz), sizeof(float));
+    particles.push_back(particle{counter, px, py, pz, hvx, hvy, hvz, vx, vy, vz});
+    counter++;
+  }
+  particles.pop_back();
+  ;
+
+  if (particles.size() != np) {
+    std::cerr << "Error: Number of particles mismatch. Header: " << np
+              << ", "
+                 "Found: "
+              << particles.size() << ".\n";
+    exit(-5);
+  }
+
+  double mass               = constants::rho / ppm / ppm / ppm;
+  double smoothing_length_h = constants::r / ppm;
+  std::vector<int> grid_size{
+      static_cast<int>(std::floor((constants::max[0] - constants::min[0]) / smoothing_length_h)),
+      static_cast<int>(std::floor((constants::max[1] - constants::min[1]) / smoothing_length_h)),
+      static_cast<int>(std::floor((constants::max[2] - constants::min[2]) / smoothing_length_h))};
+
+  std::vector<double> block_size{(constants::max[0] - constants::min[0]) / grid_size[0],
+                                 (constants::max[1] - constants::min[0]) / grid_size[1],
+                                 (constants::max[2] - constants::min[0]) / grid_size[2]};
+
+  blocks = simulation_blocks{mass, smoothing_length_h, grid_size, block_size};
+
+  // solely for testing purposes
+  //  /*
+  for (int i = 0; i < particles.size(); i++) {
+    particle p = particles[i];
+    std::cout << p.id << ": " << p.px << " " << p.py << " " << p.pz << "\n";
+    break;
+  }
+  // */
+
+  std::cout << "Number of particles: " << np
+            << "\n"
+               "Particles per meter: "
+            << ppm
+            << "\n"
+               "Smoothing length: "
+            << blocks.smoothing_length_h
+            << "\n"
+               "Particle mass: "
+            << blocks.mass
+            << "\n"
+               "Grid size: "
+            << blocks.grid_size[0] << " x " << blocks.grid_size[1] << " x " << blocks.grid_size[2]
+            << "\n"
+               "Number of blocks: "
+            << blocks.grid_size[0] * blocks.grid_size[1] * blocks.grid_size[2]
+            << "\n"
+               "Block size: "
+            << blocks.block_size[0] << " x " << blocks.block_size[1] << " x "
+            << blocks.block_size[2] << "\n";
+
+  return particles;
 }
 
-std::vector<particle> parseInput(char* inputFile) {
-    std::ifstream fileReader;
-    fileReader.open(inputFile, std::ios::binary);
-    if (!fileReader) {
-        std::cerr << "Error: Cannot open " << inputFile << " for reading";
-        exit(1);
-    }
-    std::vector<particle> particles;
-    float ppm = 0.0;
-    int np = 0;
-    fileReader.read(reinterpret_cast<char*>(&ppm), sizeof(ppm));
-    fileReader.read(reinterpret_cast<char*>(&np), sizeof(np));
-
-    initializeParameters(static_cast<double>(ppm))
-
-    for (unsigned int i = 0; i < np; ++i) {
-        particle p;
-        fileReader.read(reinterpret_cast<char*>(&p), 36);
-        
-        particles.push_back(p);
-    }
-    return particles;
+void testOutput(char * outputFile) {
+  return;
 }
 
-void testOutput(char* outputFile) {
-    return;
+void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
+  std::ofstream file;
+  file.open(outputFile, std::ios::binary);
+  file.write(reinterpret_cast<char *>(&ppm), sizeof(ppm));
+  file.write(reinterpret_cast<char *>(&np), sizeof(np));
+  for (particle p : particles) {
+    float px  = p.px;
+    float py  = p.py;
+    float pz  = p.pz;
+    float hvx = p.hvx;
+    float hvy = p.hvy;
+    float hvz = p.hvz;
+    float vx  = p.vx;
+    float vy  = p.vy;
+    float vz  = p.vz;
+    file.write(reinterpret_cast<char *>(&px), sizeof(float));
+    file.write(reinterpret_cast<char *>(&py), sizeof(float));
+    file.write(reinterpret_cast<char *>(&pz), sizeof(float));
+    file.write(reinterpret_cast<char *>(&hvx), sizeof(float));
+    file.write(reinterpret_cast<char *>(&hvy), sizeof(float));
+    file.write(reinterpret_cast<char *>(&hvz), sizeof(float));
+    file.write(reinterpret_cast<char *>(&vx), sizeof(float));
+    file.write(reinterpret_cast<char *>(&vy), sizeof(float));
+    file.write(reinterpret_cast<char *>(&vz), sizeof(float));
+  }
 }
-
-void initializeParameters(double ppm):
-    parameters.particle_mass_m = constants.radius_multiplier_r / pow(ppm, 3);
-    parameters.smoothing_length_h = constants.fluid_density_rho / ppm;
-    for (int i = 0; i < 3; i++) {
-        parameters.number_blocks_by_dim_n[i] = ( constants.box_upper_bound_bmin[i] - constants.box_upper_bound_bmin[i] ) / smoothing_length_h;
-        parameters.sizes_blocks_by_dim_s[i] = ( constants.box_upper_bound_bmin[i] - constants.box_upper_bound_bmin[i] ) / smoothing_length_h;
-    }
-
-
 
 /*
 run with
 g++ -std=c++11 -o fluid fluid.cpp
 ./fluid **timestep** **inputfile** **outputfile**
 */
-int main(int argc, char* argv[]) {
-    if (argc != 4) {
-        std::cerr << "Error: Invalid number of arguments: " << argc-1 << ".\n";
-        return 1;
-    }
-    
-    int nts = parseInt(argv[1]);
-    
-    std::vector<particle> particles = parseInput(argv[2]);
+int main(int argc, char * argv[]) {
+  if (argc != 4) {
+    std::cerr << "Error: Invalid number of arguments: " << argc - 1 << ".\n";
+    return 1;
+  }
 
+  // Input
+  simulation_blocks blocks;
+  double ppm;
+  int nts                         = parseInt(argv[1]);
+  std::vector<particle> particles = parseInput(argv[2], blocks);
+  testOutput(argv[3]);
 
-    for (particle part: particles) {
-        std::cout << part.px << " " << part.py << " " << part.pz << " " << part.hvx << " " << part.hvy << " " << part.hvz << " " << part.vx << " " << part.vy << " " << part.vz << "\n";
-        break;
-    }
-    testOutput(argv[3]);
-    
-
-    // float x = 3.14;
-    // x = static_cast<int>(x);
-    // std::cout << typeid(x).name() << std::endl;
-    // // double y = static_cast<double>(x);
-    // // std::cout << y << "\n";
-    // // std::cout << typeid(y).name() << std::endl;
-    return 0;
+  // Testing
+  std::vector<particle> segmented;
+  for (int i = 0; i < 4800; ++i) { segmented.push_back(particles[i]); }
+  writeFile("test.fld", 0, 4800, segmented);
+  std::cout << "Here";
+  return 0;
 }
