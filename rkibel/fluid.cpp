@@ -3,6 +3,7 @@
 #include <charconv>
 #include <fstream>
 #include <sstream>
+#include <cmath>
 #include "constants.hpp"
 
 struct particle {
@@ -17,6 +18,14 @@ struct particle {
     double vy;
     double vz;
 };
+
+
+float ppm;
+int np;
+double mass;
+double smoothing_length;
+std::vector<int> grid_size;
+std::vector<double> block_size; 
 
 int parseInt(char* arg) {
     const std::string input_str = arg;
@@ -40,8 +49,6 @@ std::vector<particle> parseInput(char* inputFile) {
         std::cerr << "Error: Cannot open " << inputFile << " for reading";
         exit(1);
     }
-    float ppm = 0.0;
-    int np = 0;
     fileReader.read(reinterpret_cast<char*>(&ppm), sizeof(ppm));
     fileReader.read(reinterpret_cast<char*>(&np), sizeof(np));
     if (np <= 0) {
@@ -73,25 +80,22 @@ std::vector<particle> parseInput(char* inputFile) {
         exit(-5);
     }
 
-    //solely for testing purposes
-    // /*
-    for (int i = 0; i < particles.size(); i++) {
-        particle p = particles[i];
-        std::cout << p.id << ": " << p.px << " " << p.py << " " << p.pz << "\n";
-    }
-    // */
-
-    const double mass = constants::rho / ppm;
-    const double smoothing_length = constants::r / ppm;
-    
+    mass = constants::rho / ppm / ppm / ppm;
+    smoothing_length = constants::r / ppm;
+    grid_size = {static_cast<int>(std::floor((constants::xmax - constants::xmin) / smoothing_length)), 
+                 static_cast<int>(std::floor((constants::ymax - constants::ymin) / smoothing_length)),
+                 static_cast<int>(std::floor((constants::zmax - constants::zmin) / smoothing_length))};
+    block_size = {(constants::xmax - constants::xmin) / grid_size[0], 
+                  (constants::ymax - constants::ymin) / grid_size[1],
+                  (constants::zmax - constants::zmin) / grid_size[2]};
 
     std::cout << "Number of particles: " << np << "\n"
             "Particles per meter: " << ppm << "\n"
-            "Smoothing length: " << "\n"
-            "Particle mass: " << "\n"
-            "Grid size: " << "x" << "x" << "\n"
-            "Number of blocks: " << "\n"
-            "Block size: " << "x" << "x" << "\n";
+            "Smoothing length: " << smoothing_length << "\n"
+            "Particle mass: " << mass << "\n"
+            "Grid size: " << grid_size[0] << " x " << grid_size[1] << " x " << grid_size[2] << "\n"
+            "Number of blocks: " << grid_size[0] * grid_size[1] * grid_size[2] << "\n"
+            "Block size: " << block_size[0] << " x " << block_size[1] << " x " << block_size[2] << "\n";
 
     return particles;
 }
@@ -133,6 +137,7 @@ run with
 g++ -o fluid fluid.cpp
 ./fluid **timestep** **inputfile** **outputfile**
 */
+
 int main(int argc, char* argv[]) {
     if (argc != 4) {
         std::cerr << "Error: Invalid number of arguments: " << argc-1 << ".\n";
