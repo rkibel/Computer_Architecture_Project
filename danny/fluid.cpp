@@ -4,21 +4,20 @@
 #include <cmath>
 #include <fstream>
 #include <iostream>
+#include <set>
 #include <sstream>
 #include <typeinfo>
 #include <vector>
 
 struct particle {
     int const id;
-    double px;
-    double py;
-    double pz;
-    double hvx;
-    double hvy;
-    double hvz;
-    double vx;
-    double vy;
-    double vz;
+    // will resize these three vectors when reading
+    std::vector<double> position_vector;
+    std::vector<double> energy_vector;  // represents hv, which means energy
+    std::vector<double> velocity_vector;
+
+    // comparing id
+    bool operator<(particle const & other) const { return id < other.id; }
 };
 
 struct simulation_blocks {
@@ -27,6 +26,13 @@ struct simulation_blocks {
     std::vector<int> grid_size;
     std::vector<double> block_size;
 };
+
+// Putting following two outside of the simulation_blocks struct so entire struct doesn't need to
+// load each time
+std::vector<particle> particles;  // think of this as a dictionary of the particles, ie in
+                                  // position 2 is info about particle with id=2
+std::vector<std::vector<std::vector<std::set<int>>>>
+    grid;  // store only the particle ids in the grid
 
 int parseInt(char * arg) {
   const std::string input_str = arg;
@@ -55,35 +61,8 @@ std::vector<particle> parseInput(char * inputFile, simulation_blocks & blocks) {
   fileReader.read(reinterpret_cast<char *>(&ppm_read), sizeof(ppm_read));
   fileReader.read(reinterpret_cast<char *>(&np), sizeof(np));
 
-  double const ppm = static_cast<double>(ppm_read);
-
-  int counter = 0;
-  std::vector<particle> particles;
-  while (!fileReader.eof()) {
-    float px, py, pz, hvx, hvy, hvz, vx, vy, vz;
-    fileReader.read(reinterpret_cast<char *>(&px), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&py), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&pz), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&hvx), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&hvy), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&hvz), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&vx), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&vy), sizeof(float));
-    fileReader.read(reinterpret_cast<char *>(&vz), sizeof(float));
-    particles.push_back(particle{counter, px, py, pz, hvx, hvy, hvz, vx, vy, vz});
-    counter++;
-  }
-  particles.pop_back();
-  ;
-
-  if (particles.size() != np) {
-    std::cerr << "Error: Number of particles mismatch. Header: " << np
-              << ", "
-                 "Found: "
-              << particles.size() << ".\n";
-    exit(-5);
-  }
-
+  // Initializing parameters and simulation_block
+  double const ppm          = static_cast<double>(ppm_read);
   double mass               = constants::rho / ppm / ppm / ppm;
   double smoothing_length_h = constants::r / ppm;
   std::vector<int> grid_size{
@@ -95,16 +74,55 @@ std::vector<particle> parseInput(char * inputFile, simulation_blocks & blocks) {
                                  (constants::max[1] - constants::min[0]) / grid_size[1],
                                  (constants::max[2] - constants::min[0]) / grid_size[2]};
 
+  grid.resize(grid_size[0], std::vector<std::vector<std::set<int>>>(
+                                grid_size[1], std::vector<std::set<int>>(grid_size[2])));
+
   blocks = simulation_blocks{mass, smoothing_length_h, grid_size, block_size};
 
-  // solely for testing purposes
-  //  /*
-  for (int i = 0; i < particles.size(); i++) {
-    particle p = particles[i];
-    std::cout << p.id << ": " << p.px << " " << p.py << " " << p.pz << "\n";
-    break;
+  // Reading particles
+  int counter = 0;
+  std::vector<particle> particles;
+
+  while (!fileReader.eof()) {
+    std::vector<float> p_vector(3, 0.0);
+    for (int i = 0; i < 3; i++) {
+      fileReader.read(reinterpret_cast<char *>(&p_vector[i]), sizeof(float));
+    }
+    std::vector<float> e_vector(3, 0.0);
+    for (int i = 0; i < 3; i++) {
+      fileReader.read(reinterpret_cast<char *>(&e_vector[i]), sizeof(float));
+    }
+    std::vector<float> v_vector(3, 0.0);
+    for (int i = 0; i < 3; i++) {
+      fileReader.read(reinterpret_cast<char *>(&v_vector[i]), sizeof(float));
+    }
+    std::vector<double> p_vec(p_vector.begin(), p_vector.end());
+    particles.push_back(particle{counter, std::vector<double>(p_vector.begin(), p_vector.end()),
+                                 std::vector<double>(e_vector.begin(), e_vector.end()),
+                                 std::vector<double>(v_vector.begin(), v_vector.end())});
+
+    std::vector<int> grid_position_vector(3, 0);
+    for (int a = 0; a < 3; a++) {
+      int position =
+          static_cast<int>(std::floor((p_vector[a] - constants::min[a]) / block_size[a]));
+      grid_position_vector[a] =
+          (position >= grid_size[a]) ? grid_size[a] - 1 : ((position < 0) ? 0 : position);
+    }
+
+    // not working, not sure why
+    grid[grid_position_vector[0]][grid_position_vector[1]][grid_position_vector[2]].insert(counter);
+    counter++;
   }
-  // */
+  std::cout << "Done\n";
+  particles.pop_back();
+
+  if (particles.size() != np) {
+    std::cerr << "Error: Number of particles mismatch. Header: " << np
+              << ", "
+                 "Found: "
+              << particles.size() << ".\n";
+    exit(-5);
+  }
 
   std::cout << "Number of particles: " << np
             << "\n"
@@ -135,29 +153,20 @@ void testOutput(char * outputFile) {
 }
 
 void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
-  std::ofstream file;
-  file.open(outputFile, std::ios::binary);
-  file.write(reinterpret_cast<char *>(&ppm), sizeof(ppm));
-  file.write(reinterpret_cast<char *>(&np), sizeof(np));
+  std::ofstream fileWriter;
+  fileWriter.open(outputFile, std::ios::binary);
+  fileWriter.write(reinterpret_cast<char *>(&ppm), sizeof(ppm));
+  fileWriter.write(reinterpret_cast<char *>(&np), sizeof(np));
   for (particle p : particles) {
-    float px  = p.px;
-    float py  = p.py;
-    float pz  = p.pz;
-    float hvx = p.hvx;
-    float hvy = p.hvy;
-    float hvz = p.hvz;
-    float vx  = p.vx;
-    float vy  = p.vy;
-    float vz  = p.vz;
-    file.write(reinterpret_cast<char *>(&px), sizeof(float));
-    file.write(reinterpret_cast<char *>(&py), sizeof(float));
-    file.write(reinterpret_cast<char *>(&pz), sizeof(float));
-    file.write(reinterpret_cast<char *>(&hvx), sizeof(float));
-    file.write(reinterpret_cast<char *>(&hvy), sizeof(float));
-    file.write(reinterpret_cast<char *>(&hvz), sizeof(float));
-    file.write(reinterpret_cast<char *>(&vx), sizeof(float));
-    file.write(reinterpret_cast<char *>(&vy), sizeof(float));
-    file.write(reinterpret_cast<char *>(&vz), sizeof(float));
+    for (int i = 0; i < 3; i++) {
+      fileWriter.write(reinterpret_cast<char *>(&p.position_vector[i]), sizeof(float));
+    }
+    for (int i = 0; i < 3; i++) {
+      fileWriter.write(reinterpret_cast<char *>(&p.energy_vector[i]), sizeof(float));
+    }
+    for (int i = 0; i < 3; i++) {
+      fileWriter.write(reinterpret_cast<char *>(&p.velocity_vector[i]), sizeof(float));
+    }
   }
 }
 
@@ -177,12 +186,18 @@ int main(int argc, char * argv[]) {
   double ppm;
   int nts                         = parseInt(argv[1]);
   std::vector<particle> particles = parseInput(argv[2], blocks);
+
+  // for (particle p : particles) {
+  //   std::cout << p.id << " px: " << p.position_vector[0] << " py: " << p.position_vector[1]
+  //             << " pz: " << p.position_vector[2] << "\n";
+  // }
+
   testOutput(argv[3]);
 
-  // Testing
-  std::vector<particle> segmented;
-  for (int i = 0; i < 4800; ++i) { segmented.push_back(particles[i]); }
-  writeFile("test.fld", 0, 4800, segmented);
-  std::cout << "Here";
+  // // Testing
+  // std::vector<particle> segmented;
+  // for (int i = 0; i < 4800; ++i) { segmented.push_back(particles[i]); }
+  // writeFile("test.fld", 0, 4800, segmented);
+  // std::cout << "Here";
   return 0;
 }
