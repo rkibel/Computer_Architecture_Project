@@ -5,15 +5,17 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <numbers>
 #include "constants.hpp"
 #include "utility.cpp"
 
 struct particle {
-    const int id;
+    int id;
     std::vector<double> position;
     std::vector<double> boundary;
     std::vector<double> velocity;
     std::vector<double> acceleration;
+    std::vector<int> grid_positioning;
     double density;
 
     bool operator<(particle const & other) const { return id < other.id; }
@@ -24,7 +26,7 @@ double smoothing_length;
 std::vector<int> grid_size;
 std::vector<double> block_size;
 
-// think of this as a dictionary of the particles, ie in position 2 is info about particle with id=2
+// think of this as a dictionary of the particles
 std::vector<particle> particles;
 
 // store only the particle ids in the grid
@@ -75,22 +77,16 @@ void parseInput(char* inputFile) {
 
     int counter = 0;
     while (!fileReader.eof()) {
-        float px, py, pz, hvx, hvy, hvz, vx, vy, vz;
-        fileReader.read(reinterpret_cast<char*>(&px), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&py), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&pz), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&hvx), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&hvy), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&hvz), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&vx), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&vy), sizeof(float));
-        fileReader.read(reinterpret_cast<char*>(&vz), sizeof(float));
-
-        int i = static_cast<int>(std::floor((px - constants::xmin) / block_size[0]));
-        int j = static_cast<int>(std::floor((py - constants::ymin) / block_size[1]));
-        int k = static_cast<int>(std::floor((pz - constants::zmin) / block_size[2]));
-        particles.push_back(particle {counter, px, py, pz, hvx, hvy, hvz, vx, vy, vz});
-        
+        particle p;
+        p.id = counter;
+        for (unsigned int i = 0; i < 9; ++i) {
+            float temp;
+            fileReader.read(reinterpret_cast<char*>(&temp), sizeof(float));
+            if (i < 3) p.position.push_back(temp);
+            else if (i < 6) p.boundary.push_back(temp);
+            else p.velocity.push_back(temp);
+        }
+        particles.push_back(p);
         counter++;
     }
     particles.pop_back();
@@ -111,11 +107,108 @@ void parseInput(char* inputFile) {
             "Block size: " << block_size[0] << " x " << block_size[1] << " x " << block_size[2] << "\n";
 }
 
+void repositionParticles() {
+    for (unsigned int i = 0; i < particles.size(); ++i) {
+        std::vector<int> orgpos = particles[i].grid_positioning;
+        std::vector<int> newpos;
+        for (unsigned int j = 0; j < 3; ++j) {
+            int position = static_cast<int>(std::floor((particles[i].position[j] - constants::min[j]) / block_size[j]));
+            newpos.push_back(std::max(0, std::min(position, grid_size[j]-1))); 
+        }
+        if (newpos != orgpos) {
+            if (orgpos.size() == 3) grid[orgpos[0]][orgpos[1]][orgpos[2]].erase(i);
+            grid[newpos[0]][newpos[1]][newpos[2]].insert(i);
+            particles[i].grid_positioning = newpos;
+        }
+    }
+}
+
+void initializeDensityAndAcceleration() {
+    for (unsigned int i = 0; i < particles.size(); ++i) {
+        particles[i].density = 0.0;
+        particles[i].acceleration = constants::acceleration;
+    }
+}
+
+double geomNormSquared(const std::vector<double>& pos1, const std::vector<double>& pos2) {
+    double result = 0;
+    for (unsigned int i = 0; i < 3; ++i) {
+        double diff = pos1[i] - pos2[i];
+        result += diff * diff;
+    }
+    return result;
+}
+
+void updateDensityBetweenParticles(int part1id, int part2id, double hsquared) {
+    double normSquared = geomNormSquared(particles[part1id].position, particles[part2id].position);
+    if (normSquared < hsquared) {
+        double densityIncrease = std::pow(hsquared - normSquared, 3);
+        particles[part1id].density += densityIncrease;
+        particles[part2id].density += densityIncrease;
+    }
+}
+
+void updateDensitySameBlock(std::vector<int> pos, double hsquared) {
+    std::set<int> particleSet = grid[pos[0]][pos[1]][pos[2]];
+    for (auto it1 = particleSet.begin(); it1 != particleSet.end(); ++it1) {
+        for (auto it2 = std::next(it1); it2 != particleSet.end(); ++it2) {
+            updateDensityBetweenParticles(*it1, *it2, hsquared);
+        }
+    }
+}
+
+void updateDensityDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, double hsquared) {
+    if (pos1[0] >= grid.size() || pos1[1] >= grid[0].size() || pos1[2] >= grid[0][0].size()
+    || pos2[0] >= grid.size() || pos2[1] >= grid[0].size() || pos2[2] >= grid[0][0].size()) return; 
+    
+    std::set<int> set1 = grid[pos1[0]][pos1[1]][pos1[2]];
+    std::set<int> set2 = grid[pos2[0]][pos2[1]][pos2[2]];
+    for (auto it1 = set1.begin(); it1 != set1.end(); ++it1) {
+            for (auto it2 = set2.begin(); it2 != set2.end(); ++it2) {
+                updateDensityBetweenParticles(*it1, *it2, hsquared);
+            }
+    }
+}
+
+void densityIncrease() {
+    double hsquared = smoothing_length*smoothing_length;
+    for (int i = 0; i < grid.size(); ++i) {
+        for (int j = 0; j < grid[0].size(); ++j) {
+            for (int k = 0; k < grid[0][0].size(); ++k) {
+                std::cout << "updating density of particles in " << i << " " << j << " " << k << "\n";
+                updateDensitySameBlock(std::vector<int>{i, j, k}, hsquared);
+                updateDensityDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k}, hsquared);
+                updateDensityDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k}, hsquared);
+                updateDensityDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k+1}, hsquared);
+                updateDensityDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k+1}, hsquared);
+                updateDensityDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k}, hsquared);
+                updateDensityDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k+1}, hsquared);
+                updateDensityDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k+1}, hsquared);
+            }
+        }
+    }
+}
+
+void densityTransform() {
+    double hsixth = std::pow(smoothing_length, 6);
+    double hninth = std::pow(smoothing_length, 9);
+    double factor = 315.0 * mass / 64.0 / std::numbers::pi / hninth;
+    for (unsigned int i = 0; i < particles.size(); ++i) {
+        particles[i].density = (particles[i].density + hsixth) * factor;
+    }
+}
+
+void computeAcceleration() {
+    initializeDensityAndAcceleration();
+    densityIncrease();
+    densityTransform();
+}
+
 void testOutput(char* outputFile) {
     return;
 }
 
-void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
+/*void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
     std::ofstream file;
     file.open(outputFile, std::ios::binary);
     file.write(reinterpret_cast<char*>(&ppm), sizeof(ppm));
@@ -140,15 +233,14 @@ void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> 
         file.write(reinterpret_cast<char*>(&vy), sizeof(float));
         file.write(reinterpret_cast<char*>(&vz), sizeof(float));
     }
-}
+}*/
 
 
 /*
-run with
-g++ -o fluid fluid.cpp
-./fluid **timestep** **inputfile** **outputfile**
+    run with:
+    g++ -o fluid fluid.cpp -std=c++20
+    ./fluid **timestep** **inputfile** **outputfile**
 */
-
 int main(int argc, char* argv[]) {
     if (argc != 4) {
         std::cerr << "Error: Invalid number of arguments: " << argc-1 << ".\n";
@@ -158,6 +250,13 @@ int main(int argc, char* argv[]) {
     int nts = parseInt(argv[1]);
     parseInput(argv[2]);
     testOutput(argv[3]);
+
+    repositionParticles();
+    computeAcceleration();
+
+    for (particle p: particles) {
+        std::cout << p.id << " " << p.density << "\n";
+    }
 
     return 0;
 }
