@@ -1,19 +1,16 @@
-//constants.hpp
+// constants.hpp
+#include <vector>
 
 namespace constants {
-    const double r = 1.695;
-    const double rho = 1000;
-    const double p_s = 3.0;
-    const double s_c = 3E4;
-    const double d_v = 128.0;
-    const double mu = 0.4;
-    const double d_p = 2E-4;
+    const double radius_mult = 1.695;
+    const double fluid_density = 1000;
+    const double stiff_pressure = 3.0;
+    const double stiff_collisions = 3E4;
+    const double damping = 128.0;
+    const double viscosity = 0.4;
+    const double particle_size = 2E-4;
     const double delt_t = 10E-3;
-    const double g = 9.8;
-    const double xmin = -0.065;
-    const double xmax = 0.065;
-    const double ymin = -0.08;
-    const double ymax = 0.1;
-    const double zmin = -0.065;
-    const double zmax = 0.065;
+    const std::vector<double> acceleration{0.0, -9.8, 0.0};
+    const std::vector<double> min{-0.065, -0.08, -0.065};
+    const std::vector<double> max{0.065, 0.1, 0.065};
 }

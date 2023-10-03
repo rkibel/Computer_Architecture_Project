@@ -6,35 +6,33 @@
 #include <sstream>
 #include <cmath>
 #include "constants.hpp"
+#include "utility.cpp"
 
 struct particle {
     const int id;
-    double px;
-    double py;
-    double pz;
-    double hvx;
-    double hvy;
-    double hvz;
-    double vx;
-    double vy;
-    double vz;
-    bool operator<(const particle& other) const {
-        return id < other.id;
-    }
+    std::vector<double> position;
+    std::vector<double> boundary;
+    std::vector<double> velocity;
+    std::vector<double> acceleration;
+    double density;
+
+    bool operator<(particle const & other) const { return id < other.id; }
 };
 
-float ppm;
-int np;
 double mass;
 double smoothing_length;
 std::vector<int> grid_size;
 std::vector<double> block_size;
-std::vector<particle> particles; // think of this as a dictionary of the particles, ie in position 2 is info about particle with id=2
-std::vector<std::vector<std::vector<std::set<int>>>> grid; // store only the particle ids in the grid
+
+// think of this as a dictionary of the particles, ie in position 2 is info about particle with id=2
+std::vector<particle> particles;
+
+// store only the particle ids in the grid
+std::vector<std::vector<std::vector<std::set<int>>>> grid;
 
 int parseInt(char* arg) {
     const std::string input_str = arg;
-    int res = 0;
+    int res;
     auto result = std::from_chars(input_str.data(), input_str.data() + input_str.size(), res);
     if (result.ec != std::errc()) {
         std::cerr << "Error: time steps must be numeric.\n";
@@ -54,21 +52,25 @@ void parseInput(char* inputFile) {
         std::cerr << "Error: Cannot open " << inputFile << " for reading";
         exit(1);
     }
-    fileReader.read(reinterpret_cast<char*>(&ppm), sizeof(ppm));
+
+    float ppm_read;
+    int np;
+    fileReader.read(reinterpret_cast<char*>(&ppm_read), sizeof(ppm_read));
     fileReader.read(reinterpret_cast<char*>(&np), sizeof(np));
     if (np <= 0) {
         std::cerr << "Error: Invalid number of particles: " << np << ".\n";
         exit(-5);
     }
 
-    mass = constants::rho / ppm / ppm / ppm;
-    smoothing_length = constants::r / ppm;
-    grid_size = {static_cast<int>(std::floor((constants::xmax - constants::xmin) / smoothing_length)), 
-                 static_cast<int>(std::floor((constants::ymax - constants::ymin) / smoothing_length)),
-                 static_cast<int>(std::floor((constants::zmax - constants::zmin) / smoothing_length))};
-    block_size = {(constants::xmax - constants::xmin) / grid_size[0], 
-                  (constants::ymax - constants::ymin) / grid_size[1],
-                  (constants::zmax - constants::zmin) / grid_size[2]};
+    const double ppm = ppm_read;
+    mass = constants::fluid_density / ppm / ppm / ppm;
+    smoothing_length = constants::radius_mult / ppm;
+    grid_size = {static_cast<int>(std::floor((constants::max[0] - constants::min[0]) / smoothing_length)), 
+                 static_cast<int>(std::floor((constants::max[1] - constants::min[1]) / smoothing_length)),
+                 static_cast<int>(std::floor((constants::max[2] - constants::min[2]) / smoothing_length))};
+    block_size = {(constants::max[0] - constants::min[0]) / grid_size[0], 
+                  (constants::max[1] - constants::min[1]) / grid_size[1],
+                  (constants::max[2] - constants::min[2]) / grid_size[2]};
     grid.resize(grid_size[0], std::vector<std::vector<std::set<int>>>(grid_size[1], std::vector<std::set<int>>(grid_size[2])));
 
     int counter = 0;
@@ -89,8 +91,6 @@ void parseInput(char* inputFile) {
         int k = static_cast<int>(std::floor((pz - constants::zmin) / block_size[2]));
         particles.push_back(particle {counter, px, py, pz, hvx, hvy, hvz, vx, vy, vz});
         
-        //not working, not sure why
-        //grid[i][j][k].insert(counter);
         counter++;
     }
     particles.pop_back();
@@ -157,13 +157,7 @@ int main(int argc, char* argv[]) {
 
     int nts = parseInt(argv[1]);
     parseInput(argv[2]);
-    std::cout << std::endl;
     testOutput(argv[3]);
-
-    for (particle p: particles) std::cout << p.id << " px: " << p.px << " py: " << p.py << " pz: " << p.pz << "\n";
-
-    std::vector<particle> segmented;
-    writeFile("test.fld", 0, 3000, segmented);
 
     return 0;
 }
