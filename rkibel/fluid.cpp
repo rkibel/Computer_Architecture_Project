@@ -178,8 +178,12 @@ void updateSameBlock(std::vector<int> pos, std::vector<double> factors, bool upd
 // updateType = true: update density
 // updateType = false: update acceleration
 void updateDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, std::vector<double> factors, bool updateType) {
-    if (pos1[0] >= grid_size[0] || pos1[1] >= grid_size[1] || pos1[2] >= grid_size[2] || 
-        pos2[0] >= grid_size[0] || pos2[1] >= grid_size[1] || pos2[2] >= grid_size[2]) return; 
+    if (pos1[0] >= grid_size[0] || pos1[0] < 0 ||
+        pos1[1] >= grid_size[1] || pos1[1] < 0 ||
+        pos1[2] >= grid_size[2] || pos1[2] < 0 ||
+        pos2[0] >= grid_size[0] || pos2[0] < 0 ||
+        pos2[1] >= grid_size[1] || pos2[1] < 0 ||
+        pos2[2] >= grid_size[2] || pos2[2] < 0) return; 
     
     std::set<int> set1 = grid[pos1[0]][pos1[1]][pos1[2]];
     std::set<int> set2 = grid[pos2[0]][pos2[1]][pos2[2]];
@@ -198,13 +202,19 @@ void densityIncrease() {
             for (int k = 0; k < grid_size[2]; ++k) {
                 //std::cout << "updating density of particles in " << i << " " << j << " " << k << "\n";
                 updateSameBlock(std::vector<int>{i, j, k}, factors, true);
-                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k}, factors, true);
-                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k}, factors, true);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k+1}, factors, true);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k+1}, factors, true);
-                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k}, factors, true);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k+1}, factors, true);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k+1}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j, k+1}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j-1, k+1}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j+1, k+1}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j-1, k+1}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j-1, k+1}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k}, factors, true);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j+1, k}, factors, true);
             }
         }
     }
@@ -227,13 +237,19 @@ void accelerationIncrease() {
             for (int k = 0; k < grid_size[2]; ++k) {
                 //std::cout << "updating acceleration of particles in " << i << " " << j << " " << k << "\n";
                 updateSameBlock(std::vector<int>{i, j, k}, factors, false);
-                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k}, factors, false);
-                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k}, factors, false);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k+1}, factors, false);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k+1}, factors, false);
-                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k}, factors, false);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k+1}, factors, false);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k+1}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j, k+1}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j-1, k+1}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j+1, k+1}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j-1, k+1}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j-1, k+1}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j+1, k}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j+1, k}, factors, false);
+                updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i-1, j+1, k}, factors, false);
             }
         }
     }
@@ -242,7 +258,9 @@ void accelerationIncrease() {
 void updateAccelerationWithWall(particle& part, int index) {
     if (part.grid_positioning[index] == 0 || part.grid_positioning[index] == grid_size[index]-1) {
         double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
-        double delt = constants::particle_size - (newcoord - constants::min[index]);
+        double delt = (part.grid_positioning[index] == 0) ?
+            constants::particle_size - (newcoord - constants::min[index]) :
+            constants::particle_size - (constants::max[index] - newcoord);
         if (delt > 1e-10) {
             double factor = constants::stiff_collisions * delt - constants::damping * part.velocity[index];
             if (part.grid_positioning[index] == 0) part.acceleration[index] += factor;
@@ -341,13 +359,20 @@ int main(int argc, char* argv[]) {
     for (unsigned int i = 0; i < nts; ++i) {
         std::cout << "step " << i << "\n";
         processStep();
-    }
-    repositionParticles();
-
-    for (particle p: particles) {
-        std::cout << p.id << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
+        particle p = particles[4797];
+        std::cout << "particle " << p.id << ": " << p.density << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
+        std::cout << "velocity " << p.velocity[0] << " " << p.velocity[1] << " " << p.velocity[2] << "\n";        
         std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
     }
+    repositionParticles();
+    particle p = particles[4797];
+    std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
+    /*for (particle p: particles) {
+        if (p.grid_positioning[0] == grid_size[0]-1) {
+            std::cout << p.id << " " << p.density << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
+            std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
+        }
+    }*/
 
     return 0;
 }
