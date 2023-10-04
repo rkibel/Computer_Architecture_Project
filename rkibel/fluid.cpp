@@ -148,18 +148,20 @@ void updateDensityBetweenParticles(int part1, int part2, std::vector<double> fac
     }
 }
 
-// factors = { 15/pi/h^6 * m , 45/pi/h^6 * mu * m }
-void updateAccelerationBetweenParticles(int part1, int part2, std::vector<double>factors) {
+// factors = { h^2, 15/pi/h^6 * m , 45/pi/h^6 * mu * m }
+void updateAccelerationBetweenParticles(int part1, int part2, std::vector<double> factors) {
     double normSquared = geomNormSquared(particles[part1].position, particles[part2].position);
-    double dist = std::sqrt(std::max(normSquared, 1e-12));
-    for (int i = 0; i < 3; ++i) {
-        double delta_a = ((particles[part1].position[i] - particles[part2].position[i]) * 
-        factors[0] * (smoothing_length - dist) * (smoothing_length - dist) / dist *
-        (particles[part1].density + particles[part2].density - 2.0 * constants::fluid_density) + 
-        (particles[part2].velocity[i] - particles[part1].velocity[i]) * factors[1]) / 
-        particles[part1].density / particles[part2].density;
-        particles[part1].acceleration[i] += delta_a;
-        particles[part2].acceleration[i] -= delta_a;
+    if (normSquared < factors[0]) {
+        double dist = std::sqrt(std::max(normSquared, 1e-12));
+        for (int i = 0; i < 3; ++i) {
+            double delta_a = ((particles[part1].position[i] - particles[part2].position[i]) * 
+            factors[1] * (smoothing_length - dist) * (smoothing_length - dist) / dist *
+            (particles[part1].density + particles[part2].density - 2.0 * constants::fluid_density) + 
+            (particles[part2].velocity[i] - particles[part1].velocity[i]) * factors[2]) / 
+            particles[part1].density / particles[part2].density;
+            particles[part1].acceleration[i] += delta_a;
+            particles[part2].acceleration[i] -= delta_a;
+        }
     }
 }
 
@@ -231,7 +233,7 @@ void densityTransform() {
 
 void accelerationIncrease() {
     double factor1 = 15.0 * mass / std::numbers::pi / std::pow(smoothing_length, 6);
-    std::vector<double> factors = {factor1, factor1 * 3.0 * constants::viscosity};
+    std::vector<double> factors = {smoothing_length * smoothing_length, factor1, factor1 * 3.0 * constants::viscosity};
     for (int i = 0; i < grid_size[0]; ++i) {
         for (int j = 0; j < grid_size[1]; ++j) {
             for (int k = 0; k < grid_size[2]; ++k) {
