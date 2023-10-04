@@ -155,7 +155,7 @@ void updateAccelerationBetweenParticles(int part1, int part2, std::vector<double
     for (int i = 0; i < 3; ++i) {
         double delta_a = ((particles[part1].position[i] - particles[part2].position[i]) * 
         factors[0] * (smoothing_length - dist) * (smoothing_length - dist) / dist *
-        (particles[part1].density + particles[part2].density - constants::fluid_density) + 
+        (particles[part1].density + particles[part2].density - 2.0 * constants::fluid_density) + 
         (particles[part2].velocity[i] - particles[part1].velocity[i]) * factors[1]) / 
         particles[part1].density / particles[part2].density;
         particles[part1].acceleration[i] += delta_a;
@@ -230,7 +230,7 @@ void densityTransform() {
 }
 
 void accelerationIncrease() {
-    double factor1 = 15.0 / std::numbers::pi / std::pow(smoothing_length, 6) * mass;
+    double factor1 = 15.0 * mass / std::numbers::pi / std::pow(smoothing_length, 6);
     std::vector<double> factors = {factor1, factor1 * 3.0 * constants::viscosity};
     for (int i = 0; i < grid_size[0]; ++i) {
         for (int j = 0; j < grid_size[1]; ++j) {
@@ -361,7 +361,8 @@ int main(int argc, char* argv[]) {
         processStep();
         particle p = particles[4797];
         std::cout << "particle " << p.id << ": " << p.density << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
-        std::cout << "velocity " << p.velocity[0] << " " << p.velocity[1] << " " << p.velocity[2] << "\n";        
+        std::cout << "velocity " << p.velocity[0] << " " << p.velocity[1] << " " << p.velocity[2] << "\n";
+        std::cout << "acceleration  " << p.acceleration[0] << " " << p.acceleration[1] << " " << p.acceleration[2] << "\n";        
         std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
     }
     repositionParticles();
