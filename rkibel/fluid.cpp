@@ -79,7 +79,7 @@ void parseInput(char* inputFile) {
     while (!fileReader.eof()) {
         particle p;
         p.id = counter;
-        for (unsigned int i = 0; i < 9; ++i) {
+        for (int i = 0; i < 9; ++i) {
             float temp;
             fileReader.read(reinterpret_cast<char*>(&temp), sizeof(float));
             if (i < 3) p.position.push_back(temp);
@@ -92,8 +92,7 @@ void parseInput(char* inputFile) {
     particles.pop_back();
 
     if (counter-1 != np) {
-        std::cerr << "Error: Number of particles mismatch. Header: " << np << ", "
-                     "Found: " << counter-1 << ".\n";
+        std::cerr << "Error: Number of particles mismatch. Header: " << np << ", Found: " << counter-1 << ".\n";
         exit(-5);
     }
 
@@ -111,7 +110,7 @@ void repositionParticles() {
     for (unsigned int i = 0; i < particles.size(); ++i) {
         std::vector<int> orgpos = particles[i].grid_positioning;
         std::vector<int> newpos;
-        for (unsigned int j = 0; j < 3; ++j) {
+        for (int j = 0; j < 3; ++j) {
             int position = static_cast<int>(std::floor((particles[i].position[j] - constants::min[j]) / block_size[j]));
             newpos.push_back(std::max(0, std::min(position, grid_size[j]-1))); 
         }
@@ -124,15 +123,15 @@ void repositionParticles() {
 }
 
 void initializeDensityAndAcceleration() {
-    for (unsigned int i = 0; i < particles.size(); ++i) {
-        particles[i].density = 0.0;
-        particles[i].acceleration = constants::acceleration;
+    for (particle& part: particles) {
+        part.density = 0.0;
+        part.acceleration = constants::acceleration;
     }
 }
 
 double geomNormSquared(const std::vector<double>& pos1, const std::vector<double>& pos2) {
     double result = 0;
-    for (unsigned int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 3; ++i) {
         double diff = pos1[i] - pos2[i];
         result += diff * diff;
     }
@@ -179,8 +178,8 @@ void updateSameBlock(std::vector<int> pos, std::vector<double> factors, bool upd
 // updateType = true: update density
 // updateType = false: update acceleration
 void updateDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, std::vector<double> factors, bool updateType) {
-    if (pos1[0] >= grid.size() || pos1[1] >= grid[0].size() || pos1[2] >= grid[0][0].size()
-    || pos2[0] >= grid.size() || pos2[1] >= grid[0].size() || pos2[2] >= grid[0][0].size()) return; 
+    if (pos1[0] >= grid_size[0] || pos1[1] >= grid_size[1] || pos1[2] >= grid_size[2] || 
+        pos2[0] >= grid_size[0] || pos2[1] >= grid_size[1] || pos2[2] >= grid_size[2]) return; 
     
     std::set<int> set1 = grid[pos1[0]][pos1[1]][pos1[2]];
     std::set<int> set2 = grid[pos2[0]][pos2[1]][pos2[2]];
@@ -194,9 +193,9 @@ void updateDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, std::vec
 
 void densityIncrease() {
     std::vector<double> factors = {smoothing_length*smoothing_length};
-    for (int i = 0; i < grid.size(); ++i) {
-        for (int j = 0; j < grid[0].size(); ++j) {
-            for (int k = 0; k < grid[0][0].size(); ++k) {
+    for (int i = 0; i < grid_size[0]; ++i) {
+        for (int j = 0; j < grid_size[1]; ++j) {
+            for (int k = 0; k < grid_size[2]; ++k) {
                 //std::cout << "updating density of particles in " << i << " " << j << " " << k << "\n";
                 updateSameBlock(std::vector<int>{i, j, k}, factors, true);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k}, factors, true);
@@ -215,17 +214,17 @@ void densityTransform() {
     double hsixth = std::pow(smoothing_length, 6);
     double hninth = std::pow(smoothing_length, 9);
     double factor = 315.0 * mass / 64.0 / std::numbers::pi / hninth;
-    for (unsigned int i = 0; i < particles.size(); ++i) {
-        particles[i].density = (particles[i].density + hsixth) * factor;
+    for (particle& part: particles) {
+        part.density = (part.density + hsixth) * factor;
     }
 }
 
 void accelerationIncrease() {
     double factor1 = 15.0 / std::numbers::pi / std::pow(smoothing_length, 6) * mass;
     std::vector<double> factors = {factor1, factor1 * 3.0 * constants::viscosity};
-    for (int i = 0; i < grid.size(); ++i) {
-        for (int j = 0; j < grid[0].size(); ++j) {
-            for (int k = 0; k < grid[0][0].size(); ++k) {
+    for (int i = 0; i < grid_size[0]; ++i) {
+        for (int j = 0; j < grid_size[1]; ++j) {
+            for (int k = 0; k < grid_size[2]; ++k) {
                 //std::cout << "updating acceleration of particles in " << i << " " << j << " " << k << "\n";
                 updateSameBlock(std::vector<int>{i, j, k}, factors, false);
                 updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i+1, j, k}, factors, false);
@@ -240,11 +239,56 @@ void accelerationIncrease() {
     }
 }
 
-void computeAcceleration() {
+void updateAccelerationWithWall(particle& part, int index) {
+    if (part.grid_positioning[index] == 0 || part.grid_positioning[index] == grid_size[index]-1) {
+        double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
+        double delt = constants::particle_size - (newcoord - constants::min[index]);
+        if (delt > 1e-10) {
+            double factor = constants::stiff_collisions * delt - constants::damping * part.velocity[index];
+            if (part.grid_positioning[index] == 0) part.acceleration[index] += factor;
+            else part.acceleration[index] -= factor;
+        }
+    }
+}
+
+void particlesMotion(particle& part, int index) {
+    part.position[index] += part.boundary[index] * constants::delt_t + part.acceleration[index] * constants::delt_t * constants::delt_t;
+    part.velocity[index] = part.boundary[index] + part.acceleration[index] * constants::delt_t / 2.0;
+    part.boundary[index] += part.acceleration[index] * constants::delt_t;
+}
+
+void collideWithWall(particle& part, int index) {
+    if (part.grid_positioning[index] == 0) {
+        double dist = part.position[index] - constants::min[index];
+        if (dist < 0) {
+            part.position[index] = constants::min[index] - dist;
+            part.velocity[index] *= -1.0;
+            part.boundary[index] *= -1.0;
+        }
+    }
+    else if (part.grid_positioning[index] == grid_size[index]-1) {
+        double dist = constants::max[index] - part.position[index];
+        if (dist < 0) {
+            part.position[index] = constants::max[index] + dist;
+            part.velocity[index] *= 1.0;
+            part.boundary[index] *= 1.0;
+        }
+    }
+}
+
+void processStep() {
+    repositionParticles();
     initializeDensityAndAcceleration();
     densityIncrease();
     densityTransform();
     accelerationIncrease();
+    for (particle& part: particles) {
+        for (int i = 0; i < 3; ++i) {
+            updateAccelerationWithWall(part, i);
+            particlesMotion(part, i);
+            collideWithWall(part, i);
+        }
+    }
 }
 
 void testOutput(char* outputFile) {
@@ -294,11 +338,15 @@ int main(int argc, char* argv[]) {
     parseInput(argv[2]);
     testOutput(argv[3]);
 
+    for (unsigned int i = 0; i < nts; ++i) {
+        std::cout << "step " << i << "\n";
+        processStep();
+    }
     repositionParticles();
-    computeAcceleration();
 
     for (particle p: particles) {
-        std::cout << p.id << " " << p.acceleration[0] << " " << p.acceleration[1] << " " << p.acceleration[2] << "\n";
+        std::cout << p.id << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
+        std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
     }
 
     return 0;
