@@ -1,6 +1,6 @@
 #include "constants.hpp"
+#include "utility.cpp"
 
-#include <algorithm>
 #include <charconv>
 #include <cmath>
 #include <fstream>
@@ -8,37 +8,33 @@
 #include <numbers>
 #include <set>
 #include <sstream>
-#include <typeinfo>
 #include <vector>
 
 struct particle {
-    int const id;
-    // will resize these three vectors when reading
-    std::vector<double> position_vector;
-    std::vector<double> boundary_vector;  // represents hv, which means boundary velocity
-    std::vector<double> velocity_vector;
-    std::vector<double> acceleration_vector;
+    int id;
+    std::vector<double> position;
+    std::vector<double> boundary;
+    std::vector<double> velocity;
+    std::vector<double> acceleration;
+    std::vector<int> grid_positioning;
     double density;
 
-    // comparing id
     bool operator<(particle const & other) const { return id < other.id; }
 };
 
-struct block_parameters {
-    double mass;
-    double smoothing_length_h;
-    std::vector<int> grid_size;
-};
-
-// Putting outside struct since we don't need to access it much
+double mass;
+double smoothing_length;
+double smoothing_length_squared;
+std::vector<double> factorsDensity;
+std::vector<double> factorsAcceleration;
+std::vector<int> grid_size;
 std::vector<double> block_size;
 
-// Putting following two outside of the block_parameters struct so entire struct doesn't need to
-// load each time
-std::vector<particle> particles;  // think of this as a dictionary of the particles, ie in
-                                  // position 2 is info about particle with id=2
-std::vector<std::vector<std::vector<std::set<int>>>>
-    grid;  // store only the particle ids in the grid
+// think of this as a dictionary of the particles
+std::vector<particle> particles;
+
+// store only the particle ids in the grid
+std::vector<std::vector<std::vector<std::set<int>>>> grid;
 
 int parseInt(char * arg) {
   const std::string input_str = arg;
@@ -55,91 +51,60 @@ int parseInt(char * arg) {
   return res;
 }
 
-void parseInput(char * inputFile, block_parameters & blocks) {
+void parseInput(char * inputFile) {
   std::ifstream fileReader;
   fileReader.open(inputFile, std::ios::binary);
   if (!fileReader) {
     std::cerr << "Error: Cannot open " << inputFile << " for reading";
     exit(1);
   }
+
   float ppm_read;
   int np;
   fileReader.read(reinterpret_cast<char *>(&ppm_read), sizeof(ppm_read));
   fileReader.read(reinterpret_cast<char *>(&np), sizeof(np));
+  if (np <= 0) {
+    std::cerr << "Error: Invalid number of particles: " << np << ".\n";
+    exit(-5);
+  }
 
-  // Initializing parameters and simulation_block
-  double const ppm          = static_cast<double>(ppm_read);
-  double mass               = constants::rho / ppm / ppm / ppm;
-  double smoothing_length_h = constants::r / ppm;
-  std::vector<int> grid_size{
-      static_cast<int>(std::floor((constants::max[0] - constants::min[0]) / smoothing_length_h)),
-      static_cast<int>(std::floor((constants::max[1] - constants::min[1]) / smoothing_length_h)),
-      static_cast<int>(std::floor((constants::max[2] - constants::min[2]) / smoothing_length_h))};
-
-  std::vector<double> block_size{(constants::max[0] - constants::min[0]) / grid_size[0],
-                                 (constants::max[1] - constants::min[0]) / grid_size[1],
-                                 (constants::max[2] - constants::min[0]) / grid_size[2]};
-
+  double const ppm         = ppm_read;
+  mass                     = constants::fluid_density / ppm / ppm / ppm;
+  smoothing_length         = constants::radius_mult / ppm;
+  smoothing_length_squared = smoothing_length * smoothing_length;
+  grid_size                = {
+      static_cast<int>(std::floor((constants::max[0] - constants::min[0]) / smoothing_length)),
+      static_cast<int>(std::floor((constants::max[1] - constants::min[1]) / smoothing_length)),
+      static_cast<int>(std::floor((constants::max[2] - constants::min[2]) / smoothing_length))};
+  block_size = {(constants::max[0] - constants::min[0]) / grid_size[0],
+                (constants::max[1] - constants::min[1]) / grid_size[1],
+                (constants::max[2] - constants::min[2]) / grid_size[2]};
   grid.resize(grid_size[0], std::vector<std::vector<std::set<int>>>(
                                 grid_size[1], std::vector<std::set<int>>(grid_size[2])));
 
-  std::cout << "Testing 7 10 7 in ParseInput\n";
-  if (grid[7][10][7].empty()) { std::cout << "YO empty\n"; }
-
-  // std::cout << "Grid size check\n"
-  //           << grid.size() << "X" << grid[0].size() << "X" << grid[0][0].size() << "\n";
-
-  blocks = block_parameters{mass, smoothing_length_h, grid_size};
-
-  // Reading particles
   int counter = 0;
-
   while (!fileReader.eof()) {
-    // Reading position
-    std::vector<float> p_vector(3, 0.0);
-    for (int i = 0; i < 3; i++) {
-      fileReader.read(reinterpret_cast<char *>(&p_vector[i]), sizeof(float));
+    particle p;
+    p.id = counter;
+    for (int i = 0; i < 9; ++i) {
+      float temp;
+      fileReader.read(reinterpret_cast<char *>(&temp), sizeof(float));
+      if (i < 3) {
+        p.position.push_back(temp);
+      } else if (i < 6) {
+        p.boundary.push_back(temp);
+      } else {
+        p.velocity.push_back(temp);
+      }
     }
-
-    // Determing position for each grid, put close to position reading for space locality
-    std::vector<int> grid_position_vector(3, 0);
-    for (int a = 0; a < 3; a++) {
-      int position =
-          static_cast<int>(std::floor((p_vector[a] - constants::min[a]) / block_size[a]));
-      grid_position_vector[a] =
-          (position >= grid_size[a]) ? grid_size[a] - 1 : ((position < 0) ? 0 : position);
-    }
-
-    // std::cout << grid_position_vector[0] << " " << grid_position_vector[1] << " "
-    //           << grid_position_vector[2] << "\n";
-
-    // Reading boundary
-    std::vector<float> b_vector(3, 0.0);
-    for (int i = 0; i < 3; i++) {
-      fileReader.read(reinterpret_cast<char *>(&b_vector[i]), sizeof(float));
-    }
-    // Reading velocity
-    std::vector<float> v_vector(3, 0.0);
-    for (int i = 0; i < 3; i++) {
-      fileReader.read(reinterpret_cast<char *>(&v_vector[i]), sizeof(float));
-    }
-    // Adding to particle list, converting float values to double values
-    particles.push_back(particle{counter, std::vector<double>(p_vector.begin(), p_vector.end()),
-                                 std::vector<double>(b_vector.begin(), b_vector.end()),
-                                 std::vector<double>(v_vector.begin(), v_vector.end()),
-                                 constants::acceleration, 0.0});
-
-    // Adding to grid
-    grid[grid_position_vector[0]][grid_position_vector[1]][grid_position_vector[2]].insert(counter);
+    particles.push_back(p);
     counter++;
   }
   particles.pop_back();
 
-  if (particles.size() != np) {
-    std::cerr << "Error: Number of particles mismatch. Header: " << np
-              << ", "
-                 "Found: "
-              << particles.size() << ".\n";
+  if (counter - 1 != np) {
+    std::cerr << "Error: Number of particles mismatch. Header: " << np << ", Found: " << counter - 1
+              << ".\n";
     exit(-5);
   }
 
@@ -149,182 +114,285 @@ void parseInput(char * inputFile, block_parameters & blocks) {
             << ppm
             << "\n"
                "Smoothing length: "
-            << blocks.smoothing_length_h
+            << smoothing_length
             << "\n"
                "Particle mass: "
-            << blocks.mass
+            << mass
             << "\n"
                "Grid size: "
-            << blocks.grid_size[0] << " x " << blocks.grid_size[1] << " x " << blocks.grid_size[2]
+            << grid_size[0] << " x " << grid_size[1] << " x " << grid_size[2]
             << "\n"
                "Number of blocks: "
-            << blocks.grid_size[0] * blocks.grid_size[1] * blocks.grid_size[2]
+            << grid_size[0] * grid_size[1] * grid_size[2]
             << "\n"
                "Block size: "
             << block_size[0] << " x " << block_size[1] << " x " << block_size[2] << "\n";
 }
 
-bool blockExists(std::vector<int> const & nearby_block, std::vector<int> const & grid_size) {
-  return ((nearby_block[0] < grid_size[0]) && (nearby_block[0] >= 0) &&
-          (nearby_block[1] < grid_size[1]) && (nearby_block[1] >= 0) &&
-          (nearby_block[2] < grid_size[2]) && (nearby_block[2] >= 0))
-             ? true
-             : false;
+void repositionParticles() {
+  for (unsigned int i = 0; i < particles.size(); ++i) {
+    particle & p            = particles[i];
+    std::vector<int> orgpos = p.grid_positioning;
+    std::vector<int> newpos;
+    for (int j = 0; j < 3; ++j) {
+      int position =
+          static_cast<int>(std::floor((p.position[j] - constants::min[j]) / block_size[j]));
+      newpos.push_back(std::max(0, std::min(position, grid_size[j] - 1)));
+    }
+    if (newpos != orgpos) {
+      if (orgpos.size() == 3) { grid[orgpos[0]][orgpos[1]][orgpos[2]].erase(i); }
+      grid[newpos[0]][newpos[1]][newpos[2]].insert(i);
+      p.grid_positioning = newpos;
+    }
+  }
 }
 
-void updateNearbyBlocks(int particle_id, std::vector<int> const & nearby_block,
-                        block_parameters const & blocks) {
-  // Block i is this_particle and block j is nearby_particle
+double geomNormSquared(std::vector<double> const & pos1, std::vector<double> const & pos2) {
+  double result = 0;
+  for (int i = 0; i < 3; ++i) {
+    double diff  = pos1[i] - pos2[i];
+    result      += diff * diff;
+  }
+  return result;
+}
 
-  if (blockExists(nearby_block, blocks.grid_size) == false) { return; }
-  std::cout << "Nearby block exists: " << nearby_block[0] << " " << nearby_block[1] << " "
-            << nearby_block[2] << "\n";
+void initializeDensityAndAcceleration() {
+  for (particle & part : particles) {
+    part.density      = 0.0;
+    part.acceleration = constants::acceleration;
+  }
+}
 
-  if (grid[nearby_block[0]][nearby_block[1]][nearby_block[2]].empty()) {
-    std::cout << "Empty at block: " << nearby_block[0] << " " << nearby_block[1] << " "
-              << nearby_block[2] << "\n";
+// factors = { h^2 }
+void updateDensityBetweenParticles(int part1, int part2) {
+  double normSquared = geomNormSquared(particles[part1].position, particles[part2].position);
+  if (normSquared < smoothing_length_squared) {
+    double densityIncrease    = std::pow(smoothing_length_squared - normSquared, 3);
+    particles[part1].density += densityIncrease;
+    particles[part2].density += densityIncrease;
+  }
+}
+
+void densityTransform() {
+  for (particle & part : particles) {
+    part.density = (part.density + factorsDensity[0]) * factorsDensity[1];
+  }
+}
+
+// factors = { 15/pi/h^6 * m , 45/pi/h^6 * mu * m }
+void updateAccelerationBetweenParticles(int part1, int part2) {
+  double normSquared = geomNormSquared(particles[part1].position, particles[part2].position);
+  if (normSquared < smoothing_length_squared) {
+    double dist = std::sqrt(std::max(normSquared, 1e-12));
+    for (int i = 0; i < 3; ++i) {
+      double delta_a =
+          ((particles[part1].position[i] - particles[part2].position[i]) * factorsAcceleration[0] *
+               (smoothing_length - dist) * (smoothing_length - dist) / dist *
+               (particles[part1].density + particles[part2].density -
+                2 * constants::fluid_density) +
+           (particles[part2].velocity[i] - particles[part1].velocity[i]) * factorsAcceleration[1]) /
+          particles[part1].density / particles[part2].density;
+
+      std::cout << particles[part1].position[i] - particles[part2].position[i] << "\n";
+      std::cout << factorsAcceleration[0] << "\n";
+      std::cout << (smoothing_length - dist) * (smoothing_length - dist) / dist << "\n";
+      std::cout << (particles[part1].density + particles[part2].density -
+                    2 * constants::fluid_density)
+                << "\n";
+      std::cout << (particles[part2].velocity[i] - particles[part1].velocity[i]) << "\n";
+      std::cout << particles[part1].density / particles[part2].density << "\n\n\n\n";
+      std::cout << "DELTA A: " << delta_a << "\n";
+
+      particles[part1].acceleration[i] += delta_a;
+      particles[part2].acceleration[i] -= delta_a;
+    }
+  }
+}
+
+// updateType = true: update density
+// updateType = false: update acceleration
+void updateSameBlock(std::vector<int> pos, bool updateType) {
+  std::set<int> particleSet = grid[pos[0]][pos[1]][pos[2]];
+  for (auto it1 = particleSet.begin(); it1 != particleSet.end(); ++it1) {
+    for (auto it2 = std::next(it1); it2 != particleSet.end(); ++it2) {
+      if (updateType) {
+        updateDensityBetweenParticles(*it1, *it2);
+      } else {
+        updateAccelerationBetweenParticles(*it1, *it2);
+      }
+    }
+  }
+}
+
+// updateType = true: update density
+// updateType = false: update acceleration
+void updateDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, bool updateType) {
+  if (pos1[0] >= grid_size[0] || pos1[0] < 0 || pos1[1] >= grid_size[1] || pos1[1] < 0 ||
+      pos1[2] >= grid_size[2] || pos1[2] < 0 || pos2[0] >= grid_size[0] || pos2[0] < 0 ||
+      pos2[1] >= grid_size[1] || pos2[1] < 0 || pos2[2] >= grid_size[2] || pos2[2] < 0) {
     return;
   }
 
-  for (int nearby_particle_id : grid[nearby_block[0]][nearby_block[1]][nearby_block[2]]) {
-    particle this_particle   = particles[particle_id];
-    particle nearby_particle = particles[nearby_particle_id];
-
-    double h6_val = pow(blocks.smoothing_length_h, 6);
-    double squared_distance =
-        pow(sqrt(pow(this_particle.position_vector[0] - nearby_particle.position_vector[0], 2) +
-                 pow(this_particle.position_vector[1] - nearby_particle.position_vector[1], 2) +
-                 pow(this_particle.position_vector[2] - nearby_particle.position_vector[2], 2)),
-            2);
-    bool blocks_close = (squared_distance < pow(blocks.smoothing_length_h, 2)) ? true : false;
-
-    if (blocks_close && nearby_particle_id != particle_id) {
-      // Densities
-      double density_delta  = pow(pow(blocks.smoothing_length_h, 2) - squared_distance, 3);
-      this_particle.density = density_delta;
-      double density_transform_multiplication =
-          (315.0 / (64.0 * std::numbers::pi * pow(blocks.smoothing_length_h, 9)) * blocks.mass);
-
-      this_particle.density = (this_particle.density + h6_val) * density_transform_multiplication;
-      nearby_particle.density += density_delta;
-      nearby_particle.density =
-          (nearby_particle.density + h6_val) * density_transform_multiplication;
-
-      // Acceleration
-      double dist = sqrt(std::max(squared_distance, 10E-12));
-      double acceleration_delta =
-          (((this_particle.position_vector[0] - nearby_particle.position_vector[0] +
-             this_particle.position_vector[1] - nearby_particle.position_vector[1] +
-             this_particle.position_vector[2] - nearby_particle.position_vector[2]) *
-            (15.0 / (std::numbers::pi * h6_val)) * blocks.mass *
-            (pow(blocks.smoothing_length_h - dist, 2) / dist) *
-            (this_particle.density + nearby_particle.density - constants::rho)) +
-           ((nearby_particle.velocity_vector[0] - this_particle.velocity_vector[0] +
-             nearby_particle.velocity_vector[1] - this_particle.velocity_vector[1] +
-             nearby_particle.velocity_vector[2] - this_particle.velocity_vector[2]) *
-            (45.0 / (std::numbers::pi * h6_val)) * constants::mu * blocks.mass)) /
-          this_particle.density * nearby_particle.density;
-      for (int i = 0; i < 3; i++) {
-        this_particle.acceleration_vector[i]   += acceleration_delta;
-        nearby_particle.acceleration_vector[i] -= acceleration_delta;
+  std::set<int> set1 = grid[pos1[0]][pos1[1]][pos1[2]];
+  std::set<int> set2 = grid[pos2[0]][pos2[1]][pos2[2]];
+  for (auto it1 = set1.begin(); it1 != set1.end(); ++it1) {
+    for (auto it2 = set2.begin(); it2 != set2.end(); ++it2) {
+      if (updateType) {
+        updateDensityBetweenParticles(*it1, *it2);
+      } else {
+        updateAccelerationBetweenParticles(*it1, *it2);
       }
     }
   }
 }
 
-void simulationProcessing(block_parameters const & blocks) {
-  // std::vector<std::vector<std::vector<std::set<int>>>>
-  // grid;
-  // NOTE: the idea to not replicate is to only consider combinations that add, no subtractions
-  std::cout << "Checking grid size: " << grid.size() << "X" << grid[0].size() << "X"
-            << grid[0][0].size() << "\n";
-  for (int z = 0; z < blocks.grid_size[2]; z++) {
-    for (int y = 0; y < blocks.grid_size[1]; y++) {
-      for (int x = 0; x < blocks.grid_size[0]; x++) {
-        // std::cout << "X: " << x << " Y: " << y << " Z: " << z << "\n";
-        std::vector<int> this_block{x, y, z};
-        for (int particle_id : grid[this_block[0]][this_block[1]][this_block[2]]) {
-          // std::cout << particle_id << "\n";
-
-          // To move up through the box, we'll move up through the bottom corner (<0,0,0>), x can
-          // go down. We never go down for horizontal, since only positive or no changes accounts
-          // for those, and we'll never go down in the z direction!
-
-          // Possible Combinations:
-          // Same block
-          //    <x, y, z>
-          // Horizontal(don't go negative)
-          //    <x+1, y, z>
-          //    <x, y+1, z>
-          //    <x, y, z+1>
-          // Diagonal:
-          //    Level of 9 blocks below (z-1), we don't need to worry about because those are
-          //    accounted for by the last level! On the same z level, we can 1) forget about
-          //    horizontals 2) Only move in y direction, move x either down or up
-          //        <x+1, y+1, z>
-          //        <x-1, y+1, z>
-          // On the upper z level, we'll move in the z direction and do either combination of x or
-          // y
-          //        <x+1, y, z+1>
-          //        <x-1, y, z+1>
-          //        <x+1, y+1, z+1>
-          //        <x+1, y-1, z+1>
-          //        <x-1, y+1, z+1>
-          //        <x-1, y-1, z+1>
-
-          // Passes in a nearbyBlock vector for locality/loops, maybe some optimizations to not
-          // redeclare it
-          // Same block (we know it exists)
-          updateNearbyBlocks(particle_id, this_block, blocks);
-
-          // Horizontal
-          updateNearbyBlocks(particle_id, std::vector<int>{x + 1, y, z}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x, y + 1, z}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x, y, z + 1}, blocks);
-
-          // Diagonal, same z level
-          updateNearbyBlocks(particle_id, std::vector<int>{x + 1, y + 1, z}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x - 1, y + 1, z}, blocks);
-
-          // Diagonal, upper z level
-          updateNearbyBlocks(particle_id, std::vector<int>{x + 1, y, z + 1}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x - 1, y, z + 1}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x + 1, y + 1, z + 1}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x + 1, y - 1, z + 1}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x - 1, y + 1, z + 1}, blocks);
-          updateNearbyBlocks(particle_id, std::vector<int>{x - 1, y - 1, z + 1}, blocks);
-        }
+// updateType = true: update density
+// updateType = false: update acceleration
+void densityOrAccelerationUpdate(bool updateType) {
+  for (int i = 0; i < grid_size[0]; ++i) {
+    for (int j = 0; j < grid_size[1]; ++j) {
+      for (int k = 0; k < grid_size[2]; ++k) {
+        updateSameBlock(std::vector<int>{i, j, k}, updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k}, updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k}, updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k + 1}, updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k + 1},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k + 1},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k + 1},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k + 1},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j, k + 1},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j - 1, k + 1},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j - 1, k + 1},
+                             updateType);
+        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j - 1, k + 1},
+                             updateType);
       }
     }
   }
+}
+
+void updateAccelerationWithWall(particle & part, int index, bool boundaryType) {
+  if (part.grid_positioning[index] == 0 || part.grid_positioning[index] == grid_size[index] - 1) {
+    double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
+    double delt     = constants::particle_size - (boundaryType ? (newcoord - constants::min[index])
+                                                               : (constants::max[index] - newcoord));
+    if (delt > 1e-10) {
+      double factor =
+          constants::stiff_collisions * delt - constants::damping * part.velocity[index];
+      if (boundaryType) {
+        part.acceleration[index] += factor;
+      } else {
+        part.acceleration[index] -= factor;
+      }
+    }
+  }
+}
+
+void particlesMotion(particle & part, int index) {
+  part.position[index] += part.boundary[index] * constants::delt_t +
+                          part.acceleration[index] * constants::delt_t * constants::delt_t;
+  part.velocity[index]  = part.boundary[index] + part.acceleration[index] * constants::delt_t / 2.0;
+  part.boundary[index] += part.acceleration[index] * constants::delt_t;
+}
+
+void collideWithWall(particle & part, int index, bool boundaryType) {
+  if (part.grid_positioning[index] == 0) {
+    double dist = boundaryType ? (part.position[index] - constants::min[index])
+                               : (constants::max[index] - part.position[index]);
+    if (dist < 0) {
+      part.position[index] =
+          boundaryType ? (constants::min[index] - dist) : (constants::max[index] + dist);
+      part.velocity[index] *= -1.0;
+      part.boundary[index] *= -1.0;
+    }
+  }
+}
+
+void processStep() {
+  repositionParticles();
+  initializeDensityAndAcceleration();
+  densityOrAccelerationUpdate(true);  // update density
+  std::cout << particles[0].id << " " << particles[0].position[0] << " " << particles[0].position[1]
+            << " " << particles[0].position[2] << "\n";
+  std::cout << particles[0].id << " " << particles[0].density << "\n";
+  std::cout << "Acceleration: " << particles[0].acceleration[0] << " "
+            << particles[0].acceleration[1] << " " << particles[0].acceleration[1] << "\n";
+  densityTransform();
+  std::cout << particles[0].id << " " << particles[0].position[0] << " " << particles[0].position[1]
+            << " " << particles[0].position[2] << "\n";
+  std::cout << particles[0].id << " " << particles[0].density << "\n";
+  std::cout << "Acceleration: " << particles[0].acceleration[0] << " "
+            << particles[0].acceleration[1] << " " << particles[0].acceleration[1] << "\n";
+  densityOrAccelerationUpdate(false);  // update acceleration
+  std::cout << particles[0].id << " " << particles[0].position[0] << " " << particles[0].position[1]
+            << " " << particles[0].position[2] << "\n";
+  std::cout << particles[0].id << " " << particles[0].density << "\n";
+  std::cout << "Acceleration: " << particles[0].acceleration[0] << " "
+            << particles[0].acceleration[1] << " " << particles[0].acceleration[1] << "\n";
+
+  for (particle & part : particles) {
+    for (int i = 0; i < 3; ++i) {
+      bool isBoundaryParticle =
+          (part.grid_positioning[i] == 0 || part.grid_positioning[i] == grid_size[i] - 1);
+      // boundaryType = True means 0 boundary, False means size-1
+      bool boundaryType = part.grid_positioning[i] == 0;
+      if (isBoundaryParticle) { updateAccelerationWithWall(part, i, boundaryType); }
+      particlesMotion(part, i);
+      if (isBoundaryParticle) { collideWithWall(part, i, boundaryType); }
+    }
+  }
+  std::cout << particles[0].id << " " << particles[0].position[0] << " " << particles[0].position[1]
+            << " " << particles[0].position[2] << "\n";
+  std::cout << particles[0].id << " " << particles[0].density << "\n";
+  std::cout << "Acceleration: " << particles[0].acceleration[0] << " "
+            << particles[0].acceleration[1] << " " << particles[0].acceleration[1] << "\n";
 }
 
 void testOutput(char * outputFile) {
   return;
 }
 
-void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
-  std::ofstream fileWriter;
-  fileWriter.open(outputFile, std::ios::binary);
-  fileWriter.write(reinterpret_cast<char *>(&ppm), sizeof(ppm));
-  fileWriter.write(reinterpret_cast<char *>(&np), sizeof(np));
-  for (particle p : particles) {
-    for (int i = 0; i < 3; i++) {
-      fileWriter.write(reinterpret_cast<char *>(&p.position_vector[i]), sizeof(float));
+/*void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
+    std::ofstream file;
+    file.open(outputFile, std::ios::binary);
+    file.write(reinterpret_cast<char*>(&ppm), sizeof(ppm));
+    file.write(reinterpret_cast<char*>(&np), sizeof(np));
+    for (particle p: particles) {
+        float px = p.px;
+        float py = p.py;
+        float pz = p.pz;
+        float hvx = p.hvx;
+        float hvy = p.hvy;
+        float hvz = p.hvz;
+        float vx = p.vx;
+        float vy = p.vy;
+        float vz = p.vz;
+        file.write(reinterpret_cast<char*>(&px), sizeof(float));
+        file.write(reinterpret_cast<char*>(&py), sizeof(float));
+        file.write(reinterpret_cast<char*>(&pz), sizeof(float));
+        file.write(reinterpret_cast<char*>(&hvx), sizeof(float));
+        file.write(reinterpret_cast<char*>(&hvy), sizeof(float));
+        file.write(reinterpret_cast<char*>(&hvz), sizeof(float));
+        file.write(reinterpret_cast<char*>(&vx), sizeof(float));
+        file.write(reinterpret_cast<char*>(&vy), sizeof(float));
+        file.write(reinterpret_cast<char*>(&vz), sizeof(float));
     }
-    for (int i = 0; i < 3; i++) {
-      fileWriter.write(reinterpret_cast<char *>(&p.boundary_vector[i]), sizeof(float));
-    }
-    for (int i = 0; i < 3; i++) {
-      fileWriter.write(reinterpret_cast<char *>(&p.velocity_vector[i]), sizeof(float));
-    }
-  }
-}
+}*/
 
 /*
-run with
-g++ -std=c++11 -o fluid fluid.cpp
-./fluid **timestep** **inputfile** **outputfile**
+    run with:
+    g++ -o fluid fluid.cpp -std=c++20
+    ./fluid **timestep** **inputfile** **outputfile**
 */
 int main(int argc, char * argv[]) {
   if (argc != 4) {
@@ -332,39 +400,29 @@ int main(int argc, char * argv[]) {
     return 1;
   }
 
-  // Input
   int nts = parseInt(argv[1]);
-  block_parameters blocks;
-  parseInput(argv[2], blocks);
+  parseInput(argv[2]);
+  testOutput(argv[3]);
 
-  // for (particle p : particles) {
-  //   std::cout << p.id << " px: " << p.position_vector[0] << " py: " << p.position_vector[1]
-  //             << " pz: " << p.position_vector[2] << "\n";
-  // }
+  // Creating factors to use in simulation steps
+  factorsDensity = {std::pow(smoothing_length, 6),
+                    315.0 * mass / 64.0 / std::numbers::pi / std::pow(smoothing_length, 9)};
+  double factor  = 15.0 / std::numbers::pi / std::pow(smoothing_length, 6) * mass;
 
-  // simulationProcessing(blocks);
+  factorsAcceleration = {factor, factor * 3.0 * constants::viscosity};
 
-  // testOutput(argv[3]);
-
-  // // Testing, for some reason 7, 10, 7 is giving me a seg fault, I don't get it. It tells me
-  // empty when I test in parseInput
-
-  std::cout << "Checking grid size: " << grid.size() << "X" << grid[0].size() << "X"
-            << grid[0][0].size() << "\n";
-  std::vector<int> this_block{7, 10, 7};
-  if (grid[this_block[0]][this_block[1]][this_block[2]].empty()) { std::cout << "TRUE"; }
-
-  for (int particle_id : grid[this_block[0]][this_block[1]][this_block[2]]) {
-    particle this_particle = particles[particle_id];
-    std::cout << "ID: " << particle_id << " "
-              << " Density: " << this_particle.density << " Acceleration"
-              << this_particle.acceleration_vector[0] << " x "
-              << this_particle.acceleration_vector[1] << " x "
-              << this_particle.acceleration_vector[2] << "\n";
+  for (unsigned int i = 0; i < 1; ++i) {
+    std::cout << "step " << i << "\n";
+    processStep();
   }
 
-  // std::vector<particle> segmented;
-  // for (int i = 0; i < 4800; ++i) { segmented.push_back(particles[i]); }
-  // writeFile("test.fld", 0, 4800, segmented);
-  // std::cout << "Here";
+  for (particle p : particles) {
+    std::cout << p.id << " " << p.position[0] << " " << p.position[1] << " " << p.position[2]
+              << "\n";
+    break;
+    std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " "
+              << p.grid_positioning[2] << "\n";
+  }
+
+  return 0;
 }
