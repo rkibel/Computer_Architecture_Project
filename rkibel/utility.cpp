@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 
-void binaryToText(const char* inputFile, const char* outputFile) {
+void binaryToText(std::string inputFile, std::string outputFile) {
     std::ifstream inFile;
     inFile.open(inputFile, std::ios::binary);
 
