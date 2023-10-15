@@ -292,8 +292,8 @@ void collideWithWall(particle& part, int index) {
         double dist = constants::max[index] - part.position[index];
         if (dist < 0) {
             part.position[index] = constants::max[index] + dist;
-            part.velocity[index] *= 1.0;
-            part.boundary[index] *= 1.0;
+            part.velocity[index] *= -1.0;
+            part.boundary[index] *= -1.0;
         }
     }
 }
@@ -352,14 +352,20 @@ int main(int argc, const char* argv[]) {
     }
     writeFile(arguments[2]);
 
+    particle p = particles[0];
+    std::cout << "particle " << p.id << ": " << p.density << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
+    std::cout << "velocity " << p.velocity[0] << " " << p.velocity[1] << " " << p.velocity[2] << "\n";
+    std::cout << "boundary " << p.boundary[0] << " " << p.boundary[1] << " " << p.boundary[2] << "\n";
+    std::cout << "acceleration  " << p.acceleration[0] << " " << p.acceleration[1] << " " << p.acceleration[2] << "\n";        
+    std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
     /*
     for (particle p: particles) {
         std::cout << "particle " << p.id << ": " << p.density << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
         std::cout << "velocity " << p.velocity[0] << " " << p.velocity[1] << " " << p.velocity[2] << "\n";
         std::cout << "acceleration  " << p.acceleration[0] << " " << p.acceleration[1] << " " << p.acceleration[2] << "\n";        
         std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
-    }
-    */
+    }*/
+    
     binaryToText("small-1.fld", "small-1.txt");
     binaryToText(arguments[2], "final.txt");
 
