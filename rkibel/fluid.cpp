@@ -54,7 +54,7 @@ double smoothing_length;
 std::vector<int> grid_size;
 std::vector<double> block_size;
 std::vector<double> density_factors; // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
-std::vector<double> acceleration_factors; // factors = { h^2, 15/pi/h^6 * m , 45/pi/h^6 * mu * m }
+std::vector<double> acceleration_factors; // factors = { h^2, 45*m*p_s/pi/h^6/2 , 45*mu*m/pi/h^6 }
 
 std::vector<particle> particles; // think of this as a dictionary of the particles
 std::vector<std::vector<std::vector<std::set<int>>>> grid; // store only the particle ids in the grid
@@ -83,7 +83,7 @@ void initializeFactors(double ppm) {
     };
     acceleration_factors = {
         smoothing_length * smoothing_length,
-        15.0 * mass / std::numbers::pi / std::pow(smoothing_length, 6),
+        45.0 * mass * constants::stiff_pressure / std::numbers::pi / std::pow(smoothing_length, 6) / 2,
         45.0 * mass * constants::viscosity / std::numbers::pi / std::pow(smoothing_length, 6)
     };
 }
@@ -171,6 +171,7 @@ double geomNormSquared(const std::vector<double> pos1, const std::vector<double>
            std::pow(pos1[2] - pos2[2], 2);
 }
 
+// factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
 void updateDensityBetweenParticles(particle& part1, particle& part2) {
     double normSquared = geomNormSquared(part1.position, part2.position);
     if (normSquared < density_factors[0]) {
@@ -180,6 +181,7 @@ void updateDensityBetweenParticles(particle& part1, particle& part2) {
     }
 }
 
+// factors = { h^2, 45*m*p_s/pi/h^6/2 , 45*mu*m/pi/h^6 }
 void updateAccelerationBetweenParticles(particle& part1, particle& part2) {
     double normSquared = geomNormSquared(part1.position, part2.position);
     if (normSquared < acceleration_factors[0]) {
@@ -253,6 +255,7 @@ void increaseVal(bool updateType) {
     }
 }
 
+// factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
 void densityTransform() {
     for (particle& part: particles) {
         part.density = (part.density + density_factors[1]) * density_factors[2];
@@ -266,9 +269,10 @@ void updateAccelerationWithWall(particle& part, int index) {
             constants::particle_size - (newcoord - constants::min[index]) :
             constants::particle_size - (constants::max[index] - newcoord);
         if (delt > 1e-10) {
-            double factor = constants::stiff_collisions * delt - constants::damping * part.velocity[index];
-            if (part.grid_positioning[index] == 0) part.acceleration[index] += factor;
-            else part.acceleration[index] -= factor;
+            if (part.grid_positioning[index] == 0) 
+                part.acceleration[index] += constants::stiff_collisions * delt - constants::damping * part.velocity[index];
+            else 
+                part.acceleration[index] -= constants::stiff_collisions * delt + constants::damping * part.velocity[index];;
         }
     }
 }
@@ -335,6 +339,7 @@ void writeFile(std::string outputFile) {
     run with:
     g++ -o fluid fluid.cpp -std=c++20
     ./fluid **timestep** **inputfile** **outputfile**
+    rm fluid.exe
 */
 int main(int argc, const char* argv[]) {
     if (argc != 4) {
@@ -351,22 +356,16 @@ int main(int argc, const char* argv[]) {
         processStep();
     }
     writeFile(arguments[2]);
-
-    particle p = particles[0];
-    std::cout << "particle " << p.id << ": " << p.density << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
-    std::cout << "velocity " << p.velocity[0] << " " << p.velocity[1] << " " << p.velocity[2] << "\n";
-    std::cout << "boundary " << p.boundary[0] << " " << p.boundary[1] << " " << p.boundary[2] << "\n";
-    std::cout << "acceleration  " << p.acceleration[0] << " " << p.acceleration[1] << " " << p.acceleration[2] << "\n";        
-    std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
     /*
     for (particle p: particles) {
         std::cout << "particle " << p.id << ": " << p.density << " " << p.position[0] << " " << p.position[1] << " " << p.position[2] << "\n";
         std::cout << "velocity " << p.velocity[0] << " " << p.velocity[1] << " " << p.velocity[2] << "\n";
+        std::cout << "boundary " << p.boundary[0] << " " << p.boundary[1] << " " << p.boundary[2] << "\n";
         std::cout << "acceleration  " << p.acceleration[0] << " " << p.acceleration[1] << " " << p.acceleration[2] << "\n";        
         std::cout << p.grid_positioning[0] << " " << p.grid_positioning[1] << " " << p.grid_positioning[2] << "\n";
     }*/
     
-    binaryToText("small-1.fld", "small-1.txt");
+    binaryToText("large-5.fld", "large-5.txt");
     binaryToText(arguments[2], "final.txt");
 
     return 0;

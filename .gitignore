@@ -1,5 +1,2 @@
-.vscode/
-*.exe
-*.txt
-*.json
-fluid
+
+.vscode/settings.json
