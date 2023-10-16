@@ -10,7 +10,7 @@ add_library(sim
     params.cpp
     particle.hpp
     constants.hpp
-    utility.hpp
+    utility.cpp
 )
 
 # Use this line only if you have dependencies from stim to GSL

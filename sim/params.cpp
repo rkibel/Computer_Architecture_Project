@@ -1,6 +1,6 @@
 #include "params.hpp"
 #include "constants.hpp"
-#include "utility.hpp"
+#include "utility.cpp"
 
 #include <iostream>
 #include <numbers>

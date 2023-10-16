@@ -1,5 +1,5 @@
 #include "grid.hpp"
-#include "utility.hpp"
+#include "utility.cpp"
 
 grid::grid(std::vector<int> grid_size) {
     part_grid.resize(grid_size[0], std::vector<std::vector<block>>(grid_size[1], std::vector<block>(grid_size[2])));

@@ -1,7 +1,7 @@
 #include <span>
 #include <iostream>
 #include <vector>
-#include "progargs.hpp"
+#include "../sim/progargs.hpp"
 
 int main(int argc, const char* argv[]) {
     checkArgNumber(argc);
@@ -10,14 +10,11 @@ int main(int argc, const char* argv[]) {
 
     int nts = parseInt(arguments[0]);
     parseInputFile(arguments[1]);
-    /*for (unsigned int i = 0; i < nts; ++i) {
+    for (unsigned int i = 0; i < nts; ++i) {
         std::cout << "step " << i << "\n";
-        processStep();
+        //processStep();
     }
-    writeFile(arguments[2]);
-    
-    binaryToText("large-5.fld", "large-5.txt");
-    binaryToText(arguments[2], "final.txt");*/
+    //writeFile(arguments[2]);
 
     return 0;
 }
