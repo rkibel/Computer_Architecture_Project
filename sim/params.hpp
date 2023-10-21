@@ -1,8 +1,11 @@
 #ifndef A1F0BE24_A80C_409A_AB77_4D13507013B7
 #define A1F0BE24_A80C_409A_AB77_4D13507013B7
 
+#include "constants.hpp"
+
 #include <vector>
-#include <fstream>
+#include <iostream>
+#include <numbers>
 
 struct params {
     double ppm;
@@ -16,7 +19,7 @@ struct params {
     std::vector<int> grid_size;
     std::vector<double> block_size;
 
-    params(std::ifstream& fileReader);
+    void initialize(std::istream& fileReader);
 };
 
 #endif /* A1F0BE24_A80C_409A_AB77_4D13507013B7 */

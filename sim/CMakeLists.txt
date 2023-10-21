@@ -1,16 +1,17 @@
 # Add to this list all files related to sim library
 add_library(sim
-    progargs.hpp
-    progargs.cpp
-    grid.cpp
-    grid.hpp
     block.cpp
     block.hpp
-    params.hpp
-    params.cpp
-    particle.hpp
     constants.hpp
+    grid.cpp
+    grid.hpp
+    params.cpp
+    params.hpp
+    particle.hpp
+    progargs.cpp
+    progargs.hpp
     utility.cpp
+    utility.hpp
 )
 
 # Use this line only if you have dependencies from stim to GSL
