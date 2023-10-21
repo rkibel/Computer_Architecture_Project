@@ -13,7 +13,7 @@ int main(int argc, const char* argv[]) {
 
     int nts = parseInt(arguments[0]);
     grid particle_grid = parseInputFile(arguments[1]);
-    for (unsigned int i = 0; i < nts; ++i) {
+    for (int i = 0; i < nts; ++i) {
         //std::cout << "step " << i << "\n";
         particle_grid.processStep();
     }

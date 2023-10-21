@@ -6,10 +6,11 @@
 #include <vector>
 #include <iostream>
 #include <numbers>
+#include <cmath>
 
 struct params {
     double ppm;
-    int np;
+    std::size_t np;
     double mass;
     double smoothing_length;
 

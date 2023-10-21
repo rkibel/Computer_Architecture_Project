@@ -40,7 +40,7 @@ void grid::repositionParticles() {
     std::vector<int> grid_size = parameters.grid_size;
     new_part_grid.resize(grid_size[0], std::vector<std::vector<block>>(grid_size[1], std::vector<block>(grid_size[2])));
     
-    for (int i = 0; i < part_dict.size(); ++i) {
+    for (unsigned int i = 0; i < part_dict.size(); ++i) {
         std::vector<int> pos;
         for (int j = 0; j < 3; ++j) {
             int position = static_cast<int>(std::floor((part_dict[i].position[j] - constants::min[j]) / parameters.block_size[j]));
@@ -167,8 +167,7 @@ void grid::updateAccelerationWithWallMin(particle& part, int index) {
 void grid::updateAccelerationWithWallMax(particle& part, int index) {
     double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
     double delt = constants::particle_size - (constants::max[index] - newcoord);
-    if (delt > 1e-10)
-        part.acceleration[index] -= constants::stiff_collisions * delt + constants::damping * part.velocity[index];;
+    if (delt > 1e-10) part.acceleration[index] -= constants::stiff_collisions * delt + constants::damping * part.velocity[index];
 }
 
 void grid::updateAccelerationWithWall(particle& part, int x, int y, int z) {

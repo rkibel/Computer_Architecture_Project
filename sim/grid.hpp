@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 
 struct grid {
     std::vector<std::vector<std::vector<block>>> part_grid;

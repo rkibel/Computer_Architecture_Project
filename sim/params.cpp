@@ -20,11 +20,12 @@ T read_binary_value(std::istream & is) {
 void params::initialize(std::istream& fileReader) {
     float read_ppm = read_binary_value<float>(fileReader);
     ppm = read_ppm;
-    np = read_binary_value<int>(fileReader);
-    if (np <= 0) {
-        std::cerr << "Error: Invalid number of particles: " << np << ".\n";
+    int temp_np = read_binary_value<int>(fileReader);
+    if (temp_np <= 0) {
+        std::cerr << "Error: Invalid number of particles: " << temp_np << ".\n";
         exit(-5);
     }
+    np = temp_np;
     mass = constants::fluid_density / ppm / ppm / ppm;
     smoothing_length = constants::radius_mult / ppm;
     density_factors = {
