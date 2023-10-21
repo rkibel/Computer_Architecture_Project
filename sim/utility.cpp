@@ -1,3 +1,5 @@
+#include "utility.hpp"
+
 #include <iostream>
 #include <fstream>
 
