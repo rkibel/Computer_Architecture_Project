@@ -1,0 +1,10 @@
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\F8FAEFE93364FAE02FAFC2B9BC5A00A2\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild -BC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

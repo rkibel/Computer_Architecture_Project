@@ -1,0 +1,14 @@
+# Target labels
+ googletest-populate
+# Source files and their labels
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/f0d3136d0411411fe1f4691f0264c798/googletest-populate.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/28fe3f7e2c33700c4863928f21db1e8a/googletest-populate-complete.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-build.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-configure.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-download.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-install.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-mkdir.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-patch.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-test.rule
+C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/c61546de12ba19521b8aeebc8ff6f9ae/googletest-populate-update.rule

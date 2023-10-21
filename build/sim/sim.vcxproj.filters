@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\grid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\params.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\progargs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\utility.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\block.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\constants.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\grid.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\params.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\particle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\progargs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\utility.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\sim\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{46FE5CB7-4395-3D91-9F7F-378B08D206C7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{17E37EEF-0145-3AC3-9EFD-4A57846763D9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

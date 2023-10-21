@@ -1,0 +1,150 @@
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -Dcfgdir=/Debug -P C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/tmp/googletest-populate-mkdirs.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/tmp/googletest-populate-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-UPDATE.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/tmp/googletest-populate-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-PATCH.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-BUILD.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-INSTALL.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\C61546DE12BA19521B8AEEBC8FF6F9AE\GOOGLETEST-POPULATE-TEST.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\28FE3F7E2C33700C4863928F21DB1E8A\GOOGLETEST-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E make_directory C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/Debug/googletest-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/googletest-populate-prefix/src/googletest-populate-stamp/Debug/googletest-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKEFILES\F0D3136D0411411FE1F4691F0264C798\GOOGLETEST-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild -BC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild --check-stamp-file C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

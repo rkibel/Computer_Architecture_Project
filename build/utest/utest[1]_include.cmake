@@ -1,0 +1,5 @@
+if(EXISTS "C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/utest/utest[1]_tests.cmake")
+  include("C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/utest/utest[1]_tests.cmake")
+else()
+  add_test(utest_NOT_BUILT utest_NOT_BUILT)
+endif()

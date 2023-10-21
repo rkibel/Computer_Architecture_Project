@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\gsl-subbuild\CMakeFiles\f8faefe93364fae02fafc2b9bc5a00a2\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{86C85821-9896-3F3B-B12E-56A822C9E2CB}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,10 @@
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\CMAKEFILES\2B6A55D519BBF269D7E9F628119AB5E6\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project -BC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/fluid.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

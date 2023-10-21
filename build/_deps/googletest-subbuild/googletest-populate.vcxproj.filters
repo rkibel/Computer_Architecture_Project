@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\c61546de12ba19521b8aeebc8ff6f9ae\googletest-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\28fe3f7e2c33700c4863928f21db1e8a\googletest-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\f0d3136d0411411fe1f4691f0264c798\googletest-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\googletest-subbuild\CMakeFiles\googletest-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{36E026FF-7DE9-3395-8ADF-37A668DCAEE9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,150 @@
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-MKDIR.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -Dcfgdir=/Debug -P C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/tmp/gsl-populate-mkdirs.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-mkdir
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-DOWNLOAD.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/tmp/gsl-populate-gitclone.cmake
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-download
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-UPDATE.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\gsl-src
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -P C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/tmp/gsl-populate-gitupdate.cmake
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-PATCH.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-patch
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-CONFIGURE.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\gsl-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-configure
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-BUILD.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\gsl-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-build
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-INSTALL.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\gsl-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-install
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\2765529E8171B752DE332D8B94C2D245\GSL-POPULATE-TEST.RULE
+setlocal
+cd C:\Users\ronki\OneDrive\Documents\GitHub\Computer_Architecture_Project\build\_deps\gsl-build
+if %errorlevel% neq 0 goto :cmEnd
+C:
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E echo_append
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-test
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\EDB4E5F146A4606E4F2F703D65EAB3C0\GSL-POPULATE-COMPLETE.RULE
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E make_directory C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/CMakeFiles/Debug
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/CMakeFiles/Debug/gsl-populate-complete
+if %errorlevel% neq 0 goto :cmEnd
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E touch C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/gsl-populate-prefix/src/gsl-populate-stamp/Debug/gsl-populate-done
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKEFILES\F8FAEFE93364FAE02FAFC2B9BC5A00A2\GSL-POPULATE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GSL-SUBBUILD\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild -BC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild --check-stamp-file C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/gsl-subbuild/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

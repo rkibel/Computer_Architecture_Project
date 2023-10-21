@@ -1,0 +1,10 @@
+^C:\USERS\RONKI\ONEDRIVE\DOCUMENTS\GITHUB\COMPUTER_ARCHITECTURE_PROJECT\BUILD\_DEPS\GOOGLETEST-SRC\GOOGLETEST\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project -BC:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build --check-stamp-file C:/Users/ronki/OneDrive/Documents/GitHub/Computer_Architecture_Project/build/_deps/googletest-build/googletest/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
