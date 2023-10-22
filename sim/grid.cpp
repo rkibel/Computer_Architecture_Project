@@ -46,7 +46,7 @@ void grid::repositionParticles() {
             int position = static_cast<int>(std::floor((part_dict[i].position[j] - constants::min[j]) / parameters.block_size[j]));
             pos.push_back(std::max(0, std::min(position, parameters.grid_size[j]-1))); 
         }
-        new_part_grid[pos[0]][pos[1]][pos[2]].push_back(i);
+        new_part_grid[pos[0]][pos[1]][pos[2]].particles.push_back(i);
     }
     part_grid = new_part_grid;
 }
@@ -95,10 +95,10 @@ void grid::updateAccelerationBetweenParticles(particle& part1, particle& part2) 
 
 void grid::updateSameBlock(std::vector<int> pos, bool updateType) {
     block part_block = part_grid[pos[0]][pos[1]][pos[2]];
-    for (int i = 0; i < part_block.size(); ++i) {
-        for (int j = i+1; j < part_block.size(); ++j) {
-            particle& part1 = part_dict[part_block.getBlockId(i)];
-            particle& part2 = part_dict[part_block.getBlockId(j)];
+    for (std::size_t i = 0; i < part_block.particles.size(); ++i) {
+        for (std::size_t j = i+1; j < part_block.particles.size(); ++j) {
+            particle& part1 = part_dict[part_block.particles[i]];
+            particle& part2 = part_dict[part_block.particles[j]];
             if (updateType) updateDensityBetweenParticles(part1, part2);
             else updateAccelerationBetweenParticles(part1, part2);
         }
