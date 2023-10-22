@@ -1,5 +1,5 @@
-#ifndef FA8064C2_D456_401A_ADAA_C9AF507B53DD
-#define FA8064C2_D456_401A_ADAA_C9AF507B53DD
+#ifndef GRID_HPP
+#define GRID_HPP
 
 #include "block.hpp"
 #include "particle.hpp"
@@ -36,4 +36,4 @@ struct grid {
     void processStep();
 };
 
-#endif /* FA8064C2_D456_401A_ADAA_C9AF507B53DD */
+#endif // GRID_HPP

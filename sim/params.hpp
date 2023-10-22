@@ -1,5 +1,5 @@
-#ifndef A1F0BE24_A80C_409A_AB77_4D13507013B7
-#define A1F0BE24_A80C_409A_AB77_4D13507013B7
+#ifndef PARAMS_HPP
+#define PARAMS_HPP
 
 #include "constants.hpp"
 
@@ -23,4 +23,4 @@ struct params {
     void initialize(std::istream& fileReader);
 };
 
-#endif /* A1F0BE24_A80C_409A_AB77_4D13507013B7 */
+#endif // PARAMS_HPP

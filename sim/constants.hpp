@@ -1,5 +1,5 @@
-#ifndef F5A6642F_DEAD_4137_A21D_F39FB109AD23
-#define F5A6642F_DEAD_4137_A21D_F39FB109AD23
+#ifndef CONSTANTS_HPP
+#define CONSTANTS_HPP
 
 #include <vector>
 
@@ -17,4 +17,4 @@ namespace constants {
     const std::vector<double> max{0.065, 0.1, 0.065};
 }
 
-#endif /* F5A6642F_DEAD_4137_A21D_F39FB109AD23 */
+#endif // CONSTANTS_HPP

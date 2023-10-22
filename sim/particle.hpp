@@ -1,5 +1,5 @@
-#ifndef E137B33D_793D_413F_9B5B_E2057DAF9EE5
-#define E137B33D_793D_413F_9B5B_E2057DAF9EE5
+#ifndef PARTICLE_HPP
+#define PARTICLE_HPP
 
 #include <vector>
 
@@ -12,4 +12,4 @@ struct particle {
     double density;
 };
 
-#endif /* E137B33D_793D_413F_9B5B_E2057DAF9EE5 */
+#endif // PARTICLE_HPP
