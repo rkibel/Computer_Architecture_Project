@@ -5,6 +5,7 @@
 #include "particle.hpp"
 #include "params.hpp"
 #include "constants.hpp"
+#include "utility.hpp"
 
 #include <vector>
 #include <iostream>

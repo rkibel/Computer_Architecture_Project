@@ -1,22 +1,5 @@
 #include "grid.hpp"
 
-//#include "utility.cpp"
-
-template <typename T>
-requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
-char * as_writable_buffer(T & value) {
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-  return reinterpret_cast<char *>(&value);
-}
-
-template <typename T>
-requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
-T read_binary_value(std::istream & is) {
-  T value{};
-  is.read(as_writable_buffer(value), sizeof(value));
-  return value;
-}
-
 grid::grid(std::istream& fileReader) {
     parameters.initialize(fileReader);
     int counter = 0;
@@ -24,7 +7,7 @@ grid::grid(std::istream& fileReader) {
         particle p;
         p.id = counter;
         for (int i = 0; i < 9; ++i) {
-            float temp = read_binary_value<float>(fileReader);
+            double temp = read_float(fileReader);
             if (i < 3) p.position.push_back(temp);
             else if (i < 6) p.boundary.push_back(temp);
             else p.velocity.push_back(temp);

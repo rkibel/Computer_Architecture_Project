@@ -2,6 +2,7 @@
 #define PARAMS_HPP
 
 #include "constants.hpp"
+#include "utility.hpp"
 
 #include <vector>
 #include <iostream>

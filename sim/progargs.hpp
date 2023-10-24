@@ -3,8 +3,12 @@
 
 #include "params.hpp"
 #include "grid.hpp"
+#include "utility.hpp"
 
 #include <string>
+#include <iostream>
+#include <charconv>
+#include <fstream>
 
 void checkArgNumber(int argc);
 

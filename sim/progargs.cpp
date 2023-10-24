@@ -1,9 +1,5 @@
 #include "progargs.hpp"
 
-#include <iostream>
-#include <charconv>
-#include <fstream>
-
 void checkArgNumber(int argc) {
     if (argc != 4) {
         std::cerr << "Error: Invalid number of arguments: " << argc-1 << ".\n";
@@ -49,19 +45,6 @@ grid parseInputFile(std::string inputFile) {
     return particle_grid;
 }
 
-template <typename T>
-requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
-char const * as_buffer(T const & value) {
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-  return reinterpret_cast<char const *>(&value);
-}
-
-template <typename T>
-requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
-void write_binary_value(T value, std::ostream & os) {
-  os.write(as_buffer(value), sizeof(value));
-}
-
 void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
     std::ofstream fileWriter;
     fileWriter.open(outputFile, std::ios::binary);
@@ -69,15 +52,15 @@ void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> 
         std::cerr << "Error: Cannot open " << outputFile << " for writing";
         exit(-4);
     }
-    write_binary_value(ppm, fileWriter);
-    write_binary_value(np, fileWriter);
+    write_float(ppm, fileWriter);
+    write_int(np, fileWriter);
     for (particle p: particles) {
         for (int i = 0; i < 9; ++i) {
             float temp = 0.0;
             if (i < 3) temp = p.position[i%3];
             else if (i < 6) temp = p.boundary[i%3];
             else temp = p.velocity[i%3];
-            write_binary_value(temp, fileWriter);
+            write_float(temp, fileWriter);
         }
     }
 }

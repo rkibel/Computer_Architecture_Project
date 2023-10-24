@@ -1,26 +1,8 @@
 #include "params.hpp"
 
-//#include "utility.cpp"
-
-template <typename T>
-requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
-char * as_writable_buffer(T & value) {
-  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-  return reinterpret_cast<char *>(&value);
-}
-
-template <typename T>
-requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
-T read_binary_value(std::istream & is) {
-  T value{};
-  is.read(as_writable_buffer(value), sizeof(value));
-  return value;
-}
-
 void params::initialize(std::istream& fileReader) {
-    float read_ppm = read_binary_value<float>(fileReader);
-    ppm = read_ppm;
-    int temp_np = read_binary_value<int>(fileReader);
+    ppm = read_float(fileReader);
+    int temp_np = read_int(fileReader);
     if (temp_np <= 0) {
         std::cerr << "Error: Invalid number of particles: " << temp_np << ".\n";
         exit(-5);
