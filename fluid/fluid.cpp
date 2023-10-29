@@ -21,7 +21,7 @@ int main(int argc, const char* argv[]) {
     //binaryToText("small.fld", "small.txt");
     //binaryToText("small-1.fld", "small-1.txt");
     //binaryToText("small-5.fld", "small-5.txt");
-    binaryToText(arguments[2], "final.txt");
+    //binaryToText(arguments[2], "final.txt");
 
     return 0;
 }

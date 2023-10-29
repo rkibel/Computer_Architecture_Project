@@ -27,8 +27,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment=".">
-      <change beforePath="$PROJECT_DIR$/fluid/fluid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/fluid/fluid.cpp" afterDir="false" />
+    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Trying out with small.txt and final.txt">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,35 +73,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "cf.advertisement.text.has.clang-format": "true",
-    "cf.advertisement.text.overridden": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "ctest.advertisement.all.test.configuration.is.created": "true",
-    "git-widget-placeholder": "performance-testing",
-    "last_opened_file_path": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/small.fld",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "advanced.settings",
-    "two.files.diff.last.used.file": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/small.fld",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.advertisement.text.has.clang-format&quot;: &quot;true&quot;,
+    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;ctest.advertisement.all.test.configuration.is.created&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;performance-testing&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/small.fld&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;two.files.diff.last.used.file&quot;: &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/small.fld&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="CMake Application.fluid">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="utest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="fluid" TARGET_NAME="utest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="fluid" RUN_TARGET_NAME="utest" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -173,7 +169,10 @@
       <workItem from="1697986910175" duration="1122000" />
       <workItem from="1698009863091" duration="2454000" />
       <workItem from="1698304674670" duration="17000" />
-      <workItem from="1698416152464" duration="4062000" />
+      <workItem from="1698416152464" duration="4134000" />
+      <workItem from="1698503743196" duration="2246000" />
+      <workItem from="1698575349173" duration="40000" />
+      <workItem from="1698579544385" duration="3507000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Esto es una prueba&quot;">
       <option name="closed" value="true" />
@@ -247,7 +246,23 @@
       <option name="project" value="LOCAL" />
       <updated>1697986599210</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Trying out with small.txt and final.txt">
+      <option name="closed" value="true" />
+      <created>1698425089551</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1698425089551</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Trying out with small.txt and final.txt">
+      <option name="closed" value="true" />
+      <created>1698425117146</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1698425117146</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +294,7 @@
     <MESSAGE value="Trying to make it work" />
     <MESSAGE value="clang-tidy gives error when trying to build" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Trying out with small.txt and final.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying out with small.txt and final.txt" />
   </component>
 </project>
