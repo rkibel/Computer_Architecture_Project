@@ -34,27 +34,26 @@ void write_int(int value, std::ostream& os) {
   os.write(as_buffer(value), sizeof(value));
 }
 
-void binaryToText(std::string inputFile, std::string outputFile) {
-    std::ifstream inFile;
+void binaryToText(const std::string& inputFile, const std::string& outputFile) {
+    std::ifstream inFile(inputFile, std::ios::binary);
     inFile.open(inputFile, std::ios::binary);
 
-    std::ofstream outFile;
+    std::ofstream outFile(outputFile);
     outFile.open(outputFile);
 
-    float ppm = read_float(inFile);
-    int np = read_int(inFile);
-    outFile << ppm << " " << np << "\n";
-
+    const float ppm = read_float(inFile);
+    const int n_part = read_int(inFile);
+    outFile << ppm << " " << n_part << "\n";
     while (!inFile.eof()) {
-        float px = read_float(inFile);
-        float py = read_float(inFile);
-        float pz = read_float(inFile);
-        float hvx = read_float(inFile);
-        float hvy = read_float(inFile);
-        float hvz = read_float(inFile);
-        float vx = read_float(inFile);
-        float vy = read_float(inFile);
-        float vz = read_float(inFile);
-        outFile << px << " " << py << " " << pz << " " << hvx << " " << hvy << " " << hvz << " " << vx << " " << vy << " " << vz << "\n";
+        const float pos_x = read_float(inFile);
+        const float pos_y = read_float(inFile);
+        const float pos_z = read_float(inFile);
+        const float hvx = read_float(inFile);
+        const float hvy = read_float(inFile);
+        const float hvz = read_float(inFile);
+        const float vel_x = read_float(inFile);
+        const float vel_y = read_float(inFile);
+        const float vel_z = read_float(inFile);
+        outFile << pos_x << " " << pos_y << " " << pos_z << " " << hvx << " " << hvy << " " << hvz << " " << vel_x << " " << vel_y << " " << vel_z << "\n";
     }
 }

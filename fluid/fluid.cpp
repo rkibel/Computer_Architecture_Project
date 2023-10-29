@@ -14,14 +14,14 @@ int main(int argc, const char* argv[]) {
     int nts = parseInt(arguments[0]);
     grid particle_grid = parseInputFile(arguments[1]);
     for (int i = 0; i < nts; ++i) {
-        //std::cout << "step " << i << "\n";
+        std::cout << "step " << i << "\n";
         particle_grid.processStep();
     }
     writeFile(arguments[2], particle_grid.parameters.ppm, particle_grid.parameters.np, particle_grid.part_dict);
-    //binaryToText("small.fld", "small.txt");
+    binaryToText("small.fld", "small1.txt");
     //binaryToText("small-1.fld", "small-1.txt");
     //binaryToText("small-5.fld", "small-5.txt");
-    //binaryToText(arguments[2], "final.txt");
+    binaryToText(arguments[2], "final1.txt");
 
     return 0;
 }
