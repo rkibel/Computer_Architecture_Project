@@ -172,25 +172,25 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-fluid/CMakeFiles/fluid.exe.dir/rule:
-	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fluid/CMakeFiles/fluid.exe.dir/rule
-.PHONY : fluid/CMakeFiles/fluid.exe.dir/rule
+fluid/CMakeFiles/fluid.dir/rule:
+	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fluid/CMakeFiles/fluid.dir/rule
+.PHONY : fluid/CMakeFiles/fluid.dir/rule
 
 # Convenience name for target.
-fluid.exe: fluid/CMakeFiles/fluid.exe.dir/rule
-.PHONY : fluid.exe
+fluid: fluid/CMakeFiles/fluid.dir/rule
+.PHONY : fluid
 
 # fast build rule for target.
-fluid.exe/fast:
-	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.exe.dir/build.make fluid/CMakeFiles/fluid.exe.dir/build
-.PHONY : fluid.exe/fast
+fluid/fast:
+	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.dir/build.make fluid/CMakeFiles/fluid.dir/build
+.PHONY : fluid/fast
 
 fluid.o: fluid.cpp.o
 .PHONY : fluid.o
 
 # target to build an object file
 fluid.cpp.o:
-	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.exe.dir/build.make fluid/CMakeFiles/fluid.exe.dir/fluid.cpp.o
+	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.dir/build.make fluid/CMakeFiles/fluid.dir/fluid.cpp.o
 .PHONY : fluid.cpp.o
 
 fluid.i: fluid.cpp.i
@@ -198,7 +198,7 @@ fluid.i: fluid.cpp.i
 
 # target to preprocess a source file
 fluid.cpp.i:
-	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.exe.dir/build.make fluid/CMakeFiles/fluid.exe.dir/fluid.cpp.i
+	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.dir/build.make fluid/CMakeFiles/fluid.dir/fluid.cpp.i
 .PHONY : fluid.cpp.i
 
 fluid.s: fluid.cpp.s
@@ -206,7 +206,7 @@ fluid.s: fluid.cpp.s
 
 # target to generate assembly for a file
 fluid.cpp.s:
-	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.exe.dir/build.make fluid/CMakeFiles/fluid.exe.dir/fluid.cpp.s
+	cd /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release && $(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.dir/build.make fluid/CMakeFiles/fluid.dir/fluid.cpp.s
 .PHONY : fluid.cpp.s
 
 # Help Target
@@ -222,7 +222,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... fluid.exe"
+	@echo "... fluid"
 	@echo "... fluid.o"
 	@echo "... fluid.i"
 	@echo "... fluid.s"

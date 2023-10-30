@@ -52,7 +52,7 @@
 /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/CMakeFiles/install.dir
 /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/CMakeFiles/install/local.dir
 /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/CMakeFiles/install/strip.dir
-/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/CMakeFiles/fluid.exe.dir
+/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/CMakeFiles/fluid.dir
 /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/CMakeFiles/test.dir
 /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/CMakeFiles/edit_cache.dir
 /home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/CMakeFiles/rebuild_cache.dir

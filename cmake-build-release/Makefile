@@ -237,17 +237,17 @@ sim/fast:
 .PHONY : sim/fast
 
 #=============================================================================
-# Target rules for targets named fluid.exe
+# Target rules for targets named fluid
 
 # Build rule for target.
-fluid.exe: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fluid.exe
-.PHONY : fluid.exe
+fluid: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 fluid
+.PHONY : fluid
 
 # fast build rule for target.
-fluid.exe/fast:
-	$(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.exe.dir/build.make fluid/CMakeFiles/fluid.exe.dir/build
-.PHONY : fluid.exe/fast
+fluid/fast:
+	$(MAKE) $(MAKESILENT) -f fluid/CMakeFiles/fluid.dir/build.make fluid/CMakeFiles/fluid.dir/build
+.PHONY : fluid/fast
 
 #=============================================================================
 # Target rules for targets named utest
@@ -275,7 +275,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... fluid.exe"
+	@echo "... fluid"
 	@echo "... gmock"
 	@echo "... gmock_main"
 	@echo "... gtest"

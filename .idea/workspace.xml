@@ -23,13 +23,40 @@
   <component name="CMakeSettings">
     <configurations>
       <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" NO_GENERATOR="true" />
-      <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" NO_GENERATOR="true" />
+      <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" />
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Trying out with small.txt and final.txt">
+    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Updated clang tidy warnings in utility.cpp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2023-10-27T14-46-20-0030.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/fluid/CMakeFiles/fluid.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/fluid/CMakeFiles/fluid.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/fluid/CMakeFiles/fluid.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/fluid/CMakeFiles/fluid.dir/fluid.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/fluid/CMakeFiles/fluid.dir/fluid.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/fluid/fluid" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/sim/CMakeFiles/sim.dir/compiler_depend.internal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/sim/CMakeFiles/sim.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/sim/CMakeFiles/sim.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/sim/CMakeFiles/sim.dir/utility.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/sim/CMakeFiles/sim.dir/utility.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/sim/libsim.a" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/sim/libsim.a" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/codemodel-v2-a02d6e4993722d9fc4d1.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/index-2023-10-27T14-25-36-0591.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/.cmake/api/v1/reply/target-fluid.exe-Release-afb63e01e0cd8e16e744.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/Makefile2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-Release-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-Release-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/compiler_depend.internal" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/compiler_depend.internal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/fluid.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/fluid.cpp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/fluid/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/fluid/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/fluid/fluid" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/sim/CMakeFiles/sim.dir/compiler_depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/sim/CMakeFiles/sim.dir/compiler_depend.make" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final.fld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/fluid/fluid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/fluid/fluid.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sim/utility.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sim/utility.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/sim/utility.hpp" afterDir="false" />
@@ -88,18 +115,23 @@
     "cidr.known.project.marker": "true",
     "ctest.advertisement.all.test.configuration.is.created": "true",
     "git-widget-placeholder": "performance-testing",
-    "last_opened_file_path": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/final.fld",
+    "last_opened_file_path": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/final1.txt",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "advanced.settings",
-    "two.files.diff.last.used.file": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/final.fld",
+    "settings.editor.selected.configurable": "CMakeSettings",
+    "two.files.diff.last.used.file": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/final1.txt",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="CMake Application.fluid">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="utest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="fluid" TARGET_NAME="utest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="fluid" RUN_TARGET_NAME="utest" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -177,7 +209,9 @@
       <workItem from="1698575349173" duration="40000" />
       <workItem from="1698579544385" duration="5330000" />
       <workItem from="1698605625946" duration="773000" />
-      <workItem from="1698618290555" duration="2289000" />
+      <workItem from="1698618290555" duration="2928000" />
+      <workItem from="1698621336567" duration="77000" />
+      <workItem from="1698656670742" duration="5185000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Esto es una prueba&quot;">
       <option name="closed" value="true" />
@@ -275,7 +309,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698583759285</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Updated clang tidy warnings in utility.cpp">
+      <option name="closed" value="true" />
+      <created>1698620880398</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1698620880398</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,6 +350,7 @@
     <MESSAGE value="clang-tidy gives error when trying to build" />
     <MESSAGE value="." />
     <MESSAGE value="Trying out with small.txt and final.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Trying out with small.txt and final.txt" />
+    <MESSAGE value="Updated clang tidy warnings in utility.cpp" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated clang tidy warnings in utility.cpp" />
   </component>
 </project>
