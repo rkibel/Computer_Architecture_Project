@@ -1,0 +1,3 @@
+/home/alumnos/a0520224/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/googletest-populate.dir
+/home/alumnos/a0520224/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/edit_cache.dir
+/home/alumnos/a0520224/Computer_Architecture_Project/build/_deps/googletest-subbuild/CMakeFiles/rebuild_cache.dir
