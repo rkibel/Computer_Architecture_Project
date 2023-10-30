@@ -27,15 +27,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Re-updated BinaryToText, now does work although 2 clang tidy warnings">
-      <change afterPath="$PROJECT_DIR$/small-5.fld" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/fluid.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/fluid/CMakeFiles/fluid.dir/fluid.cpp.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fluid/fluid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/fluid/fluid.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sim/utility.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim/utility.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/sim/utility.hpp" afterDir="false" />
-    </list>
+    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Solved clang-tidy warnings with static in main" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -191,7 +183,7 @@
       <workItem from="1698605625946" duration="773000" />
       <workItem from="1698618290555" duration="2928000" />
       <workItem from="1698621336567" duration="77000" />
-      <workItem from="1698656670742" duration="9703000" />
+      <workItem from="1698656670742" duration="10262000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Esto es una prueba&quot;">
       <option name="closed" value="true" />
@@ -305,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698662305032</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Solved clang-tidy warnings with static in main">
+      <option name="closed" value="true" />
+      <created>1698670380767</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1698670380767</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,6 +340,7 @@
     <MESSAGE value="Trying out with small.txt and final.txt" />
     <MESSAGE value="Updated clang tidy warnings in utility.cpp" />
     <MESSAGE value="Re-updated BinaryToText, now does work although 2 clang tidy warnings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Re-updated BinaryToText, now does work although 2 clang tidy warnings" />
+    <MESSAGE value="Solved clang-tidy warnings with static in main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Solved clang-tidy warnings with static in main" />
   </component>
 </project>

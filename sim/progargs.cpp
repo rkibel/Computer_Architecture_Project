@@ -56,10 +56,9 @@ void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> 
     write_int(np, fileWriter);
     for (particle p: particles) {
         for (int i = 0; i < 9; ++i) {
-            float temp = 0.0;
+            float temp = p.velocity[i%3];
             if (i < 3) temp = p.position[i%3];
             else if (i < 6) temp = p.boundary[i%3];
-            else temp = p.velocity[i%3];
             write_float(temp, fileWriter);
         }
     }
