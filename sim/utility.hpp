@@ -20,7 +20,6 @@ char const * as_buffer(T const & value);
 void write_float(float value, std::ostream& os);
 void write_int(int value, std::ostream& os);
 
-//void binaryToText(const std::string& inputFile, const std::string& outputFile);
 void binaryToText(std::string inputFile, std::string outputFile);
 
 #endif // UTILITY_HPP
