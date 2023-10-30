@@ -20,6 +20,7 @@ int main(int argc, char const * argv[]) {
   writeFile(arguments[2], static_cast<float>(particle_grid.parameters.ppm),
   static_cast<int>(particle_grid.parameters.np), particle_grid.part_dict);
   */
+  // Small comment
   binaryToText("small.fld", "small.txt");
   binaryToText("reference-output/small-1.fld", "reference-output/small-1.txt");
   binaryToText("reference-output/small-2.fld", "reference-output/small-2.txt");
