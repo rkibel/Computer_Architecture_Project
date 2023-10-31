@@ -1,3 +1,0 @@
-/home/alumnos/a0520224/Computer_Architecture_Project/build/_deps/gsl-subbuild/CMakeFiles/gsl-populate.dir
-/home/alumnos/a0520224/Computer_Architecture_Project/build/_deps/gsl-subbuild/CMakeFiles/edit_cache.dir
-/home/alumnos/a0520224/Computer_Architecture_Project/build/_deps/gsl-subbuild/CMakeFiles/rebuild_cache.dir

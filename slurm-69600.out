@@ -1,0 +1,219 @@
+------------------------ /usr/share/modules/modulefiles ------------------------
+dot  gcc/12.1.0  module-git  module-info  modules  null  use.own  
+cmake version 3.27.7
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+Debian LLVM version 18.0.0
+  Optimized build.
+-- Configuring done (1.4s)
+-- Generating done (0.8s)
+-- Build files have been written to: /home/alumnos/a0520224/Computer_Architecture_Project/build
+[ 19%] Building CXX object sim/CMakeFiles/sim.dir/grid.cpp.o
+[ 19%] Building CXX object sim/CMakeFiles/sim.dir/constants.cpp.o
+[ 19%] Building CXX object sim/CMakeFiles/sim.dir/params.cpp.o
+[ 19%] Building CXX object sim/CMakeFiles/sim.dir/progargs.cpp.o
+[ 28%] Built target gtest
+[ 38%] Built target gtest_main
+[ 47%] Built target gmock
+[ 57%] Built target gmock_main
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:3:14: error: function 'initialize' exceeds recommended size/complexity thresholds [readability-function-size,-warnings-as-errors]
+    3 | void params::initialize(std::istream& fileReader) {
+      |              ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:3:14: note: 26 lines including whitespace and comments (threshold 25)
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:5:5: error: variable 'temp_np' of type 'int' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+    5 |     int temp_np = read_int(fileReader);
+      |     ^
+      |         const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:8:15: error: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+    8 |         exit(-5);
+      |               ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:15:36: error: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   15 |         std::pow(smoothing_length, 6), 
+      |                                    ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:16:9: error: 315.0 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   16 |         315.0 * mass / 64.0 / std::numbers::pi / std::pow(smoothing_length, 9)
+      |         ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:16:24: error: 64.0 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   16 |         315.0 * mass / 64.0 / std::numbers::pi / std::pow(smoothing_length, 9)
+      |                        ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:16:77: error: 9 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   16 |         315.0 * mass / 64.0 / std::numbers::pi / std::pow(smoothing_length, 9)
+      |                                                                             ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:20:9: error: 45.0 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   20 |         45.0 * mass * constants::stiff_pressure / std::numbers::pi / std::pow(smoothing_length, 6) / 2,
+      |         ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:20:97: error: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   20 |         45.0 * mass * constants::stiff_pressure / std::numbers::pi / std::pow(smoothing_length, 6) / 2,
+      |                                                                                                 ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:21:9: error: 45.0 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   21 |         45.0 * mass * constants::viscosity / std::numbers::pi / std::pow(smoothing_length, 6)
+      |         ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.cpp:21:92: error: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   21 |         45.0 * mass * constants::viscosity / std::numbers::pi / std::pow(smoothing_length, 6)
+      |                                                                                            ^
+60277 warnings generated.
+Suppressed 60241 warnings (60241 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+11 warnings treated as errors
+gmake[2]: *** [sim/CMakeFiles/sim.dir/build.make:132: sim/CMakeFiles/sim.dir/params.cpp.o] Error 1
+gmake[2]: *** Se espera a que terminen otras tareas....
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:12:58: error: do not use pointer arithmetic [cppcoreguidelines-pro-bounds-pointer-arithmetic,-warnings-as-errors]
+   12 |     auto result = std::from_chars(arg.data(), arg.data() + arg.size(), res);
+      |                                                          ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:24:33: error: the parameter 'inputFile' is copied for each invocation but only used as a const reference; consider making it a const reference [performance-unnecessary-value-param,-warnings-as-errors]
+   24 | grid parseInputFile(std::string inputFile) {
+      |                                 ^
+      |                     const      &
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:35:15: error: 5 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   35 |         exit(-5);
+      |               ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:48:28: error: the parameter 'outputFile' is copied for each invocation but only used as a const reference; consider making it a const reference [performance-unnecessary-value-param,-warnings-as-errors]
+   48 | void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
+      |                            ^
+      |                const      &
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:48:81: error: the parameter 'particles' is copied for each invocation but only used as a const reference; consider making it a const reference [performance-unnecessary-value-param,-warnings-as-errors]
+   48 | void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles) {
+      |                                                                                 ^
+      |                                                           const                &
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:57:19: error: variable name 'p' is too short, expected at least 3 characters [readability-identifier-length,-warnings-as-errors]
+   57 |     for (particle p: particles) {
+      |                   ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:58:29: error: 9 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   58 |         for (int i = 0; i < 9; ++i) {
+      |                             ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:59:26: error: narrowing conversion from 'value_type' (aka 'double') to 'float' [bugprone-narrowing-conversions,cppcoreguidelines-narrowing-conversions,-warnings-as-errors]
+   59 |             float temp = p.velocity[i%3];
+      |                          ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:60:23: error: statement should be inside braces [readability-braces-around-statements,-warnings-as-errors]
+   60 |             if (i < 3) temp = p.position[i%3];
+      |                       ^
+      |                        {
+   61 |             else if (i < 6) temp = p.boundary[i%3];
+      |             } 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:60:31: error: narrowing conversion from 'value_type' (aka 'double') to 'float' [bugprone-narrowing-conversions,cppcoreguidelines-narrowing-conversions,-warnings-as-errors]
+   60 |             if (i < 3) temp = p.position[i%3];
+      |                               ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:61:26: error: 6 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+   61 |             else if (i < 6) temp = p.boundary[i%3];
+      |                          ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:61:28: error: statement should be inside braces [readability-braces-around-statements,-warnings-as-errors]
+   61 |             else if (i < 6) temp = p.boundary[i%3];
+      |                            ^                       
+      |                             {
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/progargs.cpp:61:36: error: narrowing conversion from 'value_type' (aka 'double') to 'float' [bugprone-narrowing-conversions,cppcoreguidelines-narrowing-conversions,-warnings-as-errors]
+   61 |             else if (i < 6) temp = p.boundary[i%3];
+      |                                    ^
+87166 warnings generated.
+Suppressed 87147 warnings (87147 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+13 warnings treated as errors
+gmake[2]: *** [sim/CMakeFiles/sim.dir/build.make:146: sim/CMakeFiles/sim.dir/progargs.cpp.o] Error 1
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:125:12: error: function 'increaseVal' exceeds recommended size/complexity thresholds [readability-function-size,-warnings-as-errors]
+  125 | void grid::increaseVal(bool updateType) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:125:12: note: 31 lines including whitespace and comments (threshold 25)
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:166:12: error: method 'updateAccelerationWithWallMin' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  166 | void grid::updateAccelerationWithWallMin(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:167:3: error: variable 'newcoord' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  167 |   double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:168:3: error: variable 'delt' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  168 |   double delt     = constants::particle_size - (newcoord - constants::min[index]);
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:169:14: error: 1e-10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+  169 |   if (delt > 1e-10) {
+      |              ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:176:12: error: method 'updateAccelerationWithWallMax' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  176 | void grid::updateAccelerationWithWallMax(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:177:3: error: variable 'newcoord' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  177 |   double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:178:3: error: variable 'delt' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  178 |   double delt     = constants::particle_size - (constants::max[index] - newcoord);
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:179:14: error: 1e-10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+  179 |   if (delt > 1e-10) {
+      |              ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:185:56: error: 3 adjacent parameters of 'updateAccelerationWithWall' of similar type ('int') are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+  185 | void grid::updateAccelerationWithWall(particle & part, int x, int y, int z) {
+      |                                                        ^~~~~~~~~~~~~~~~~~~
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:185:60: note: the first parameter in the range is 'x'
+  185 | void grid::updateAccelerationWithWall(particle & part, int x, int y, int z) {
+      |                                                            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:185:74: note: the last parameter in the range is 'z'
+  185 | void grid::updateAccelerationWithWall(particle & part, int x, int y, int z) {
+      |                                                                          ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:203:12: error: method 'particlesMotion' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  203 | void grid::particlesMotion(particle & part) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:207:87: error: 2.0 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+  207 |     part.velocity[i]  = part.boundary[i] + part.acceleration[i] * constants::delt_t / 2.0;
+      |                                                                                       ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:213:12: error: method 'collideWithWallMin' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  213 | void grid::collideWithWallMin(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:214:3: error: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  214 |   double dist = part.position[index] - constants::min[index];
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:223:12: error: method 'collideWithWallMax' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  223 | void grid::collideWithWallMax(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:224:3: error: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  224 |   double dist = constants::max[index] - part.position[index];
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:232:45: error: 3 adjacent parameters of 'collideWithWall' of similar type ('int') are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+  232 | void grid::collideWithWall(particle & part, int x, int y, int z) {
+      |                                             ^~~~~~~~~~~~~~~~~~~
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:232:49: note: the first parameter in the range is 'x'
+  232 | void grid::collideWithWall(particle & part, int x, int y, int z) {
+      |                                                 ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:232:63: note: the last parameter in the range is 'z'
+  232 | void grid::collideWithWall(particle & part, int x, int y, int z) {
+      |                                                               ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:259:14: error: variable 'part_id' of type 'int &' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  259 |         for (int & part_id : part_grid[i][j][k].particles) {
+      |              ^
+      |                   const
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.hpp:12:8: error: constructor does not initialize these fields: ppm, np, mass, smoothing_length [cppcoreguidelines-pro-type-member-init,-warnings-as-errors]
+   12 | struct params {
+      |        ^
+   13 |     double ppm;
+      |               
+      |               {}
+   14 |     std::size_t np;
+      |                   
+      |                   {}
+   15 |     double mass;
+      |                
+      |                {}
+   16 |     double smoothing_length;
+      |                            
+      |                            {}
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/particle.hpp:6:8: error: constructor does not initialize these fields: id, density [cppcoreguidelines-pro-type-member-init,-warnings-as-errors]
+    6 | struct particle {
+      |        ^
+    7 |     int id;
+      |           
+      |           {}
+    8 |     std::vector<double> position;
+    9 |     std::vector<double> boundary;
+   10 |     std::vector<double> velocity;
+   11 |     std::vector<double> acceleration;
+   12 |     double density;
+      |                   
+      |                   {}
+86061 warnings generated.
+Suppressed 86038 warnings (86038 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+20 warnings treated as errors
+gmake[2]: *** [sim/CMakeFiles/sim.dir/build.make:118: sim/CMakeFiles/sim.dir/grid.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:344: sim/CMakeFiles/sim.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
