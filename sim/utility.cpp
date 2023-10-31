@@ -34,7 +34,7 @@ void write_int(int value, std::ostream & os) {
   os.write(as_buffer(value), sizeof(value));
 }
 
-void binaryToText(std::string const & inputFile, std::string const & outputFile) {
+void binaryToText(std::string inputFile, std::string outputFile) {
   std::ifstream inFile;
   inFile.open(inputFile, std::ios::binary);
 
