@@ -1,0 +1,142 @@
+------------------------ /usr/share/modules/modulefiles ------------------------
+dot  gcc/12.1.0  module-git  module-info  modules  null  use.own  
+cmake version 3.27.7
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+Debian LLVM version 18.0.0
+  Optimized build.
+-- Configuring done (1.1s)
+-- Generating done (0.7s)
+-- Build files have been written to: /home/alumnos/a0520224/Computer_Architecture_Project/build
+[ 10%] Built target gtest
+[ 20%] Built target gmock
+[ 30%] Built target gmock_main
+[ 40%] Built target gtest_main
+[ 45%] Building CXX object sim/CMakeFiles/sim.dir/grid.cpp.o
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/constants.hpp:15:36: error: initialization of 'acceleration' with static storage duration may throw an exception that cannot be caught [cert-err58-cpp,-warnings-as-errors]
+   15 |   static std::vector<double> const acceleration = {0.0, -9.8, 0.0};
+      |                                    ^
+/usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/c++/10/bits/stl_vector.h:625:7: note: possibly throwing constructor declared here
+  625 |       vector(initializer_list<value_type> __l,
+      |       ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/constants.hpp:16:36: error: initialization of 'min' with static storage duration may throw an exception that cannot be caught [cert-err58-cpp,-warnings-as-errors]
+   16 |   static std::vector<double> const min          = {-0.065, -0.08, -0.065};
+      |                                    ^
+/usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/c++/10/bits/stl_vector.h:625:7: note: possibly throwing constructor declared here
+  625 |       vector(initializer_list<value_type> __l,
+      |       ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/constants.hpp:17:36: error: initialization of 'max' with static storage duration may throw an exception that cannot be caught [cert-err58-cpp,-warnings-as-errors]
+   17 |   static std::vector<double> const max          = {0.065, 0.1, 0.065};
+      |                                    ^
+/usr/lib/gcc/x86_64-linux-gnu/10/../../../../include/c++/10/bits/stl_vector.h:625:7: note: possibly throwing constructor declared here
+  625 |       vector(initializer_list<value_type> __l,
+      |       ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:125:12: error: function 'increaseVal' exceeds recommended size/complexity thresholds [readability-function-size,-warnings-as-errors]
+  125 | void grid::increaseVal(bool updateType) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:125:12: note: 31 lines including whitespace and comments (threshold 25)
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:166:12: error: method 'updateAccelerationWithWallMin' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  166 | void grid::updateAccelerationWithWallMin(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:167:3: error: variable 'newcoord' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  167 |   double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:168:3: error: variable 'delt' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  168 |   double delt     = constants::particle_size - (newcoord - constants::min[index]);
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:169:14: error: 1e-10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+  169 |   if (delt > 1e-10) {
+      |              ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:176:12: error: method 'updateAccelerationWithWallMax' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  176 | void grid::updateAccelerationWithWallMax(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:177:3: error: variable 'newcoord' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  177 |   double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:178:3: error: variable 'delt' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  178 |   double delt     = constants::particle_size - (constants::max[index] - newcoord);
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:179:14: error: 1e-10 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+  179 |   if (delt > 1e-10) {
+      |              ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:185:56: error: 3 adjacent parameters of 'updateAccelerationWithWall' of similar type ('int') are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+  185 | void grid::updateAccelerationWithWall(particle & part, int x, int y, int z) {
+      |                                                        ^~~~~~~~~~~~~~~~~~~
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:185:60: note: the first parameter in the range is 'x'
+  185 | void grid::updateAccelerationWithWall(particle & part, int x, int y, int z) {
+      |                                                            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:185:74: note: the last parameter in the range is 'z'
+  185 | void grid::updateAccelerationWithWall(particle & part, int x, int y, int z) {
+      |                                                                          ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:203:12: error: method 'particlesMotion' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  203 | void grid::particlesMotion(particle & part) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:207:87: error: 2.0 is a magic number; consider replacing it with a named constant [cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,-warnings-as-errors]
+  207 |     part.velocity[i]  = part.boundary[i] + part.acceleration[i] * constants::delt_t / 2.0;
+      |                                                                                       ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:213:12: error: method 'collideWithWallMin' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  213 | void grid::collideWithWallMin(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:214:3: error: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  214 |   double dist = part.position[index] - constants::min[index];
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:223:12: error: method 'collideWithWallMax' can be made static [readability-convert-member-functions-to-static,-warnings-as-errors]
+  223 | void grid::collideWithWallMax(particle & part, int index) {
+      |            ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:224:3: error: variable 'dist' of type 'double' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  224 |   double dist = constants::max[index] - part.position[index];
+      |   ^
+      |          const 
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:232:45: error: 3 adjacent parameters of 'collideWithWall' of similar type ('int') are easily swapped by mistake [bugprone-easily-swappable-parameters,-warnings-as-errors]
+  232 | void grid::collideWithWall(particle & part, int x, int y, int z) {
+      |                                             ^~~~~~~~~~~~~~~~~~~
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:232:49: note: the first parameter in the range is 'x'
+  232 | void grid::collideWithWall(particle & part, int x, int y, int z) {
+      |                                                 ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:232:63: note: the last parameter in the range is 'z'
+  232 | void grid::collideWithWall(particle & part, int x, int y, int z) {
+      |                                                               ^
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/grid.cpp:259:14: error: variable 'part_id' of type 'int &' can be declared 'const' [misc-const-correctness,-warnings-as-errors]
+  259 |         for (int & part_id : part_grid[i][j][k].particles) {
+      |              ^
+      |                   const
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/params.hpp:12:8: error: constructor does not initialize these fields: ppm, np, mass, smoothing_length [cppcoreguidelines-pro-type-member-init,-warnings-as-errors]
+   12 | struct params {
+      |        ^
+   13 |     double ppm;
+      |               
+      |               {}
+   14 |     std::size_t np;
+      |                   
+      |                   {}
+   15 |     double mass;
+      |                
+      |                {}
+   16 |     double smoothing_length;
+      |                            
+      |                            {}
+/home/alumnos/a0520224/Computer_Architecture_Project/sim/particle.hpp:6:8: error: constructor does not initialize these fields: id, density [cppcoreguidelines-pro-type-member-init,-warnings-as-errors]
+    6 | struct particle {
+      |        ^
+    7 |     int id;
+      |           
+      |           {}
+    8 |     std::vector<double> position;
+    9 |     std::vector<double> boundary;
+   10 |     std::vector<double> velocity;
+   11 |     std::vector<double> acceleration;
+   12 |     double density;
+      |                   
+      |                   {}
+86064 warnings generated.
+Suppressed 86038 warnings (86038 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+23 warnings treated as errors
+gmake[2]: *** [sim/CMakeFiles/sim.dir/build.make:104: sim/CMakeFiles/sim.dir/grid.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:344: sim/CMakeFiles/sim.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

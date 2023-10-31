@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="googletest-distribution"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake-build-release\;CMake Files\cmake-build-release\_deps\;CMake Files\cmake-build-release\_deps\gsl-src\;CMake Files\cmake-build-release\_deps\gsl-src\cmake\;CMake Files\cmake-build-release\_deps\gsl-src\include\;CMake Files\cmake-build-release\_deps\googletest-src\;CMake Files\cmake-build-release\_deps\googletest-src\googlemock\;CMake Files\cmake-build-release\_deps\googletest-src\googlemock\cmake\;CMake Files\cmake-build-release\_deps\googletest-src\googletest\;CMake Files\cmake-build-release\_deps\googletest-src\googletest\cmake\;CMake Files\sim\;CMake Files\fluid\;CMake Files\utest\;CMake Files\ftest\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gmock">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgmock.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gmock/fast">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgmock.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gmock_main">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgmock_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock_main"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gmock_main/fast">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgmock_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock_main/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgtest.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest/fast">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgtest.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_main">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgtest_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest_main"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="gtest_main/fast">
+				<Option output="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/lib/libgtest_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
+					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest_main/fast"/>
+					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/src/gmock-all.cc">
+			<Option target="gmock"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/src/gmock_main.cc">
+			<Option target="gmock_main"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/src/gtest-all.cc">
+			<Option target="gtest"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/src/gtest_main.cc">
+			<Option target="gtest_main"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\gsl-src\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-src/cmake/guidelineSupportLibrary.cmake">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\gsl-src\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-src/include/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\gsl-src\include\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googlemock\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/cmake/gmock.pc.in">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googlemock\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock/cmake/gmock_main.pc.in">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googlemock\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googletest\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/cmake/Config.cmake.in">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/cmake/gtest.pc.in">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/cmake/gtest_main.pc.in">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/cmake/internal_utils.cmake">
+			<Option virtualFolder="CMake Files\cmake-build-release\_deps\googletest-src\googletest\cmake\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/sim/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\sim\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/fluid/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\fluid\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/utest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\utest\"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/ftest/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\ftest\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
