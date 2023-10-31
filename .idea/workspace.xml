@@ -27,11 +27,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Started clearing warnings in progargs.cpp">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-release/fluid/fluid" beforeDir="false" />
+    <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Merged with clean-code">
       <change beforePath="$PROJECT_DIR$/fluid/fluid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/fluid/fluid.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sim/utility.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sim/utility.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,7 +338,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698755420325</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Merged with clean-code">
+      <option name="closed" value="true" />
+      <created>1698756461430</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1698756461430</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -378,6 +383,7 @@
     <MESSAGE value="Re-updated BinaryToText, now does work although 2 clang tidy warnings" />
     <MESSAGE value="Solved clang-tidy warnings with static in main" />
     <MESSAGE value="Started clearing warnings in progargs.cpp" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started clearing warnings in progargs.cpp" />
+    <MESSAGE value="Merged with clean-code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merged with clean-code" />
   </component>
 </project>
