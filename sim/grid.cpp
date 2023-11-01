@@ -84,7 +84,7 @@ void grid::updateAccelerationBetweenParticles(particle & part1, particle & part2
   }
 }
 
-void grid::updateSameBlock(std::vector<int> pos, bool updateType) {
+void grid::updateSameBlock(std::vector<int> const & pos, bool const updateType) {
   block part_block = part_grid[pos[0]][pos[1]][pos[2]];
   for (std::size_t i = 0; i < part_block.particles.size(); ++i) {
     for (std::size_t j = i + 1; j < part_block.particles.size(); ++j) {
@@ -99,7 +99,8 @@ void grid::updateSameBlock(std::vector<int> pos, bool updateType) {
   }
 }
 
-void grid::updateDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, bool updateType) {
+void grid::updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
+                                bool const updateType) {
   if (pos1[0] >= parameters.grid_size[0] || pos1[0] < 0 || pos1[1] >= parameters.grid_size[1] ||
       pos1[1] < 0 || pos1[2] >= parameters.grid_size[2] || pos1[2] < 0 ||
       pos2[0] >= parameters.grid_size[0] || pos2[0] < 0 || pos2[1] >= parameters.grid_size[1] ||
@@ -122,37 +123,35 @@ void grid::updateDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, bo
 
 // updateType = true: update density
 // updateType = false: update acceleration
-void grid::increaseVal(bool updateType) {
+void grid::increaseVal(bool const updateType) {
   for (int i = 0; i < parameters.grid_size[0]; ++i) {
     for (int j = 0; j < parameters.grid_size[1]; ++j) {
       for (int k = 0; k < parameters.grid_size[2]; ++k) {
-        updateSameBlock(std::vector<int>{i, j, k}, updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k + 1}, updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j - 1, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j - 1, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j - 1, k + 1},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k}, updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k},
-                             updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k}, updateType);
-        updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k},
-                             updateType);
+        increaseSurroundingBlocks(i, j, k, updateType);
       }
     }
   }
+}
+
+void grid::increaseSurroundingBlocks(int const & i, int const & j, int const & k, bool updateType) {
+  updateSameBlock(std::vector<int>{i, j, k}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k + 1},
+                       updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k + 1}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k + 1}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k + 1}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j, k + 1}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j - 1, k + 1},
+                       updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k + 1},
+                       updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j - 1, k + 1}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j - 1, k + 1},
+                       updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k}, updateType);
+  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k}, updateType);
 }
 
 // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
@@ -163,55 +162,58 @@ void grid::densityTransform() {
 }
 
 // if grid_positioning[index] == 0
-void grid::updateAccelerationWithWallMin(particle & part, int index) {
-  double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
-  double delt     = constants::particle_size - (newcoord - constants::min[index]);
-  if (delt > 1e-10) {
+void grid::updateAccelerationWithWallMin(particle & part, int const index) {
+  double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
+  double const delt           = constants::particle_size - (newcoord - constants::min[index]);
+  double const close_position = 1e-10;
+  if (delt > close_position) {
     part.acceleration[index] +=
         constants::stiff_collisions * delt - constants::damping * part.velocity[index];
   }
 }
 
 // if grid_positioning[index] == grid_size[index] - 1
-void grid::updateAccelerationWithWallMax(particle & part, int index) {
-  double newcoord = part.position[index] + part.boundary[index] * constants::delt_t;
-  double delt     = constants::particle_size - (constants::max[index] - newcoord);
-  if (delt > 1e-10) {
+void grid::updateAccelerationWithWallMax(particle & part, int const index) {
+  double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
+  double const delt           = constants::particle_size - (constants::max[index] - newcoord);
+  double const close_position = 1e-10;
+  if (delt > close_position) {
     part.acceleration[index] -=
         constants::stiff_collisions * delt + constants::damping * part.velocity[index];
   }
 }
 
-void grid::updateAccelerationWithWall(particle & part, int x, int y, int z) {
-  if (x == 0) {
+void grid::updateAccelerationWithWall(particle & part, std::vector<int> const & grid_position) {
+  if (grid_position[0] == 0) {
     updateAccelerationWithWallMin(part, 0);
-  } else if (x == parameters.grid_size[0] - 1) {
+  } else if (grid_position[0] == parameters.grid_size[0] - 1) {
     updateAccelerationWithWallMax(part, 0);
   }
-  if (y == 0) {
+  if (grid_position[1] == 0) {
     updateAccelerationWithWallMin(part, 1);
-  } else if (y == parameters.grid_size[1] - 1) {
+  } else if (grid_position[1] == parameters.grid_size[1] - 1) {
     updateAccelerationWithWallMax(part, 1);
   }
-  if (z == 0) {
+  if (grid_position[2] == 0) {
     updateAccelerationWithWallMin(part, 2);
-  } else if (z == parameters.grid_size[2] - 1) {
+  } else if (grid_position[2] == parameters.grid_size[2] - 1) {
     updateAccelerationWithWallMax(part, 2);
   }
 }
 
 void grid::particlesMotion(particle & part) {
+  double const magic_1 = 2.0;
   for (int i = 0; i < 3; ++i) {
     part.position[i] += part.boundary[i] * constants::delt_t +
                         part.acceleration[i] * constants::delt_t * constants::delt_t;
-    part.velocity[i]  = part.boundary[i] + part.acceleration[i] * constants::delt_t / 2.0;
+    part.velocity[i]  = part.boundary[i] + part.acceleration[i] * constants::delt_t / magic_1;
     part.boundary[i] += part.acceleration[i] * constants::delt_t;
   }
 }
 
 // if grid_positioning[index] == 0
-void grid::collideWithWallMin(particle & part, int index) {
-  double dist = part.position[index] - constants::min[index];
+void grid::collideWithWallMin(particle & part, int const index) {
+  double const dist = part.position[index] - constants::min[index];
   if (dist < 0) {
     part.position[index]  = constants::min[index] - dist;
     part.velocity[index] *= -1.0;
@@ -220,8 +222,8 @@ void grid::collideWithWallMin(particle & part, int index) {
 }
 
 // if grid_positioning[index] == grid_size[index] - 1
-void grid::collideWithWallMax(particle & part, int index) {
-  double dist = constants::max[index] - part.position[index];
+void grid::collideWithWallMax(particle & part, int const index) {
+  double const dist = constants::max[index] - part.position[index];
   if (dist < 0) {
     part.position[index]  = constants::max[index] + dist;
     part.velocity[index] *= -1.0;
@@ -229,20 +231,20 @@ void grid::collideWithWallMax(particle & part, int index) {
   }
 }
 
-void grid::collideWithWall(particle & part, int x, int y, int z) {
-  if (x == 0) {
+void grid::collideWithWall(particle & part, std::vector<int> const & grid_position) {
+  if (grid_position[0] == 0) {
     collideWithWallMin(part, 0);
-  } else if (x == parameters.grid_size[0] - 1) {
+  } else if (grid_position[0] == parameters.grid_size[0] - 1) {
     collideWithWallMax(part, 0);
   }
-  if (y == 0) {
+  if (grid_position[1] == 0) {
     collideWithWallMin(part, 1);
-  } else if (y == parameters.grid_size[1] - 1) {
+  } else if (grid_position[1] == parameters.grid_size[1] - 1) {
     collideWithWallMax(part, 1);
   }
-  if (z == 0) {
+  if (grid_position[2] == 0) {
     collideWithWallMin(part, 2);
-  } else if (z == parameters.grid_size[2] - 1) {
+  } else if (grid_position[2] == parameters.grid_size[2] - 1) {
     collideWithWallMax(part, 2);
   }
 }
@@ -256,11 +258,11 @@ void grid::processStep() {
   for (int i = 0; i < parameters.grid_size[0]; ++i) {
     for (int j = 0; j < parameters.grid_size[1]; ++j) {
       for (int k = 0; k < parameters.grid_size[2]; ++k) {
-        for (int & part_id : part_grid[i][j][k].particles) {
+        for (int const & part_id : part_grid[i][j][k].particles) {
           particle & part = part_dict[part_id];
-          updateAccelerationWithWall(part, i, j, k);
+          updateAccelerationWithWall(part, std::vector<int>{i, j, k});
           particlesMotion(part);
-          collideWithWall(part, i, j, k);
+          collideWithWall(part, std::vector<int>{i, j, k});
         }
       }
     }

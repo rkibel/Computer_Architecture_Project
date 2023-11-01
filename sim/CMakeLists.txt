@@ -1,11 +1,10 @@
 # Add to this list all files related to sim library
 add_library(sim
-        utility.hpp
         utility.cpp
+        utility.hpp
         block.cpp
         block.hpp
         constants.hpp
-        constants.cpp
         grid.cpp
         grid.hpp
         params.cpp

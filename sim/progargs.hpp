@@ -1,21 +1,24 @@
 #ifndef PROGARGS_HPP
 #define PROGARGS_HPP
 
-#include "params.hpp"
 #include "grid.hpp"
+#include "params.hpp"
 #include "utility.hpp"
 
-#include <string>
-#include <iostream>
 #include <charconv>
 #include <fstream>
+#include <iostream>
+#include <string>
 
 void checkArgNumber(int argc);
 
-int parseInt(std::string arg);
+int parseInt(std::string const & arg);
 
-grid parseInputFile(std::string inputFile);
+grid parseInputFile(std::string const & inputFile);
 
-void writeFile(std::string outputFile, float ppm, int np, std::vector<particle> particles);
+void printGridInformation(params const & parameters);
 
-#endif // PROGARGS_HPP
+void writeFile(std::string const & outputFile, float ppm, int np,
+               std::vector<particle> const & particles);
+
+#endif  // PROGARGS_HPP

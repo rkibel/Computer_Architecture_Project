@@ -4,12 +4,12 @@
 #include <vector>
 
 struct particle {
-    int id;
+    int id = 0;
     std::vector<double> position;
     std::vector<double> boundary;
     std::vector<double> velocity;
     std::vector<double> acceleration;
-    double density;
+    double density = 0.0;
 };
 
-#endif // PARTICLE_HPP
+#endif  // PARTICLE_HPP

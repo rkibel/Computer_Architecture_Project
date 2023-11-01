@@ -24,17 +24,19 @@ struct grid {
                                   std::vector<double> const & pos2);
     void updateDensityBetweenParticles(particle & part1, particle & part2);
     void updateAccelerationBetweenParticles(particle & part1, particle & part2);
-    void updateSameBlock(std::vector<int> pos, bool updateType);
-    void updateDifferentBlock(std::vector<int> pos1, std::vector<int> pos2, bool updateType);
+    void updateSameBlock(std::vector<int> const & pos, bool updateType);
+    void updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
+                              bool updateType);
     void increaseVal(bool updateType);
+    void increaseSurroundingBlocks(int const & i, int const & j, int const & k, bool updateType);
     void densityTransform();
-    void updateAccelerationWithWallMin(particle & part, int index);
-    void updateAccelerationWithWallMax(particle & part, int index);
-    void updateAccelerationWithWall(particle & part, int x, int y, int z);
-    void particlesMotion(particle & part);
-    void collideWithWallMin(particle & part, int index);
-    void collideWithWallMax(particle & part, int index);
-    void collideWithWall(particle & part, int x, int y, int z);
+    static void updateAccelerationWithWallMin(particle & part, int index);
+    static void updateAccelerationWithWallMax(particle & part, int index);
+    void updateAccelerationWithWall(particle & part, std::vector<int> const & grid_position);
+    static void particlesMotion(particle & part);
+    static void collideWithWallMin(particle & part, int index);
+    static void collideWithWallMax(particle & part, int index);
+    void collideWithWall(particle & part, std::vector<int> const & grid_position);
     void processStep();
 };
 
