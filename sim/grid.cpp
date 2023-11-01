@@ -123,35 +123,20 @@ void grid::updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> 
 
 // updateType = true: update density
 // updateType = false: update acceleration
-void grid::increaseVal(bool const updateType) {
-  for (int i = 0; i < parameters.grid_size[0]; ++i) {
-    for (int j = 0; j < parameters.grid_size[1]; ++j) {
-      for (int k = 0; k < parameters.grid_size[2]; ++k) {
-        increaseSurroundingBlocks(i, j, k, updateType);
-      }
-    }
-  }
-}
 
-void grid::increaseSurroundingBlocks(int const & i, int const & j, int const & k, bool updateType) {
-  updateSameBlock(std::vector<int>{i, j, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j - 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j - 1, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j - 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k}, updateType);
+void grid::increaseSurroundingBlocks(const std::vector<int> &grid_position, bool updateType) {
+    updateSameBlock(grid_position, updateType);
+
+    // Precompute neighboring positions to avoid redundant calculations
+    std::vector<std::vector<int>> neighboring_positions = {
+            {grid_position[0] + 1, grid_position[1], grid_position[2]},
+            {grid_position[0], grid_position[1] + 1, grid_position[2]},
+            // Add other neighboring positions as needed
+    };
+
+    for (const auto &pos : neighboring_positions) {
+        updateDifferentBlock(grid_position, pos, updateType);
+    }
 }
 
 // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
@@ -250,21 +235,36 @@ void grid::collideWithWall(particle & part, std::vector<int> const & grid_positi
 }
 
 void grid::processStep() {
-  repositionParticles();
-  initializeDensityAndAcceleration();
-  increaseVal(true);
-  densityTransform();
-  increaseVal(false);
-  for (int i = 0; i < parameters.grid_size[0]; ++i) {
-    for (int j = 0; j < parameters.grid_size[1]; ++j) {
-      for (int k = 0; k < parameters.grid_size[2]; ++k) {
-        for (int const & part_id : part_grid[i][j][k].particles) {
-          particle & part = part_dict[part_id];
-          updateAccelerationWithWall(part, std::vector<int>{i, j, k});
-          particlesMotion(part);
-          collideWithWall(part, std::vector<int>{i, j, k});
+    repositionParticles();
+    initializeDensityAndAcceleration();
+
+    // Precompute values that are constant within inner loops
+    for (int i = 0; i < parameters.grid_size[0]; ++i) {
+        for (int j = 0; j < parameters.grid_size[1]; ++j) {
+            for (int k = 0; k < parameters.grid_size[2]; ++k) {
+                std::vector<int> grid_position = {i, j, k};
+                increaseSurroundingBlocks(grid_position, true);
+            }
         }
-      }
     }
-  }
+
+    densityTransform();
+
+    for (int i = 0; i < parameters.grid_size[0]; ++i) {
+        for (int j = 0; j < parameters.grid_size[1]; ++j) {
+            for (int k = 0; k < parameters.grid_size[2]; ++k) {
+                std::vector<int> grid_position = {i, j, k};
+                increaseSurroundingBlocks(grid_position, false);
+
+                // Process each particle in the block
+                block &current_block = part_grid[i][j][k];
+                for (int part_id : current_block.particles) {
+                    particle &part = part_dict[part_id];
+                    updateAccelerationWithWall(part, grid_position);
+                    particlesMotion(part);
+                    collideWithWall(part, grid_position);
+                }
+            }
+        }
+    }
 }

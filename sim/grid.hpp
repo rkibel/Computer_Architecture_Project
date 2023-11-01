@@ -28,7 +28,7 @@ struct grid {
     void updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
                               bool updateType);
     void increaseVal(bool updateType);
-    void increaseSurroundingBlocks(int const & i, int const & j, int const & k, bool updateType);
+    void increaseSurroundingBlocks(const std::vector<int> &grid_position, bool updateType);
     void densityTransform();
     static void updateAccelerationWithWallMin(particle & part, int index);
     static void updateAccelerationWithWallMax(particle & part, int index);

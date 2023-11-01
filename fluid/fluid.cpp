@@ -25,7 +25,7 @@ int main(int argc, char const * argv[]) {
 
   auto stop = clk :: now();
   auto diff = duration_cast<microseconds>(stop - start);
-  std :: cout << "Time = " << diff .count() << "us\n";
+  std::cout << "Time = " << diff .count() << "us\n";
 
   const auto read_ppm = static_cast<float>(particle_grid.parameters.ppm);
   const auto read_np = static_cast<int>(particle_grid.parameters.np);
