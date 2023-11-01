@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -march=native CMakeFiles/fluid.exe.dir/fluid.cpp.o -o fluid.exe  ../sim/libsim.a 

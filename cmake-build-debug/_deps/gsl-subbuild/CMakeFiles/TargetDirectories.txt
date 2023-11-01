@@ -1,3 +1,0 @@
-/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-debug/_deps/gsl-subbuild/CMakeFiles/gsl-populate.dir
-/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-debug/_deps/gsl-subbuild/CMakeFiles/edit_cache.dir
-/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-debug/_deps/gsl-subbuild/CMakeFiles/rebuild_cache.dir

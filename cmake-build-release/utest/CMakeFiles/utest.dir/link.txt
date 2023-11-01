@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -march=native CMakeFiles/utest.dir/grid_test.cpp.o CMakeFiles/utest.dir/progargs_test.cpp.o CMakeFiles/utest.dir/block_test.cpp.o -o utest  ../sim/libsim.a ../lib/libgtest_main.a ../lib/libgtest.a 

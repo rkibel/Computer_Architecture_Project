@@ -1,5 +1,0 @@
-if(EXISTS "/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/utest[1]_tests.cmake")
-  include("/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/utest[1]_tests.cmake")
-else()
-  add_test(utest_NOT_BUILT utest_NOT_BUILT)
-endif()

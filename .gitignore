@@ -1,3 +1,7 @@
 .vscode/
 build
 *.sh
+*.out
+cmake-build-debug
+cmake-build-release
+.idea

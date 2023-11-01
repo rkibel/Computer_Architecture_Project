@@ -1,10 +1,10 @@
 #include <span>
 #include <iostream>
 #include <vector>
+
+#include "../sim/grid.hpp"
 #include "../sim/progargs.hpp"
 #include "../sim/utility.cpp"
-#include "../sim/grid.hpp"
-
 
 int main(int argc, const char* argv[]) {
     checkArgNumber(argc);
@@ -16,7 +16,8 @@ int main(int argc, const char* argv[]) {
         std::cout << "step " << i << "\n";
         particle_grid.processStep();
     }
-    writeFile(arguments[2], static_cast<float>(particle_grid.parameters.ppm), static_cast<int>(particle_grid.parameters.np), particle_grid.part_dict);
+    writeFile(arguments[2], static_cast<float>(particle_grid.parameters.ppm),
+              static_cast<int>(particle_grid.parameters.np), particle_grid.part_dict);
     //binaryToText("small.fld", "small1.txt");
     //binaryToText("small-1.fld", "small-1.txt");
     //binaryToText("small-5.fld", "small-5.txt");

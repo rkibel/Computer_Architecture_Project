@@ -5,6 +5,7 @@ add_library(sim
         block.cpp
         block.hpp
         constants.hpp
+        constants.cpp
         grid.cpp
         grid.hpp
         params.cpp

@@ -11,80 +11,80 @@
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="test">
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 test"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 test"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="list_install_components">
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 list_install_components"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install">
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 install"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install/local">
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 install/local"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="install/strip">
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 install/strip"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock">
@@ -98,12 +98,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock/fast">
@@ -117,12 +124,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock_main">
@@ -136,12 +150,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock_main"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock_main"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gmock_main/fast">
@@ -155,12 +176,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googlemock"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock_main/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 gmock_main/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googlemock/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest">
@@ -172,12 +200,19 @@
 				<Compiler>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest/fast">
@@ -189,12 +224,19 @@
 				<Compiler>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest_main">
@@ -206,12 +248,19 @@
 				<Compiler>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest_main"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest_main"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="gtest_main/fast">
@@ -223,12 +272,19 @@
 				<Compiler>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest_main/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 gtest_main/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-build/googletest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="sim">
@@ -240,12 +296,19 @@
 				<Compiler>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/PUBLIC"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/."/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 sim"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 sim"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="sim/fast">
@@ -257,12 +320,19 @@
 				<Compiler>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/PUBLIC"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/."/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 sim/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 sim/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/sim/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="fluid">
@@ -275,12 +345,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/PUBLIC"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/."/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/../sim"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 fluid"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 fluid"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="fluid/fast">
@@ -293,12 +370,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/PUBLIC"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/."/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/../sim"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 fluid/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 fluid/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/fluid/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="utest">
@@ -313,12 +397,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-src/include"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 utest"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 utest"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="utest/fast">
@@ -333,12 +424,19 @@
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest/include"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/googletest-src/googletest"/>
 					<Add directory="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-src/include"/>
+					<Add directory="/usr/include/c++/11"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
+					<Add directory="/usr/include/c++/11/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 utest/fast"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 utest/fast"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/utest/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
@@ -361,6 +459,9 @@
 			<Option target="sim"/>
 		</Unit>
 		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/sim/block.hpp">
+			<Option target="sim"/>
+		</Unit>
+		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/sim/constants.cpp">
 			<Option target="sim"/>
 		</Unit>
 		<Unit filename="/home/ubuntu/CLionProjects/Computer_Architecture_Project/sim/constants.hpp">

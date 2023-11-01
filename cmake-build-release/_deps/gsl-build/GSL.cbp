@@ -11,10 +11,10 @@
 				<Option working_dir="/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/gmake -j8 -f &quot;/home/ubuntu/CLionProjects/Computer_Architecture_Project/cmake-build-release/_deps/gsl-build/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
