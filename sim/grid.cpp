@@ -256,7 +256,7 @@ void grid::processStep() {
   for (int i = 0; i < parameters.grid_size[0]; ++i) {
     for (int j = 0; j < parameters.grid_size[1]; ++j) {
       for (int k = 0; k < parameters.grid_size[2]; ++k) {
-        for (int & part_id : part_grid[i][j][k].particles) {
+        for (const int & part_id : part_grid[i][j][k].particles) {
           particle & part = part_dict[part_id];
           updateAccelerationWithWall(part, i, j, k);
           particlesMotion(part);

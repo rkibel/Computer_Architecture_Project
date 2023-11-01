@@ -28,7 +28,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="58f41601-4339-46d6-8f24-caa1a2fe7f39" name="Changes" comment="Merged with clean-code">
-      <change beforePath="$PROJECT_DIR$/fluid/fluid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/fluid/fluid.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-Debug-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-Release-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/CMakeFiles/clion-Release-log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-release/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/final-5.fld" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/final-5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sim/grid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sim/grid.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sim/progargs.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/sim/progargs.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,24 +62,6 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
-    {
-      "state": "OPEN"
-    }
-  ],
-  "lastFilter": {
-    "state": "OPEN"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="1ec424f1-beb0-4506-b1e6-56d70b38e8b2" />
-        <option name="url" value="https://github.com/google/googletest.git" />
-      </UrlAndAccount>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -102,14 +92,13 @@
     "cidr.known.project.marker": "true",
     "ctest.advertisement.all.test.configuration.is.created": "true",
     "git-widget-placeholder": "performance-testing",
-    "last_opened_file_path": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/final-5.txt",
+    "last_opened_file_path": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/CMakeLists.txt",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "CMakeSettings",
-    "structure.view.defaults.are.configured": "true",
     "two.files.diff.last.used.file": "/home/ubuntu/CLionProjects/Computer_Architecture_Project/final-5.txt",
     "vue.rearranger.settings.migration": "true"
   }
@@ -199,8 +188,9 @@
       <workItem from="1698605625946" duration="773000" />
       <workItem from="1698618290555" duration="2928000" />
       <workItem from="1698621336567" duration="77000" />
-      <workItem from="1698656670742" duration="10557000" />
-      <workItem from="1698683568308" duration="3259000" />
+      <workItem from="1698656670742" duration="10262000" />
+      <workItem from="1698772378089" duration="2473000" />
+      <workItem from="1698844695018" duration="1224000" />
     </task>
     <task id="LOCAL-00001" summary="&quot;Esto es una prueba&quot;">
       <option name="closed" value="true" />
@@ -322,31 +312,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698670380767</updated>
     </task>
-    <task id="LOCAL-00016" summary="Started clearing warnings in progargs.cpp">
+    <task id="LOCAL-00016" summary="Merged with clean-code">
       <option name="closed" value="true" />
-      <created>1698671041019</created>
+      <created>1698757885348</created>
       <option name="number" value="00016" />
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1698671041019</updated>
+      <updated>1698757885348</updated>
     </task>
-    <task id="LOCAL-00017" summary="Started clearing warnings in progargs.cpp">
-      <option name="closed" value="true" />
-      <created>1698755420325</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1698755420325</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Merged with clean-code">
-      <option name="closed" value="true" />
-      <created>1698756461430</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1698756461430</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -382,7 +356,6 @@
     <MESSAGE value="Updated clang tidy warnings in utility.cpp" />
     <MESSAGE value="Re-updated BinaryToText, now does work although 2 clang tidy warnings" />
     <MESSAGE value="Solved clang-tidy warnings with static in main" />
-    <MESSAGE value="Started clearing warnings in progargs.cpp" />
     <MESSAGE value="Merged with clean-code" />
     <option name="LAST_COMMIT_MESSAGE" value="Merged with clean-code" />
   </component>

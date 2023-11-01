@@ -30,9 +30,10 @@ grid parseInputFile(std::string inputFile) {
     }
     grid particle_grid(fileReader);
     params parameters = particle_grid.parameters;
+    const int ErrorStatus = 5;
     if (particle_grid.part_dict.size() != parameters.np) {
         std::cerr << "Error: Number of particles mismatch. Header: " << parameters.np << ", Found: " << particle_grid.part_dict.size() << ".\n";
-        exit(-5);
+        exit(-ErrorStatus);
     }
     std::cout << "Number of particles: " << parameters.np << "\n"
     "Particles per meter: " << parameters.ppm << "\n"
