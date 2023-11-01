@@ -27,7 +27,6 @@ struct grid {
     void updateSameBlock(std::vector<int> const & pos, bool updateType);
     void updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
                               bool updateType);
-    void increaseVal(bool updateType);
     void increaseSurroundingBlocks(const std::vector<int> &grid_position, bool updateType);
     void densityTransform();
     static void updateAccelerationWithWallMin(particle & part, int index);
@@ -38,6 +37,8 @@ struct grid {
     static void collideWithWallMax(particle & part, int index);
     void collideWithWall(particle & part, std::vector<int> const & grid_position);
     void processStep();
+    void precomputeBlockValues(bool isFirstPass);
+    void processParticles();
 };
 
 #endif  // GRID_HPP

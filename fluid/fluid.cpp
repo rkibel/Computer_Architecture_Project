@@ -6,8 +6,6 @@
 #include <iostream>
 #include <span>
 #include <vector>
-#include <chrono>
-
 
 int main(int argc, char const * argv[]) {
   checkArgNumber(argc);
@@ -17,15 +15,7 @@ int main(int argc, char const * argv[]) {
   const int nts = parseInt(arguments[0]);
   grid particle_grid = parseInputFile(arguments[1]);
 
-  using namespace std::chrono;
-  using clk = high_resolution_clock;
-  auto start = clk :: now();
-
   for (int i = 0; i < nts; ++i) { particle_grid.processStep(); }
-
-  auto stop = clk :: now();
-  auto diff = duration_cast<microseconds>(stop - start);
-  std::cout << "Time = " << diff .count() << "us\n";
 
   const auto read_ppm = static_cast<float>(particle_grid.parameters.ppm);
   const auto read_np = static_cast<int>(particle_grid.parameters.np);

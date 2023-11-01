@@ -128,7 +128,7 @@ void grid::increaseSurroundingBlocks(const std::vector<int> &grid_position, bool
     updateSameBlock(grid_position, updateType);
 
     // Precompute neighboring positions to avoid redundant calculations
-    std::vector<std::vector<int>> neighboring_positions = {
+    const std::vector<std::vector<int>> neighboring_positions = {
             {grid_position[0] + 1, grid_position[1], grid_position[2]},
             {grid_position[0], grid_position[1] + 1, grid_position[2]},
             // Add other neighboring positions as needed
@@ -237,28 +237,31 @@ void grid::collideWithWall(particle & part, std::vector<int> const & grid_positi
 void grid::processStep() {
     repositionParticles();
     initializeDensityAndAcceleration();
+    precomputeBlockValues(true);
+    densityTransform();
+    precomputeBlockValues(false);
+    processParticles();
+}
 
-    // Precompute values that are constant within inner loops
+void grid::precomputeBlockValues(bool isFirstPass) {
     for (int i = 0; i < parameters.grid_size[0]; ++i) {
         for (int j = 0; j < parameters.grid_size[1]; ++j) {
             for (int k = 0; k < parameters.grid_size[2]; ++k) {
-                std::vector<int> grid_position = {i, j, k};
-                increaseSurroundingBlocks(grid_position, true);
+                const std::vector<int> grid_position = {i, j, k};
+                increaseSurroundingBlocks(grid_position, isFirstPass);
             }
         }
     }
+}
 
-    densityTransform();
-
+void grid::processParticles() {
     for (int i = 0; i < parameters.grid_size[0]; ++i) {
         for (int j = 0; j < parameters.grid_size[1]; ++j) {
             for (int k = 0; k < parameters.grid_size[2]; ++k) {
-                std::vector<int> grid_position = {i, j, k};
+                const std::vector<int> grid_position = {i, j, k};
                 increaseSurroundingBlocks(grid_position, false);
-
-                // Process each particle in the block
-                block &current_block = part_grid[i][j][k];
-                for (int part_id : current_block.particles) {
+                const block &current_block = part_grid[i][j][k];
+                for (const int part_id : current_block.particles) {
                     particle &part = part_dict[part_id];
                     updateAccelerationWithWall(part, grid_position);
                     particlesMotion(part);
