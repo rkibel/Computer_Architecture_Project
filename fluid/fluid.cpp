@@ -9,26 +9,20 @@
 
 int main(int argc, char const * argv[]) {
   checkArgNumber(argc);
-  std::span const args_view{argv, static_cast<std::size_t>(argc)};
-  std::vector<std::string> arguments{args_view.begin() + 1, args_view.end()};
-  int const nts = parseInt(arguments[0]);
-  std::cout << "Parsed int"
-            << "\n";
+
+  std::span const args_view {argv, static_cast<std::size_t>(argc)};
+  std::vector<std::string> arguments {args_view.begin() + 1, args_view.end()};
+  const int nts = parseInt(arguments[0]);
   grid particle_grid = parseInputFile(arguments[1]);
-  std::cout << "Created particle grid"
-            << "\n";
-  for (int i = 0; i < nts; ++i) {
-    std::cout << "step " << i + 1 << "\n";
-    particle_grid.processStep();
-  }
-  writeFile(arguments[2], static_cast<float>(particle_grid.parameters.ppm),
-            static_cast<int>(particle_grid.parameters.np), particle_grid.part_dict);
-  // Small comment, adding
-  binaryToText("small.fld", "small-initial.txt");
-  binaryToText("reference-output/small-1.fld", "reference-output/small-1.txt");
-  binaryToText("reference-output/small-2.fld", "reference-output/small-2.txt");
-  binaryToText("reference-output/small-5.fld", "reference-output/small-5.txt");
-  binaryToText("reference-output/small-10.fld", "reference-output/small-10.txt");
-  binaryToText(arguments[2], "output.txt");
+
+  for (int i = 0; i < nts; ++i) { particle_grid.processStep(); }
+  
+  const auto read_ppm = static_cast<float>(particle_grid.parameters.ppm);
+  const auto read_np = static_cast<int>(particle_grid.parameters.np);
+  writeFile(arguments[2], read_ppm, read_np, particle_grid.part_dict);
+
+  // remove this later, just for testing purposes
+  binaryToText(arguments[2], "final.txt");
+
   return 0;
 }
