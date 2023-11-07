@@ -174,20 +174,12 @@ void grid::updateAccelerationWithWallMax(particle & part, int const index) {
 }
 
 void grid::updateAccelerationWithWall(particle & part, std::vector<int> const & grid_position) {
-  if (grid_position[0] == 0) {
-    updateAccelerationWithWallMin(part, 0);
-  } else if (grid_position[0] == parameters.grid_size[0] - 1) {
-    updateAccelerationWithWallMax(part, 0);
-  }
-  if (grid_position[1] == 0) {
-    updateAccelerationWithWallMin(part, 1);
-  } else if (grid_position[1] == parameters.grid_size[1] - 1) {
-    updateAccelerationWithWallMax(part, 1);
-  }
-  if (grid_position[2] == 0) {
-    updateAccelerationWithWallMin(part, 2);
-  } else if (grid_position[2] == parameters.grid_size[2] - 1) {
-    updateAccelerationWithWallMax(part, 2);
+  for (int i = 0; i < 3; i++) {
+    if (grid_position[i] == 0) {
+      updateAccelerationWithWallMin(part, i);
+    } else if (grid_position[i] == parameters.grid_size[i] - 1) {
+      updateAccelerationWithWallMax(part, i);
+    }
   }
 }
 
@@ -222,20 +214,12 @@ void grid::collideWithWallMax(particle & part, int const index) {
 }
 
 void grid::collideWithWall(particle & part, std::vector<int> const & grid_position) {
-  if (grid_position[0] == 0) {
-    collideWithWallMin(part, 0);
-  } else if (grid_position[0] == parameters.grid_size[0] - 1) {
-    collideWithWallMax(part, 0);
-  }
-  if (grid_position[1] == 0) {
-    collideWithWallMin(part, 1);
-  } else if (grid_position[1] == parameters.grid_size[1] - 1) {
-    collideWithWallMax(part, 1);
-  }
-  if (grid_position[2] == 0) {
-    collideWithWallMin(part, 2);
-  } else if (grid_position[2] == parameters.grid_size[2] - 1) {
-    collideWithWallMax(part, 2);
+  for (int i = 0; i < 3; i++) {
+    if (grid_position[i] == 0) {
+      collideWithWallMin(part, i);
+    } else if (grid_position[i] == parameters.grid_size[i] - 1) {
+      collideWithWallMax(part, i);
+    }
   }
 }
 
