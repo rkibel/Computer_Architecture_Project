@@ -5,20 +5,10 @@ grid::grid(std::istream & fileReader) {
   int counter = 0;
   while (!fileReader.eof()) {
     particle part;
-    part.id                     = counter;
-    int const line_values       = 9;
-    int const pos_conditional   = 3;
-    int const bound_conditional = 6;
-    for (int i = 0; i < line_values; ++i) {
-      double const temp = read_float(fileReader);
-      if (i < pos_conditional) {
-        part.position.push_back(temp);
-      } else if (i < bound_conditional) {
-        part.boundary.push_back(temp);
-      } else {
-        part.velocity.push_back(temp);
-      }
-    }
+    part.id = counter;
+    for (double & iter : part.position) { iter = read_float(fileReader); }
+    for (double & iter : part.boundary) { iter = read_float(fileReader); }
+    for (double & iter : part.velocity) { iter = read_float(fileReader); }
     part_dict.push_back(part);
     counter++;
   }
@@ -35,7 +25,7 @@ void grid::repositionParticles() {
     std::vector<int> pos;
     for (int j = 0; j < 3; ++j) {
       int const position = static_cast<int>(
-          std::floor((part_dict[i].position[j] - constants::min[j]) / parameters.block_size[j]));
+          std::floor((part_dict[i].position[j] - parameters.min[j]) / parameters.block_size[j]));
       pos.push_back(std::max(0, std::min(position, parameters.grid_size[j] - 1)));
     }
     new_part_grid[pos[0]][pos[1]][pos[2]].particles.push_back(static_cast<int>(i));
@@ -46,7 +36,7 @@ void grid::repositionParticles() {
 void grid::initializeDensityAndAcceleration() {
   for (particle & part : part_dict) {
     part.density      = 0.0;
-    part.acceleration = constants::acceleration;
+    part.acceleration = parameters.acceleration;
   }
 }
 
@@ -164,7 +154,7 @@ void grid::densityTransform() {
 // if grid_positioning[index] == 0
 void grid::updateAccelerationWithWallMin(particle & part, int const index) {
   double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
-  double const delt           = constants::particle_size - (newcoord - constants::min[index]);
+  double const delt           = constants::particle_size - (newcoord - parameters.min[index]);
   double const close_position = 1e-10;
   if (delt > close_position) {
     part.acceleration[index] +=
@@ -175,7 +165,7 @@ void grid::updateAccelerationWithWallMin(particle & part, int const index) {
 // if grid_positioning[index] == grid_size[index] - 1
 void grid::updateAccelerationWithWallMax(particle & part, int const index) {
   double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
-  double const delt           = constants::particle_size - (constants::max[index] - newcoord);
+  double const delt           = constants::particle_size - (parameters.max[index] - newcoord);
   double const close_position = 1e-10;
   if (delt > close_position) {
     part.acceleration[index] -=
@@ -213,9 +203,9 @@ void grid::particlesMotion(particle & part) {
 
 // if grid_positioning[index] == 0
 void grid::collideWithWallMin(particle & part, int const index) {
-  double const dist = part.position[index] - constants::min[index];
+  double const dist = part.position[index] - parameters.min[index];
   if (dist < 0) {
-    part.position[index]  = constants::min[index] - dist;
+    part.position[index]  = parameters.min[index] - dist;
     part.velocity[index] *= -1.0;
     part.boundary[index] *= -1.0;
   }
@@ -223,9 +213,9 @@ void grid::collideWithWallMin(particle & part, int const index) {
 
 // if grid_positioning[index] == grid_size[index] - 1
 void grid::collideWithWallMax(particle & part, int const index) {
-  double const dist = constants::max[index] - part.position[index];
+  double const dist = parameters.max[index] - part.position[index];
   if (dist < 0) {
-    part.position[index]  = constants::max[index] + dist;
+    part.position[index]  = parameters.max[index] + dist;
     part.velocity[index] *= -1.0;
     part.boundary[index] *= -1.0;
   }

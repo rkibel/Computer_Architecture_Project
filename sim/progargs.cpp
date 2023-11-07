@@ -75,18 +75,9 @@ void writeFile(std::string const & outputFile, float ppm, int np,
   }
   write_float(ppm, fileWriter);
   write_int(np, fileWriter);
-  int const line_values       = 9;
-  int const pos_conditional   = 3;
-  int const bound_conditional = 6;
-  for (particle part : particles) {
-    for (int i = 0; i < line_values; ++i) {
-      auto temp = static_cast<float>(part.velocity[i % 3]);
-      if (i < pos_conditional) {
-        temp = static_cast<float>(part.position[i % 3]);
-      } else if (i < bound_conditional) {
-        temp = static_cast<float>(part.boundary[i % 3]);
-      }
-      write_float(temp, fileWriter);
-    }
+  for (const particle & part : particles) {
+    for (double const & iter : part.position){ write_float(static_cast<float>(iter), fileWriter); }
+    for (double const & iter : part.boundary){ write_float(static_cast<float>(iter), fileWriter); }
+    for (double const & iter : part.velocity){ write_float(static_cast<float>(iter), fileWriter); }    
   }
 }
