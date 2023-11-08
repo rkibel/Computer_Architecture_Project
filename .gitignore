@@ -1,2 +1,14 @@
+# all unnecessary folders
 .vscode/
 build
+cmake-build-debug
+cmake-build-release
+.idea
+
+# file extensions of the following
+*.out
+*.fld
+*.txt
+
+# except CMakeLists files
+!CMakeLists.txt
