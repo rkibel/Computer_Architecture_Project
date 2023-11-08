@@ -4,11 +4,8 @@ add_library(sim
         utility.hpp
         block.cpp
         block.hpp
-        constants.hpp
         grid.cpp
         grid.hpp
-        params.cpp
-        params.hpp
         particle.hpp
         progargs.cpp
         progargs.hpp

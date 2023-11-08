@@ -34,7 +34,7 @@ void write_int(int value, std::ostream & os) {
   os.write(as_buffer(value), sizeof(value));
 }
 
-void binaryToText(std::string const & inputFile, std::string const & outputFile) {
+/*void binaryToText(std::string const & inputFile, std::string const & outputFile) {
   std::ifstream inFile;
   inFile.open(inputFile, std::ios::binary);
 
@@ -58,4 +58,4 @@ void binaryToText(std::string const & inputFile, std::string const & outputFile)
     outFile << pos_x << " " << pos_y << " " << pos_z << " " << hvx << " " << hvy << " " << hvz
             << " " << vel_x << " " << vel_y << " " << vel_z << "\n";
   }
-}
+}*/

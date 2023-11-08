@@ -29,53 +29,42 @@ grid parseInputFile(std::string const & inputFile) {
     std::cerr << "Error: Cannot open " << inputFile << " for reading";
     exit(-3);
   }
-  grid particle_grid(fileReader);
-  params const parameters = particle_grid.parameters;
-  if (particle_grid.part_dict.size() != parameters.np) {
-    std::cerr << "Error: Number of particles mismatch. Header: " << parameters.np
-              << ", Found: " << particle_grid.part_dict.size() << ".\n";
+  const grid grid(fileReader);
+  if (grid.part_dict.size() != grid.np) {
+    std::cerr << "Error: Number of particles mismatch. Header: " << grid.np
+              << ", Found: " << grid.part_dict.size() << ".\n";
     int const exit_status_error = -5;
     exit(exit_status_error);
   }
-  printGridInformation(parameters);
-  return particle_grid;
+  printGridInformation(grid);
+  return grid;
 }
 
-void printGridInformation(params const & parameters) {
-  std::cout << "Number of particles: " << parameters.np
-            << "\n"
-               "Particles per meter: "
-            << parameters.ppm
-            << "\n"
-               "Smoothing length: "
-            << parameters.smoothing_length
-            << "\n"
-               "Particle mass: "
-            << parameters.mass
-            << "\n"
-               "Grid size: "
-            << parameters.grid_size[0] << " x " << parameters.grid_size[1] << " x "
-            << parameters.grid_size[2]
-            << "\n"
-               "Number of blocks: "
-            << parameters.grid_size[0] * parameters.grid_size[1] * parameters.grid_size[2]
-            << "\n"
-               "Block size: "
-            << parameters.block_size[0] << " x " << parameters.block_size[1] << " x "
-            << parameters.block_size[2] << "\n";
+void printGridInformation(grid const & grid) {
+  std::cout << "Number of particles: " << grid.np << "\n"
+               "Particles per meter: " << grid.ppm << "\n"
+               "Smoothing length: " << grid.smoothing_length << "\n"
+               "Particle mass: " << grid.mass << "\n"
+               "Grid size: " << grid.grid_size[0] << " x " << grid.grid_size[1] << " x " 
+               << grid.grid_size[2] << "\n"
+               "Number of blocks: " << grid.grid_size[0] * grid.grid_size[1] * 
+               grid.grid_size[2] << "\n"
+               "Block size: " << grid.block_size[0] << " x " << grid.block_size[1] << " x "
+               << grid.block_size[2] << "\n";
 }
 
-void writeFile(std::string const & outputFile, float ppm, int np,
-               std::vector<particle> const & particles) {
+void writeFile(std::string const & outputFile, grid const & grid) {
   std::ofstream fileWriter;
   fileWriter.open(outputFile, std::ios::binary);
   if (!fileWriter) {
     std::cerr << "Error: Cannot open " << outputFile << " for writing";
     exit(-4);
   }
-  write_float(ppm, fileWriter);
-  write_int(np, fileWriter);
-  for (const particle & part : particles) {
+  const auto write_ppm = static_cast<float>(grid.ppm);
+  const auto write_np = static_cast<int>(grid.np);
+  write_float(write_ppm, fileWriter);
+  write_int(write_np, fileWriter);
+  for (const particle & part : grid.part_dict) {
     for (double const & iter : part.position){ write_float(static_cast<float>(iter), fileWriter); }
     for (double const & iter : part.boundary){ write_float(static_cast<float>(iter), fileWriter); }
     for (double const & iter : part.velocity){ write_float(static_cast<float>(iter), fileWriter); }    

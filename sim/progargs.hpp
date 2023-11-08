@@ -2,7 +2,6 @@
 #define PROGARGS_HPP
 
 #include "grid.hpp"
-#include "params.hpp"
 #include "utility.hpp"
 
 #include <charconv>
@@ -16,9 +15,8 @@ int parseInt(std::string const & arg);
 
 grid parseInputFile(std::string const & inputFile);
 
-void printGridInformation(params const & parameters);
+void printGridInformation(grid const & grid);
 
-void writeFile(std::string const & outputFile, float ppm, int np,
-               std::vector<particle> const & particles);
+void writeFile(std::string const & outputFile, grid const & grid);
 
 #endif  // PROGARGS_HPP
