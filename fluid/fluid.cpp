@@ -7,7 +7,6 @@
 
 int main(int argc, char const * argv[]) {
   checkArgNumber(argc);
-
   std::span const args_view {argv, static_cast<std::size_t>(argc)};
   std::vector<std::string> arguments {args_view.begin() + 1, args_view.end()};
   const int nts = parseInt(arguments[0]);
