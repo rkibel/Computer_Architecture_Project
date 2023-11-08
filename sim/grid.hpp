@@ -18,8 +18,7 @@ struct grid {
     params parameters;
 
     grid(std::istream & fileReader);
-    void repositionParticles();
-    void initializeDensityAndAcceleration();
+    void repositionAndInitialize();
     static double geomNormSquared(std::vector<double> const & pos1,
                                   std::vector<double> const & pos2);
     void updateDensityBetweenParticles(particle & part1, particle & part2);
@@ -30,12 +29,12 @@ struct grid {
     void increaseVal(bool updateType);
     void increaseSurroundingBlocks(int const & i, int const & j, int const & k, bool updateType);
     void densityTransform();
-    static void updateAccelerationWithWallMin(particle & part, int index);
-    static void updateAccelerationWithWallMax(particle & part, int index);
+    void updateAccelerationWithWallMin(particle & part, int index);
+    void updateAccelerationWithWallMax(particle & part, int index);
     void updateAccelerationWithWall(particle & part, std::vector<int> const & grid_position);
     static void particlesMotion(particle & part);
-    static void collideWithWallMin(particle & part, int index);
-    static void collideWithWallMax(particle & part, int index);
+    void collideWithWallMin(particle & part, int index);
+    void collideWithWallMax(particle & part, int index);
     void collideWithWall(particle & part, std::vector<int> const & grid_position);
     void processStep();
 };

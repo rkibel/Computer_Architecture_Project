@@ -15,15 +15,20 @@ struct params {
     double mass             = 0.0;
     double smoothing_length = 0.0;
 
-    std::vector<double> density_factors;  // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
-    std::vector<double>
-        acceleration_factors;  // factors = { h^2, 45*m*p_s/pi/h^6/2 , 45*mu*m/pi/h^6 }
+    // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
+    std::vector<double> density_factors;
+    // factors = { h^2, 45*m*p_s/pi/h^6/2 , 45*mu*m/pi/h^6 }
+    std::vector<double> acceleration_factors;
 
     std::vector<int> grid_size;
     std::vector<double> block_size;
+    std::vector<double> acceleration;
+    std::vector<double> min;
+    std::vector<double> max;
 
     void initialize(std::istream & fileReader);
     void initializeVectors();
+    void initializeFactors();
 };
 
 #endif  // PARAMS_HPP

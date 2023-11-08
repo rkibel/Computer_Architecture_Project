@@ -12,9 +12,10 @@ void params::initialize(std::istream & fileReader) {
   mass             = constants::fluid_density / ppm / ppm / ppm;
   smoothing_length = constants::radius_mult / ppm;
   initializeVectors();
+  initializeFactors();
 }
 
-void params::initializeVectors() {
+void params::initializeFactors() {
   int const magic_1    = 6;
   double const magic_2 = 315.0;
   double const magic_3 = 64.0;
@@ -28,11 +29,21 @@ void params::initializeVectors() {
                               std::pow(smoothing_length, magic_1) / 2,
                           magic_5 * mass * constants::viscosity / std::numbers::pi /
                               std::pow(smoothing_length, magic_1)};
+}
+
+void params::initializeVectors() {
+  double const mag1 = -9.8;
+  double const mag2 = -0.065;
+  double const mag3 = -0.08;
+  double const mag4 = 0.1;
+  acceleration = {0.0, mag1, 0.0};
+  min = {mag2, mag3, mag2};
+  max = {-mag2, mag4, -mag2};
   grid_size            = {
-    static_cast<int>(std::floor((constants::max[0] - constants::min[0]) / smoothing_length)),
-    static_cast<int>(std::floor((constants::max[1] - constants::min[1]) / smoothing_length)),
-    static_cast<int>(std::floor((constants::max[2] - constants::min[2]) / smoothing_length))};
-  block_size = {(constants::max[0] - constants::min[0]) / grid_size[0],
-                (constants::max[1] - constants::min[1]) / grid_size[1],
-                (constants::max[2] - constants::min[2]) / grid_size[2]};
+    static_cast<int>(std::floor((max[0] - min[0]) / smoothing_length)),
+    static_cast<int>(std::floor((max[1] - min[1]) / smoothing_length)),
+    static_cast<int>(std::floor((max[2] - min[2]) / smoothing_length))};
+  block_size = {(max[0] - min[0]) / grid_size[0],
+                (max[1] - min[1]) / grid_size[1],
+                (max[2] - min[2]) / grid_size[2]};
 }
