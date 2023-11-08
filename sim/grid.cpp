@@ -47,8 +47,8 @@ void grid::initializeParticles(std::istream & fileReader) {
   int counter = 0;
   while (!fileReader.eof()) {
     particle part;
-    part.id = counter;
-    int const three   = 3;
+    part.id         = counter;
+    int const three = 3;
     for (int i = 0; i < three; ++i) { part.position.push_back(read_float(fileReader)); }
     for (int i = 0; i < three; ++i) { part.boundary.push_back(read_float(fileReader)); }
     for (int i = 0; i < three; ++i) { part.velocity.push_back(read_float(fileReader)); }
@@ -56,6 +56,50 @@ void grid::initializeParticles(std::istream & fileReader) {
     counter++;
   }
   part_dict.pop_back();
+  initializeNeighborCombinations();  // initializing neighbor combinations
+}
+
+void grid::addNeighborCombination(std::vector<std::vector<int>> & neighbor_combinations,
+                                  std::vector<int> const & neighbor_pos) {
+  if (neighbor_pos[0] >= parameters.grid_size[0] || neighbor_pos[0] < 0 ||
+      neighbor_pos[1] >= parameters.grid_size[1] || neighbor_pos[1] < 0 ||
+      neighbor_pos[2] >= parameters.grid_size[2] || neighbor_pos[2] < 0) {
+    return;
+  }
+  neighbor_combinations.push_back(neighbor_pos);
+}
+
+void grid::addNeighborCombinationVector(int const & i, int const & j, int const & k,
+                                        std::vector<std::vector<int>> & neighbor_combinations) {
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j + 1, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j + 1, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j - 1, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j + 1, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j - 1, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j - 1, k + 1});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j, k});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j + 1, k});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j + 1, k});
+  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j + 1, k});
+}
+
+void grid::initializeNeighborCombinations() {
+  int counter = 0;
+  for (int i = 0; i < parameters.grid_size[0]; ++i) {
+    for (int j = 0; j < parameters.grid_size[1]; ++j) {
+      for (int k = 0; k < parameters.grid_size[2]; ++k) {
+        std::vector<int> const pos = {i, j, k};
+        grid_combinations.emplace_back(pos, counter);
+        std::vector<std::vector<int>> neighbor_combinations;
+        addNeighborCombinationVector(pos[0], pos[1], pos[2], neighbor_combinations);
+        grid_neighbor_combinations.push_back(neighbor_combinations);
+        counter++;
+      }
+    }
+  }
 }
 
 void grid::repositionAndInitialize() {
@@ -152,11 +196,11 @@ void grid::updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> 
 // updateType = true: update density
 // updateType = false: update acceleration
 void grid::increaseVal(bool const updateType) {
-  for (int i = 0; i < grid_size[0]; ++i) {
-    for (int j = 0; j < grid_size[1]; ++j) {
-      for (int k = 0; k < grid_size[2]; ++k) {
-        increaseSurroundingBlocks(i, j, k, updateType);
-      }
+  for (auto const & pos_pair : grid_combinations) {
+    auto const & pos = pos_pair.first;
+    updateSameBlock(pos, updateType);
+    for (auto const & neighbor_pos : grid_neighbor_combinations[pos_pair.second]) {
+      updateDifferentBlock(pos, neighbor_pos, updateType);
     }
   }
 }
@@ -266,16 +310,14 @@ void grid::processStep() {
   increaseVal(true);
   densityTransform();
   increaseVal(false);
-  for (int i = 0; i < grid_size[0]; ++i) {
-    for (int j = 0; j < grid_size[1]; ++j) {
-      for (int k = 0; k < grid_size[2]; ++k) {
-        for (int const & part_id : part_grid[i][j][k].particles) {
-          particle & part = part_dict[part_id];
-          updateAccelerationWithWall(part, std::vector<int>{i, j, k});
-          particlesMotion(part);
-          collideWithWall(part, std::vector<int>{i, j, k});
-        }
-      }
+
+  for (auto const & pos_pair : grid_combinations) {
+    auto const & pos = pos_pair.first;
+    for (int const & part_id : part_grid[pos[0]][pos[1]][pos[2]].particles) {
+      particle & part = part_dict[part_id];
+      updateAccelerationWithWall(part, pos);
+      particlesMotion(part);
+      collideWithWall(part, pos);
     }
   }
 }

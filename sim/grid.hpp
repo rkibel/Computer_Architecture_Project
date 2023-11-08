@@ -41,10 +41,20 @@ struct grid {
     std::vector<double> min;
     std::vector<double> max;
 
+    std::vector<std::pair<std::vector<int> const, int>>
+        grid_combinations;  // Grid positions and number for "dictionary" of neighboring positions
+    std::vector<std::vector<std::vector<int>>>
+        grid_neighbor_combinations;  // "Dictionary" of neighboring positions
+
     grid(std::istream & fileReader);
     void initializeVectors();
     void initializeFactors();
     void initializeParticles(std::istream & fileReader);
+    void addNeighborCombination(std::vector<std::vector<int>> & neighbor_combinations,
+                                std::vector<int> const & neighbor_pos);
+    void addNeighborCombinationVector(int const & i, int const & j, int const & k,
+                                      std::vector<std::vector<int>> & neighbor_combinations);
+    void initializeNeighborCombinations();
     void repositionAndInitialize();
     static double geomNormSquared(std::vector<double> const & pos1,
                                   std::vector<double> const & pos2);
