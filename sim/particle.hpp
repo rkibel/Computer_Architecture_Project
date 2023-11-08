@@ -10,6 +10,7 @@ struct particle {
     std::vector<double> velocity;
     std::vector<double> acceleration;
     double density = 0.0;
+    std::vector<int> grid_pos{0, 0, 0};
 };
 
 #endif  // PARTICLE_HPP

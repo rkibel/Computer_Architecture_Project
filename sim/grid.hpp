@@ -17,16 +17,12 @@ struct grid {
     std::vector<particle> part_dict;
     params parameters;
 
-    std::vector<std::pair<std::vector<int> const, int>>
-        grid_combinations;  // Grid positions and number for "dictionary" of neighboring positions
-    std::vector<std::vector<std::vector<int>>>
-        grid_neighbor_combinations;  // "Dictionary" of neighboring positions
+    std::vector<std::vector<std::vector<int>>> grid_neighbor_combinations;
 
     grid(std::istream & fileReader);
-    void addNeighborCombination(std::vector<std::vector<int>> & neighbor_combinations,
-                                std::vector<int> const & neighbor_pos);
-    void addNeighborCombinationVector(int const & i, int const & j, int const & k,
-                                      std::vector<std::vector<int>> & neighbor_combinations);
+
+    [[nodiscard]] bool isOutsideGrid(int i, int j, int k) const;
+    [[nodiscard]] std::vector<std::vector<int>> getNeighbors(int i, int j, int k) const;
     void initializeNeighborCombinations();
     void repositionAndInitialize();
     static double geomNormSquared(std::vector<double> const & pos1,
@@ -37,15 +33,14 @@ struct grid {
     void updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
                               bool updateType);
     void increaseVal(bool updateType);
-    void increaseSurroundingBlocks(int const & i, int const & j, int const & k, bool updateType);
     void densityTransform();
-    void updateAccelerationWithWallMin(particle & part, int index);
-    void updateAccelerationWithWallMax(particle & part, int index);
-    void updateAccelerationWithWall(particle & part, std::vector<int> const & grid_position);
+    void updateAccWithWallMin(particle & part, int index);
+    void updateAccWithWallMax(particle & part, int index);
+    void updateAccWithWall(particle & part);
     static void particlesMotion(particle & part);
     void collideWithWallMin(particle & part, int index);
     void collideWithWallMax(particle & part, int index);
-    void collideWithWall(particle & part, std::vector<int> const & grid_position);
+    void collideWithWall(particle & part);
     void processStep();
 };
 

@@ -14,47 +14,39 @@ grid::grid(std::istream & fileReader) {
     counter++;
   }
   part_dict.pop_back();
-  initializeNeighborCombinations();  // initializing neighbor combinations
+  initializeNeighborCombinations();
 }
 
-void grid::addNeighborCombination(std::vector<std::vector<int>> & neighbor_combinations,
-                                  std::vector<int> const & neighbor_pos) {
-  if (neighbor_pos[0] >= parameters.grid_size[0] || neighbor_pos[0] < 0 ||
-      neighbor_pos[1] >= parameters.grid_size[1] || neighbor_pos[1] < 0 ||
-      neighbor_pos[2] >= parameters.grid_size[2] || neighbor_pos[2] < 0) {
-    return;
-  }
-  neighbor_combinations.push_back(neighbor_pos);
+bool grid::isOutsideGrid(int i, int j, int k) const {
+  return (i >= parameters.grid_size[0] || i < 0 ||
+          j >= parameters.grid_size[1] || j < 0 ||
+          k >= parameters.grid_size[2] || k < 0);
 }
 
-void grid::addNeighborCombinationVector(int const & i, int const & j, int const & k,
-                                        std::vector<std::vector<int>> & neighbor_combinations) {
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j + 1, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j + 1, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j - 1, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j + 1, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j - 1, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j - 1, k + 1});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j, k});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i + 1, j + 1, k});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i, j + 1, k});
-  addNeighborCombination(neighbor_combinations, std::vector<int>{i - 1, j + 1, k});
+std::vector<std::vector<int>> grid::getNeighbors(int i, int j, int k) const {
+  std::vector<std::vector<int>> neighbors;
+  neighbors.push_back(std::vector<int>{i, j, k});
+  if (!isOutsideGrid(i+1, j+1, k+1)) { neighbors.push_back(std::vector<int>{i+1, j+1, k+1}); }
+  if (!isOutsideGrid(i+1, j, k+1)) { neighbors.push_back(std::vector<int>{i+1, j, k+1}); }
+  if (!isOutsideGrid(i, j+1, k+1)) { neighbors.push_back(std::vector<int>{i, j+1, k+1}); }
+  if (!isOutsideGrid(i, j, k+1)) { neighbors.push_back(std::vector<int>{i, j, k+1}); }
+  if (!isOutsideGrid(i-1, j, k+1)) { neighbors.push_back(std::vector<int>{i-1, j, k+1}); }
+  if (!isOutsideGrid(i-1, j-1, k+1)) { neighbors.push_back(std::vector<int>{i-1, j-1, k+1}); }
+  if (!isOutsideGrid(i-1, j+1, k+1)) { neighbors.push_back(std::vector<int>{i-1, j+1, k+1}); }
+  if (!isOutsideGrid(i, j-1, k+1)) { neighbors.push_back(std::vector<int>{i, j-1, k+1}); }
+  if (!isOutsideGrid(i+1, j-1, k+1)) { neighbors.push_back(std::vector<int>{i+1, j-1, k+1}); }
+  if (!isOutsideGrid(i+1, j, k)) { neighbors.push_back(std::vector<int>{i+1, j, k}); }
+  if (!isOutsideGrid(i+1, j+1, k)) { neighbors.push_back(std::vector<int>{i+1, j+1, k}); }
+  if (!isOutsideGrid(i, j+1, k)) { neighbors.push_back(std::vector<int>{i, j+1, k}); }
+  if (!isOutsideGrid(i-1, j+1, k)) { neighbors.push_back(std::vector<int>{i-1, j+1, k}); }
+  return neighbors;  
 }
 
 void grid::initializeNeighborCombinations() {
-  int counter = 0;
   for (int i = 0; i < parameters.grid_size[0]; ++i) {
     for (int j = 0; j < parameters.grid_size[1]; ++j) {
       for (int k = 0; k < parameters.grid_size[2]; ++k) {
-        std::vector<int> const pos = {i, j, k};
-        grid_combinations.emplace_back(pos, counter);
-        std::vector<std::vector<int>> neighbor_combinations;
-        addNeighborCombinationVector(pos[0], pos[1], pos[2], neighbor_combinations);
-        grid_neighbor_combinations.push_back(neighbor_combinations);
-        counter++;
+        grid_neighbor_combinations.push_back(getNeighbors(i, j, k));
       }
     }
   }
@@ -74,7 +66,7 @@ void grid::repositionAndInitialize() {
       pos.push_back(std::max(0, std::min(position, parameters.grid_size[j] - 1)));
     }
     new_part_grid[pos[0]][pos[1]][pos[2]].particles.push_back(static_cast<int>(i));
-
+    part_dict[i].grid_pos     = pos;
     part_dict[i].density      = 0.0;
     part_dict[i].acceleration = parameters.acceleration;
   }
@@ -121,32 +113,24 @@ void grid::updateSameBlock(std::vector<int> const & pos, bool const updateType) 
     for (std::size_t j = i + 1; j < part_block.particles.size(); ++j) {
       particle & part1 = part_dict[part_block.particles[i]];
       particle & part2 = part_dict[part_block.particles[j]];
-      if (updateType) {
-        updateDensityBetweenParticles(part1, part2);
-      } else {
-        updateAccelerationBetweenParticles(part1, part2);
-      }
+      if (updateType) { updateDensityBetweenParticles(part1, part2); } 
+      else { updateAccelerationBetweenParticles(part1, part2); }
     }
   }
 }
 
 void grid::updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
                                 bool const updateType) {
-  if (pos1[0] >= parameters.grid_size[0] || pos1[0] < 0 || pos1[1] >= parameters.grid_size[1] ||
-      pos1[1] < 0 || pos1[2] >= parameters.grid_size[2] || pos1[2] < 0 ||
-      pos2[0] >= parameters.grid_size[0] || pos2[0] < 0 || pos2[1] >= parameters.grid_size[1] ||
-      pos2[1] < 0 || pos2[2] >= parameters.grid_size[2] || pos2[2] < 0) {
-    return;
-  }
-
-  block const block1 = part_grid[pos1[0]][pos1[1]][pos1[2]];
-  block const block2 = part_grid[pos2[0]][pos2[1]][pos2[2]];
-  for (int const & outer_index : block1.particles) {
-    for (int const & inner_index : block2.particles) {
-      if (updateType) {
-        updateDensityBetweenParticles(part_dict[outer_index], part_dict[inner_index]);
-      } else {
-        updateAccelerationBetweenParticles(part_dict[outer_index], part_dict[inner_index]);
+  if (!isOutsideGrid(pos1[0], pos1[1], pos1[2]) && !isOutsideGrid(pos2[0], pos2[1], pos2[2])) {
+    block const block1 = part_grid[pos1[0]][pos1[1]][pos1[2]];
+    block const block2 = part_grid[pos2[0]][pos2[1]][pos2[2]];
+    for (int const & outer_index : block1.particles) {
+      for (int const & inner_index : block2.particles) {
+        if (updateType) {
+          updateDensityBetweenParticles(part_dict[outer_index], part_dict[inner_index]);
+        } else {
+          updateAccelerationBetweenParticles(part_dict[outer_index], part_dict[inner_index]);
+        }
       }
     }
   }
@@ -155,34 +139,12 @@ void grid::updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> 
 // updateType = true: update density
 // updateType = false: update acceleration
 void grid::increaseVal(bool const updateType) {
-  for (auto const & pos_pair : grid_combinations) {
-    auto const & pos = pos_pair.first;
-    updateSameBlock(pos, updateType);
-    for (auto const & neighbor_pos : grid_neighbor_combinations[pos_pair.second]) {
-      updateDifferentBlock(pos, neighbor_pos, updateType);
+  for (auto const & surround : grid_neighbor_combinations) {
+    updateSameBlock(surround[0], updateType);
+    for (size_t i = 1; i < surround.size(); ++i) { 
+      updateDifferentBlock(surround[0], surround[i], updateType);
     }
   }
-}
-
-void grid::increaseSurroundingBlocks(int const & i, int const & j, int const & k, bool updateType) {
-  updateSameBlock(std::vector<int>{i, j, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j - 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j - 1, k + 1}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j - 1, k + 1},
-                       updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i + 1, j + 1, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i, j + 1, k}, updateType);
-  updateDifferentBlock(std::vector<int>{i, j, k}, std::vector<int>{i - 1, j + 1, k}, updateType);
 }
 
 // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
@@ -193,7 +155,7 @@ void grid::densityTransform() {
 }
 
 // if grid_positioning[index] == 0
-void grid::updateAccelerationWithWallMin(particle & part, int const index) {
+void grid::updateAccWithWallMin(particle & part, int const index) {
   double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
   double const delt           = constants::particle_size - (newcoord - parameters.min[index]);
   double const close_position = 1e-10;
@@ -204,7 +166,7 @@ void grid::updateAccelerationWithWallMin(particle & part, int const index) {
 }
 
 // if grid_positioning[index] == grid_size[index] - 1
-void grid::updateAccelerationWithWallMax(particle & part, int const index) {
+void grid::updateAccWithWallMax(particle & part, int const index) {
   double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
   double const delt           = constants::particle_size - (parameters.max[index] - newcoord);
   double const close_position = 1e-10;
@@ -214,13 +176,10 @@ void grid::updateAccelerationWithWallMax(particle & part, int const index) {
   }
 }
 
-void grid::updateAccelerationWithWall(particle & part, std::vector<int> const & grid_position) {
+void grid::updateAccWithWall(particle & part) {
   for (int i = 0; i < 3; i++) {
-    if (grid_position[i] == 0) {
-      updateAccelerationWithWallMin(part, i);
-    } else if (grid_position[i] == parameters.grid_size[i] - 1) {
-      updateAccelerationWithWallMax(part, i);
-    }
+    if (part.grid_pos[i] == 0) { updateAccWithWallMin(part, i); } 
+    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) { updateAccWithWallMax(part, i); }
   }
 }
 
@@ -254,13 +213,10 @@ void grid::collideWithWallMax(particle & part, int const index) {
   }
 }
 
-void grid::collideWithWall(particle & part, std::vector<int> const & grid_position) {
+void grid::collideWithWall(particle & part) {
   for (int i = 0; i < 3; i++) {
-    if (grid_position[i] == 0) {
-      collideWithWallMin(part, i);
-    } else if (grid_position[i] == parameters.grid_size[i] - 1) {
-      collideWithWallMax(part, i);
-    }
+    if (part.grid_pos[i] == 0) { collideWithWallMin(part, i); } 
+    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) { collideWithWallMax(part, i); }
   }
 }
 
@@ -269,13 +225,9 @@ void grid::processStep() {
   increaseVal(true);
   densityTransform();
   increaseVal(false);
-  for (auto const & pos_pair : grid_combinations) {
-    auto const & pos = pos_pair.first;
-    for (int const & part_id : part_grid[pos[0]][pos[1]][pos[2]].particles) {
-      particle & part = part_dict[part_id];
-      updateAccelerationWithWall(part, pos);
-      particlesMotion(part);
-      collideWithWall(part, pos);
-    }
+  for (particle& part: part_dict) {
+    updateAccWithWall(part);
+    particlesMotion(part);
+    collideWithWall(part);
   }
 }
