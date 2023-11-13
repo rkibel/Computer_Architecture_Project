@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <cstdio>
 #include "../sim/grid.hpp"
 #include "../sim/progargs.hpp"
 #include "../sim/utility.hpp"
@@ -20,7 +21,8 @@ TEST_F(FTest, TestSmall) {
         const auto read_np = static_cast<int>(small.parameters.np);
         const std::string file_name = "small-" + std::to_string(i+1) + ".fld";
         writeFile("ftest/" + file_name, read_ppm, read_np, small.part_dict);
-        ASSERT_TRUE(compare_binary_files("ftest/" + file_name, "reference-output/" + file_name));
+        EXPECT_TRUE(compare_binary_files("ftest/" + file_name, "reference-output/" + file_name));
+        EXPECT_EQ(remove(("ftest/" + file_name).c_str()), 0);
     }
 }
 
@@ -32,6 +34,7 @@ TEST_F(FTest, TestLarge) {
         const auto read_np = static_cast<int>(large.parameters.np);
         const std::string file_name = "large-" + std::to_string(i+1) + ".fld";
         writeFile("ftest/" + file_name, read_ppm, read_np, large.part_dict);
-        ASSERT_TRUE(compare_binary_files("ftest/" + file_name, "reference-output/" + file_name));
+        EXPECT_TRUE(compare_binary_files("ftest/" + file_name, "reference-output/" + file_name));
+        EXPECT_EQ(remove(("ftest/" + file_name).c_str()), 0);
     }
 }

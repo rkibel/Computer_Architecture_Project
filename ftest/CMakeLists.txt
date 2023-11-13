@@ -1,7 +1,6 @@
 # Executable for all unit tests with list of sources
 # For example, you may have one *_test.cpp for each *.cpp in sim
-add_executable(ftest all_test.cpp
-        all_test.cpp)
+add_executable(ftest all_test.cpp)
 
 target_include_directories(ftest PRIVATE ../sim)
 
