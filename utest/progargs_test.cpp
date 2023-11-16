@@ -24,3 +24,24 @@ TEST_F(ProgargsTest, checkArgNumber_Test) {
                  }, testing::ExitedWithCode(0), "function did not exit");
 }
 
+TEST_F(ProgargsTest, parseInt_Test) {
+    EXPECT_EXIT(parseInt("This won't work"), testing::ExitedWithCode(255),
+                "Error: time steps must be numeric.\n");
+
+    EXPECT_EXIT(parseInt(""), testing::ExitedWithCode(255),
+                "Error: time steps must be numeric.\n");
+
+    EXPECT_EXIT(parseInt("31415926535897942881273403249231843824914892318491258021753"), testing::ExitedWithCode(255),
+                "Error: time steps must be numeric.\n");
+
+    EXPECT_EXIT(parseInt("3.1415"), testing::ExitedWithCode(255),
+                "Error: time steps must be numeric.\n");
+
+    EXPECT_EXIT(parseInt("-1"), testing::ExitedWithCode(254),
+                "Error: Invalid number of time steps.\n");
+
+    EXPECT_EXIT( { parseInt("100");
+                     std::cerr << "function did not exit";
+                     exit(0);
+                 }, testing::ExitedWithCode(0), "function did not exit");
+}

@@ -11,7 +11,7 @@ int parseInt(std::string const & arg) {
   int res{};
   std::string_view const str_view(arg);
   auto result = std::from_chars(str_view.data(), str_view.data() + str_view.size(), res);
-  if (result.ec != std::errc()) {
+  if (result.ec != std::errc() || result.ptr != str_view.data() + str_view.size()) {
     std::cerr << "Error: time steps must be numeric.\n";
     exit(-1);
   }
