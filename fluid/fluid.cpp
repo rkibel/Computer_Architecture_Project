@@ -20,9 +20,6 @@ int main(int argc, char const * argv[]) {
   const auto read_ppm = static_cast<float>(particle_grid.parameters.ppm);
   const auto read_np = static_cast<int>(particle_grid.parameters.np);
   writeFile(arguments[2], read_ppm, read_np, particle_grid.part_dict);
-
-  // remove this later, just for testing purposes
-  // binaryToText(arguments[2], "final.txt");
-
+  
   return 0;
 }
