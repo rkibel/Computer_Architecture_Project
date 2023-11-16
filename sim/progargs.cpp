@@ -26,7 +26,7 @@ grid parseInputFile(std::string const & inputFile) {
   std::ifstream fileReader;
   fileReader.open(inputFile, std::ios::binary);
   if (!fileReader) {
-    std::cerr << "Error: Cannot open " << inputFile << " for reading";
+    std::cerr << "Error: Cannot open " << inputFile << " for reading\n";
     exit(-3);
   }
   grid particle_grid(fileReader);
@@ -70,14 +70,14 @@ void writeFile(std::string const & outputFile, float ppm, int np,
   std::ofstream fileWriter;
   fileWriter.open(outputFile, std::ios::binary);
   if (!fileWriter) {
-    std::cerr << "Error: Cannot open " << outputFile << " for writing";
+    std::cerr << "Error: Cannot open " << outputFile << " for writing\n";
     exit(-4);
   }
   write_float(ppm, fileWriter);
   write_int(np, fileWriter);
-  for (const particle & part : particles) {
-    for (double const & iter : part.position){ write_float(static_cast<float>(iter), fileWriter); }
-    for (double const & iter : part.boundary){ write_float(static_cast<float>(iter), fileWriter); }
-    for (double const & iter : part.velocity){ write_float(static_cast<float>(iter), fileWriter); }    
+  for (particle const & part : particles) {
+    for (double const & iter : part.position) { write_float(static_cast<float>(iter), fileWriter); }
+    for (double const & iter : part.boundary) { write_float(static_cast<float>(iter), fileWriter); }
+    for (double const & iter : part.velocity) { write_float(static_cast<float>(iter), fileWriter); }
   }
 }
