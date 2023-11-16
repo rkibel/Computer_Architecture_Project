@@ -22,7 +22,7 @@ int main(int argc, char const * argv[]) {
   writeFile(arguments[2], read_ppm, read_np, particle_grid.part_dict);
 
   // remove this later, just for testing purposes
-  binaryToText(arguments[2], "final.txt");
+  // binaryToText(arguments[2], "final.txt");
 
   return 0;
 }
