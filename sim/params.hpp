@@ -22,7 +22,6 @@ struct params {
 
     std::vector<int> grid_size;
     std::vector<double> block_size;
-    std::vector<double> acceleration;
     std::vector<double> min;
     std::vector<double> max;
 

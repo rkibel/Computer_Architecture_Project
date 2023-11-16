@@ -58,7 +58,7 @@ void grid::repositionAndInitialize() {
   new_part_grid.resize(grid_size[0], std::vector<std::vector<block>>(
                                          grid_size[1], std::vector<block>(grid_size[2])));
 
-  for (unsigned int i = 0; i < part_dict.size(); ++i) {
+  for (size_t i = 0; i < part_dict.size(); ++i) {
     std::vector<int> pos;
     for (int j = 0; j < 3; ++j) {
       int const position = static_cast<int>(
@@ -68,7 +68,7 @@ void grid::repositionAndInitialize() {
     new_part_grid[pos[0]][pos[1]][pos[2]].particles.push_back(static_cast<int>(i));
     part_dict[i].grid_pos     = pos;
     part_dict[i].density      = 0.0;
-    part_dict[i].acceleration = parameters.acceleration;
+    part_dict[i].acceleration = {0, constants::grav, 0};
   }
   part_grid = new_part_grid;
 }
@@ -79,7 +79,7 @@ double grid::normSquared(std::vector<double> const & pos1, std::vector<double> c
 }
 
 // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
-void grid::updateDensityBetweenParticles(particle & part1, particle & part2) {
+void grid::updateDensity(particle & part1, particle & part2) {
   double const norm_squared = normSquared(part1.position, part2.position);
   if (norm_squared < parameters.density_factors[0]) {
     double const densityIncrease  = std::pow(parameters.density_factors[0] - norm_squared, 3);
@@ -89,7 +89,7 @@ void grid::updateDensityBetweenParticles(particle & part1, particle & part2) {
 }
 
 // factors = { h^2, 45*m*p_s/pi/h^6/2 , 45*mu*m/pi/h^6 }
-void grid::updateAccelerationBetweenParticles(particle & part1, particle & part2) {
+void grid::updateAcceleration(particle & part1, particle & part2) {
   double const norm_squared = normSquared(part1.position, part2.position);
   if (norm_squared < parameters.acceleration_factors[0]) {
     double const dist                     = std::sqrt(std::max(norm_squared, 1e-12));
@@ -118,8 +118,7 @@ void grid::updateBlock(std::vector<int> const & pos1, std::vector<int> const & p
     for (std::size_t j = loop_start; j < block2.particles.size(); ++j) {
       particle & part1 = part_dict[block1.particles[i]];
       particle & part2 = part_dict[block2.particles[j]];
-      if (type) { updateDensityBetweenParticles(part1, part2); } 
-      else { updateAccelerationBetweenParticles(part1, part2); }
+      type ? updateDensity(part1, part2) : updateAcceleration(part1, part2);
     }
   }
 }

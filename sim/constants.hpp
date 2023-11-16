@@ -12,6 +12,7 @@ namespace constants {
   double const viscosity        = 0.4;
   double const particle_size    = 2e-4;
   double const delt_t           = 1e-3;
+  double const grav             = -9.8;
 }  // namespace constants
 
 #endif  // CONSTANTS_HPP

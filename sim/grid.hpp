@@ -24,8 +24,8 @@ struct grid {
     void initializeNeighborCombinations();
     void repositionAndInitialize();
     static double normSquared(std::vector<double> const & pos1, std::vector<double> const & pos2);
-    void updateDensityBetweenParticles(particle & part1, particle & part2);
-    void updateAccelerationBetweenParticles(particle & part1, particle & part2);
+    void updateDensity(particle & part1, particle & part2);
+    void updateAcceleration(particle & part1, particle & part2);
     void updateBlock(std::vector<int> const & pos1, std::vector<int> const & pos2, bool type);
     void updateAccWithWall(particle & part);
     static void particlesMotion(particle & part);
