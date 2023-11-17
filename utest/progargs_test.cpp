@@ -111,4 +111,5 @@ TEST_F(ProgargsTest, writeFile_Test) {
     EXPECT_TRUE(compare_binary_files(goodOutput, goodInput));
     EXPECT_EXIT(writeFile(badOutput, ppm, numPart, parseInputFile(goodInput).part_dict), testing::ExitedWithCode(252),
                 "Error: Cannot open " + badOutput + " for writing\n");
+    EXPECT_EQ(remove((goodOutput).c_str()), 0);
 }
