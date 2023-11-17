@@ -2,6 +2,7 @@ add_executable(utest
         grid_test.cpp
         progargs_test.cpp
         params_test.cpp
+        utest_utility.cpp
 )
 
 
