@@ -70,3 +70,10 @@ TEST_F(ProgargsTest, parseInputFile_Test) {
                  }, testing::ExitedWithCode(0), "function did not exit");
 }
 
+TEST_F(ProgargsTest, printGridInformation_Test) {
+    std::string const goodInput = "reference-input/small.fld";
+    EXPECT_EXIT( { printGridInformation(parseInputFile(goodInput).parameters);
+                     std::cerr << "function did not exit";
+                     exit(0);
+                 }, testing::ExitedWithCode(0), "function did not exit");
+}
