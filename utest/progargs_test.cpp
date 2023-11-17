@@ -77,3 +77,14 @@ TEST_F(ProgargsTest, printGridInformation_Test) {
                      exit(0);
                  }, testing::ExitedWithCode(0), "function did not exit");
 }
+
+TEST_F(ProgargsTest, writeFile_Test) {
+    std::string const goodInput = "reference-input/small.fld";
+    std::string const goodOutput = "output.fld";
+    float ppm = 204;
+    int np = 4800;
+    EXPECT_EXIT( { writeFile(goodOutput, ppm, np, parseInputFile(goodInput).part_dict);
+                     std::cerr << "function did not exit";
+                     exit(0);
+                 }, testing::ExitedWithCode(0), "function did not exit");
+}
