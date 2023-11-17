@@ -1,7 +1,7 @@
 add_executable(utest
         grid_test.cpp
         progargs_test.cpp
-        block_test.cpp
+        params_test.cpp
 )
 
 

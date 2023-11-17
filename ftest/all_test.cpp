@@ -100,16 +100,16 @@ TEST_F(FTest, TestInvalidArgumentType) {
 }
 
 TEST_F(FTest, TestInputDiscrepancies) {
-  std::vector<std::string> argv1 = {"run.sh", "2000", "ftest/small-ftest-zero-particles.fld",
+  std::vector<std::string> argv1 = {"run.sh", "2000", "test-input/small-test-zero-particles.fld",
                                     "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv1.size()), argv1), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: 0.\n");
-  std::vector<std::string> argv2 = {"run.sh", "2000", "ftest/small-ftest-negative-particles.fld",
-                                    "final.fld"};
+  std::vector<std::string> argv2 = {"run.sh", "2000",
+                                    "test-input/small-test-negative-particles.fld", "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv2.size()), argv2), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: -1.\n");
-  std::vector<std::string> argv3 = {"run.sh", "2000", "ftest/small-ftest-particles-mismatch.fld",
-                                    "final.fld"};
+  std::vector<std::string> argv3 = {"run.sh", "2000",
+                                    "test-input/small-test-particles-mismatch.fld", "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv3.size()), argv3), testing::ExitedWithCode(251),
               "Number of particles mismatch. Header: 4750, Found: 4800.");
 }
