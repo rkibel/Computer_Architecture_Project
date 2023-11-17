@@ -104,8 +104,11 @@ TEST_F(ProgargsTest, printGridInformation_Test) {
 TEST_F(ProgargsTest, writeFile_Test) {
     std::string const goodInput = "reference-input/small.fld";
     std::string const goodOutput = "output.fld";
+    std::string const badOutput = "directory/";
     const float ppm = 204;
     const int numPart = 4800;
     writeFile(goodOutput, ppm, numPart, parseInputFile(goodInput).part_dict);
     EXPECT_TRUE(compare_binary_files(goodOutput, goodInput));
+    EXPECT_EXIT(writeFile(badOutput, ppm, numPart, parseInputFile(goodInput).part_dict), testing::ExitedWithCode(252),
+                "Error: Cannot open " + badOutput + " for writing\n");
 }
