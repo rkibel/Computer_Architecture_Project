@@ -1,4 +1,5 @@
 #include "../sim/progargs.hpp"
+#include "../sim/utility.hpp"
 #include "utest_utility.hpp"
 
 #include <cstdio>
@@ -105,8 +106,6 @@ TEST_F(ProgargsTest, writeFile_Test) {
     std::string const goodOutput = "output.fld";
     const float ppm = 204;
     const int numPart = 4800;
-    EXPECT_EXIT( { writeFile(goodOutput, ppm, numPart, parseInputFile(goodInput).part_dict);
-                     std::cerr << "function did not exit";
-                     exit(0);
-                 }, testing::ExitedWithCode(0), "function did not exit");
+    writeFile(goodOutput, ppm, numPart, parseInputFile(goodInput).part_dict);
+    EXPECT_TRUE(compare_binary_files(goodOutput, goodInput));
 }
