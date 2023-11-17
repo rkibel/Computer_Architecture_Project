@@ -91,11 +91,11 @@ TEST_F(FTest, TestInvalidArgumentType) {
   EXPECT_EXIT(main_copy(static_cast<int>(argv3.size()), argv3), testing::ExitedWithCode(254),
               "Error: Invalid number of time steps.\n");
   // This following test assumes init.fld does not exist
-  std::vector<std::string> argv4 = {"run.sh", "1", "init.fld", "final.fld"};
+  std::vector<std::string> argv4 = {"run.sh", "1", "reference-input/init.fld", "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv4.size()), argv4), testing::ExitedWithCode(253),
-              "Error: Cannot open init.fld for reading\n");
+              "Error: Cannot open reference-input/init.fld for reading\n");
   // I don't know how to make a file not open for writing
-  std::vector<std::string> argv5 = {"run.sh", "1", "reference-input/small.fld", "ftest/empty_dir/"};
+  std::vector<std::string> argv5 = {"run.sh", "1", "reference-input/small.fld", "empty_dir/"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv5.size()), argv5), testing::ExitedWithCode(252),
-              "Error: Cannot open ftest/ftest/empty_dir/ for writing\n");
+              "Error: Cannot open ftest/empty_dir/ for writing\n");
 }
