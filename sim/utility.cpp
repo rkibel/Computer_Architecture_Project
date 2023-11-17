@@ -34,19 +34,17 @@ void write_int(int value, std::ostream & os) {
   os.write(as_buffer(value), sizeof(value));
 }
 
-bool compare_binary_files(const std::string& filename1, const std::string& filename2)
-{
-    std::ifstream file1(filename1, std::ifstream::ate | std::ifstream::binary);
-    std::ifstream file2(filename2, std::ifstream::ate | std::ifstream::binary);
-    const std::ifstream::pos_type fileSize = file1.tellg();
-    if (fileSize != file2.tellg()) { return false; }
-    file1.seekg(0);
-    file2.seekg(0);
-    const std::istreambuf_iterator<char> begin1(file1);
-    const std::istreambuf_iterator<char> begin2(file2);
-    return std::equal(begin1,std::istreambuf_iterator<char>(),begin2);
+bool compare_binary_files(std::string const & filename1, std::string const & filename2) {
+  std::ifstream file1(filename1, std::ifstream::ate | std::ifstream::binary);
+  std::ifstream file2(filename2, std::ifstream::ate | std::ifstream::binary);
+  std::ifstream::pos_type const fileSize = file1.tellg();
+  if (fileSize != file2.tellg()) { return false; }
+  file1.seekg(0);
+  file2.seekg(0);
+  std::istreambuf_iterator<char> const begin1(file1);
+  std::istreambuf_iterator<char> const begin2(file2);
+  return std::equal(begin1, std::istreambuf_iterator<char>(), begin2);
 }
-
 
 // TODO: DELETE LATER
 void binaryToText(std::string const & inputFile, std::string const & outputFile) {
@@ -72,5 +70,30 @@ void binaryToText(std::string const & inputFile, std::string const & outputFile)
     float const vel_z = read_float(inFile);
     outFile << pos_x << " " << pos_y << " " << pos_z << " " << hvx << " " << hvy << " " << hvz
             << " " << vel_x << " " << vel_y << " " << vel_z << "\n";
+  }
+}
+
+// TODO: DELETE LATER
+void textToBinary(std::string const & inputFile, std::string const & outputFile) {
+  std::ifstream inFile;
+  inFile.open(inputFile, std::ios::in);
+  float ppm  = 0.0;
+  int n_part = 0;
+  inFile >> ppm >> n_part;
+  std::ofstream outFile;
+  outFile.open(outputFile, std::ios::binary);
+  if (!outFile.is_open()) {
+    std::cerr << "Error opening file.\n";
+    exit(1);
+  }
+  write_float(ppm, outFile);
+  write_int(n_part, outFile);
+  while (!inFile.eof()) {
+    int const nine = 9;
+    for (int i = 0; i < nine; i++) {
+      float temp = 0.0;
+      inFile >> temp;
+      write_float(temp, outFile);
+    }
   }
 }

@@ -1,11 +1,11 @@
 #ifndef UTILITY_HPP
 #define UTILITY_HPP
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <type_traits>
-#include <algorithm>
 
 template <typename T>
   requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
@@ -21,9 +21,10 @@ char const * as_buffer(T const & value);
 void write_float(float value, std::ostream & os);
 void write_int(int value, std::ostream & os);
 
-bool compare_binary_files(const std::string& filename1, const std::string& filename2);
+bool compare_binary_files(std::string const & filename1, std::string const & filename2);
 
 // TODO: DELETE LATER
 void binaryToText(std::string const & inputFile, std::string const & outputFile);
+void textToBinary(std::string const & inputFile, std::string const & outputFile);
 
 #endif  // UTILITY_HPP

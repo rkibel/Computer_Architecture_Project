@@ -94,8 +94,22 @@ TEST_F(FTest, TestInvalidArgumentType) {
   std::vector<std::string> argv4 = {"run.sh", "1", "reference-input/init.fld", "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv4.size()), argv4), testing::ExitedWithCode(253),
               "Error: Cannot open reference-input/init.fld for reading\n");
-  // I don't know how to make a file not open for writing
   std::vector<std::string> argv5 = {"run.sh", "1", "reference-input/small.fld", "empty_dir/"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv5.size()), argv5), testing::ExitedWithCode(252),
               "Error: Cannot open ftest/empty_dir/ for writing\n");
+}
+
+TEST_F(FTest, TestInputDiscrepancies) {
+  std::vector<std::string> argv1 = {"run.sh", "2000", "ftest/small-ftest-zero-particles.fld",
+                                    "final.fld"};
+  EXPECT_EXIT(main_copy(static_cast<int>(argv1.size()), argv1), testing::ExitedWithCode(251),
+              "Error: Invalid number of particles: 0.\n");
+  std::vector<std::string> argv2 = {"run.sh", "2000", "ftest/small-ftest-negative-particles.fld",
+                                    "final.fld"};
+  EXPECT_EXIT(main_copy(static_cast<int>(argv2.size()), argv2), testing::ExitedWithCode(251),
+              "Error: Invalid number of particles: -1.\n");
+  std::vector<std::string> argv3 = {"run.sh", "2000", "ftest/small-ftest-particles-mismatch.fld",
+                                    "final.fld"};
+  EXPECT_EXIT(main_copy(static_cast<int>(argv3.size()), argv3), testing::ExitedWithCode(251),
+              "Number of particles mismatch. Header: 4750, Found: 4800.");
 }
