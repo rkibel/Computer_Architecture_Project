@@ -2,6 +2,7 @@
 #include <cstdio>
 #include "../sim/progargs.hpp"
 
+
 class ProgargsTest : public testing::Test {
 public:
     void SetUp() override {}
@@ -45,3 +46,27 @@ TEST_F(ProgargsTest, parseInt_Test) {
                      exit(0);
                  }, testing::ExitedWithCode(0), "function did not exit");
 }
+
+TEST_F(ProgargsTest, parseInputFile_Test) {
+    std::string const badInput1 = "Nothing";
+    EXPECT_EXIT(parseInputFile(badInput1), testing::ExitedWithCode(253),
+                "Error: Cannot open " + badInput1 + " for reading\n");
+    EXPECT_EXIT(parseInputFile(""), testing::ExitedWithCode(253),
+                "Error: Cannot open  for reading\n");
+    std::string const badInput2 = "test-input/small-test-particles-mismatch.fld";
+    EXPECT_EXIT(parseInputFile(badInput2), testing::ExitedWithCode(251),
+                "Error: Number of particles mismatch. Header: 4750, Found: 4800.\n");
+    std::string const badInput3 = "test-input/small-test-negative-particles.fld";
+    EXPECT_EXIT(parseInputFile(badInput3), testing::ExitedWithCode(251),
+                "Error: Number of particles mismatch. Header: -1, Found: 4800.\n");
+    std::string const badInput4 = "test-input/small-test-zero-particles.fld";
+    EXPECT_EXIT(parseInputFile(badInput4), testing::ExitedWithCode(251),
+                "Error: Number of particles mismatch. Header: 0, Found: 4800.\n");
+
+    std::string const goodInput = "reference-input/small.fld";
+    EXPECT_EXIT( { parseInputFile(goodInput);
+                     std::cerr << "function did not exit";
+                     exit(0);
+                 }, testing::ExitedWithCode(0), "function did not exit");
+}
+
