@@ -58,10 +58,10 @@ TEST_F(ProgargsTest, parseInputFile_Test) {
                 "Error: Number of particles mismatch. Header: 4750, Found: 4800.\n");
     std::string const badInput3 = "test-input/small-test-negative-particles.fld";
     EXPECT_EXIT(parseInputFile(badInput3), testing::ExitedWithCode(251),
-                "Error: Number of particles mismatch. Header: -1, Found: 4800.\n");
+                "Error: Invalid number of particles: -1.\n");
     std::string const badInput4 = "test-input/small-test-zero-particles.fld";
     EXPECT_EXIT(parseInputFile(badInput4), testing::ExitedWithCode(251),
-                "Error: Number of particles mismatch. Header: 0, Found: 4800.\n");
+                "Error: Invalid number of particles: 0.\n");
 
     std::string const goodInput = "reference-input/small.fld";
     EXPECT_EXIT( { parseInputFile(goodInput);
