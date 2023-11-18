@@ -12,11 +12,8 @@
 class FTest : public testing::Test {
   public:
     void SetUp() override { }
-
     void TearDown() override { }
-
-    // grid small = parseInputFile("reference-input/small.fld");
-    // grid large = parseInputFile("reference-input/large.fld");
+    int const step_count = 5;
 };
 
 int main_copy(int const argc, std::vector<std::string> & argv) {
@@ -38,11 +35,9 @@ int main_copy(int const argc, std::vector<std::string> & argv) {
 }
 
 TEST_F(FTest, TestSmall) {
-  // std::string const file_name = "large-" + std::to_string(i + 1) + ".fld";
-  int const step_count = 5;
-  for (int i = 0; i < step_count; i++) {
-    std::string const file_name   = "small-" + std::to_string(i + 1) + ".fld";
-    std::vector<std::string> argv = {"run.sh", std::to_string(i + 1), "reference-input/small.fld",
+  for (int i = 1; i < step_count+1; ++i) {
+    std::string const file_name   = "small-" + std::to_string(i) + ".fld";
+    std::vector<std::string> argv = {"run.sh", std::to_string(i), "reference-input/small.fld",
                                      file_name};
     int const argc                = static_cast<int>(argv.size());
     main_copy(argc, argv);
@@ -52,11 +47,9 @@ TEST_F(FTest, TestSmall) {
 }
 
 TEST_F(FTest, TestLarge) {
-  // std::string const file_name = "large-" + std::to_string(i + 1) + ".fld";
-  int const step_count = 5;
-  for (int i = 0; i < step_count; i++) {
-    std::string const file_name   = "large-" + std::to_string(i + 1) + ".fld";
-    std::vector<std::string> argv = {"run.sh", std::to_string(i + 1), "reference-input/large.fld",
+  for (int i = 1; i < step_count+1; ++i) {
+    std::string const file_name   = "large-" + std::to_string(i) + ".fld";
+    std::vector<std::string> argv = {"run.sh", std::to_string(i), "reference-input/large.fld",
                                      file_name};
     int const argc                = static_cast<int>(argv.size());
     main_copy(argc, argv);
