@@ -2,8 +2,6 @@
 #define PROGARGS_HPP
 
 #include "grid.hpp"
-#include "params.hpp"
-#include "utility.hpp"
 
 #include <charconv>
 #include <fstream>

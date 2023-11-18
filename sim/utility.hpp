@@ -23,8 +23,4 @@ void write_int(int value, std::ostream & os);
 
 bool compare_binary_files(std::string const & filename1, std::string const & filename2);
 
-// TODO: DELETE LATER
-void binaryToText(std::string const & inputFile, std::string const & outputFile);
-void textToBinary(std::string const & inputFile, std::string const & outputFile);
-
 #endif  // UTILITY_HPP

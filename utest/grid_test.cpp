@@ -1,6 +1,5 @@
 #include "../sim/grid.hpp"
 #include "../sim/progargs.hpp"
-#include "../sim/utility.hpp"
 
 #include <gtest/gtest.h>
 

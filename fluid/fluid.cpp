@@ -1,7 +1,5 @@
-#include "../sim/constants.hpp"
 #include "../sim/grid.hpp"
 #include "../sim/progargs.hpp"
-#include "../sim/utility.hpp"
 
 #include <iostream>
 #include <span>

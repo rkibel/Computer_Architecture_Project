@@ -1,8 +1,6 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-#include <vector>
-
 namespace constants {
   double const radius_mult      = 1.695;
   double const fluid_density    = 1e3;
