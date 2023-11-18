@@ -58,7 +58,7 @@ void grid::repositionAndInitialize() {
   new_part_grid.resize(grid_size[0], std::vector<std::vector<block>>(
                                          grid_size[1], std::vector<block>(grid_size[2])));
 
-  for (unsigned int i = 0; i < part_dict.size(); ++i) {
+  for (size_t i = 0; i < part_dict.size(); ++i) {
     std::vector<int> pos;
     for (int j = 0; j < 3; ++j) {
       int const position = static_cast<int>(
@@ -68,31 +68,31 @@ void grid::repositionAndInitialize() {
     new_part_grid[pos[0]][pos[1]][pos[2]].particles.push_back(static_cast<int>(i));
     part_dict[i].grid_pos     = pos;
     part_dict[i].density      = 0.0;
-    part_dict[i].acceleration = parameters.acceleration;
+    part_dict[i].acceleration = {0, constants::grav, 0};
   }
   part_grid = new_part_grid;
 }
 
-double grid::geomNormSquared(std::vector<double> const & pos1, std::vector<double> const & pos2) {
+double grid::normSquared(std::vector<double> const & pos1, std::vector<double> const & pos2) {
   return std::pow(pos1[0] - pos2[0], 2) + std::pow(pos1[1] - pos2[1], 2) +
          std::pow(pos1[2] - pos2[2], 2);
 }
 
 // factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
-void grid::updateDensityBetweenParticles(particle & part1, particle & part2) {
-  double const normSquared = geomNormSquared(part1.position, part2.position);
-  if (normSquared < parameters.density_factors[0]) {
-    double const densityIncrease  = std::pow(parameters.density_factors[0] - normSquared, 3);
+void grid::updateDensity(particle & part1, particle & part2) {
+  double const norm_squared = normSquared(part1.position, part2.position);
+  if (norm_squared < parameters.density_factors[0]) {
+    double const densityIncrease  = std::pow(parameters.density_factors[0] - norm_squared, 3);
     part1.density                += densityIncrease;
     part2.density                += densityIncrease;
   }
 }
 
 // factors = { h^2, 45*m*p_s/pi/h^6/2 , 45*mu*m/pi/h^6 }
-void grid::updateAccelerationBetweenParticles(particle & part1, particle & part2) {
-  double const normSquared = geomNormSquared(part1.position, part2.position);
-  if (normSquared < parameters.acceleration_factors[0]) {
-    double const dist                     = std::sqrt(std::max(normSquared, 1e-12));
+void grid::updateAcceleration(particle & part1, particle & part2) {
+  double const norm_squared = normSquared(part1.position, part2.position);
+  if (norm_squared < parameters.acceleration_factors[0]) {
+    double const dist                     = std::sqrt(std::max(norm_squared, 1e-12));
     double const fluid_density_multiplier = 2.0;
     for (int i = 0; i < 3; ++i) {
       double delta_a =
@@ -107,79 +107,42 @@ void grid::updateAccelerationBetweenParticles(particle & part1, particle & part2
   }
 }
 
-void grid::updateSameBlock(std::vector<int> const & pos, bool const updateType) {
-  block part_block = part_grid[pos[0]][pos[1]][pos[2]];
-  for (std::size_t i = 0; i < part_block.particles.size(); ++i) {
-    for (std::size_t j = i + 1; j < part_block.particles.size(); ++j) {
-      particle & part1 = part_dict[part_block.particles[i]];
-      particle & part2 = part_dict[part_block.particles[j]];
-      if (updateType) { updateDensityBetweenParticles(part1, part2); } 
-      else { updateAccelerationBetweenParticles(part1, part2); }
+// type = true: update density
+// type = false: update acceleration
+void grid::updateBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
+                      bool const type) {
+  const block & block1 = part_grid[pos1[0]][pos1[1]][pos1[2]];
+  const block & block2 = part_grid[pos2[0]][pos2[1]][pos2[2]];
+  for (std::size_t i = 0; i < block1.particles.size(); ++i) {
+    const std::size_t loop_start = (pos1 == pos2) ? i+1 : 0;
+    for (std::size_t j = loop_start; j < block2.particles.size(); ++j) {
+      particle & part1 = part_dict[block1.particles[i]];
+      particle & part2 = part_dict[block2.particles[j]];
+      type ? updateDensity(part1, part2) : updateAcceleration(part1, part2);
     }
-  }
-}
-
-void grid::updateDifferentBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
-                                bool const updateType) {
-  if (!isOutsideGrid(pos1[0], pos1[1], pos1[2]) && !isOutsideGrid(pos2[0], pos2[1], pos2[2])) {
-    block const block1 = part_grid[pos1[0]][pos1[1]][pos1[2]];
-    block const block2 = part_grid[pos2[0]][pos2[1]][pos2[2]];
-    for (int const & outer_index : block1.particles) {
-      for (int const & inner_index : block2.particles) {
-        if (updateType) {
-          updateDensityBetweenParticles(part_dict[outer_index], part_dict[inner_index]);
-        } else {
-          updateAccelerationBetweenParticles(part_dict[outer_index], part_dict[inner_index]);
-        }
-      }
-    }
-  }
-}
-
-// updateType = true: update density
-// updateType = false: update acceleration
-void grid::increaseVal(bool const updateType) {
-  for (auto const & surround : grid_neighbor_combinations) {
-    updateSameBlock(surround[0], updateType);
-    for (size_t i = 1; i < surround.size(); ++i) { 
-      updateDifferentBlock(surround[0], surround[i], updateType);
-    }
-  }
-}
-
-// factors = { h^2, h^6, 315/64 * mass / pi / h^9 }
-void grid::densityTransform() {
-  for (particle & part : part_dict) {
-    part.density = (part.density + parameters.density_factors[1]) * parameters.density_factors[2];
-  }
-}
-
-// if grid_positioning[index] == 0
-void grid::updateAccWithWallMin(particle & part, int const index) {
-  double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
-  double const delt           = constants::particle_size - (newcoord - parameters.min[index]);
-  double const close_position = 1e-10;
-  if (delt > close_position) {
-    part.acceleration[index] +=
-        constants::stiff_collisions * delt - constants::damping * part.velocity[index];
-  }
-}
-
-// if grid_positioning[index] == grid_size[index] - 1
-void grid::updateAccWithWallMax(particle & part, int const index) {
-  double const newcoord       = part.position[index] + part.boundary[index] * constants::delt_t;
-  double const delt           = constants::particle_size - (parameters.max[index] - newcoord);
-  double const close_position = 1e-10;
-  if (delt > close_position) {
-    part.acceleration[index] -=
-        constants::stiff_collisions * delt + constants::damping * part.velocity[index];
   }
 }
 
 void grid::updateAccWithWall(particle & part) {
   for (int i = 0; i < 3; i++) {
-    if (part.grid_pos[i] == 0) { updateAccWithWallMin(part, i); } 
-    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) { updateAccWithWallMax(part, i); }
+    if (part.grid_pos[i] == 0) {
+      double const newcoord       = part.position[i] + part.boundary[i] * constants::delt_t;
+      double const delt           = constants::particle_size - (newcoord - parameters.min[i]);
+      double const close_position = 1e-10;
+      if (delt > close_position) {
+        part.acceleration[i] +=
+            constants::stiff_collisions * delt - constants::damping * part.velocity[i];
+      }
+    } 
+    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) {
+      double const newcoord       = part.position[i] + part.boundary[i] * constants::delt_t;
+      double const delt           = constants::particle_size - (parameters.max[i] - newcoord);
+      double const close_position = 1e-10;
+      if (delt > close_position) {
+        part.acceleration[i] -=
+            constants::stiff_collisions * delt + constants::damping * part.velocity[i];
+      }
+    }
   }
 }
 
@@ -193,38 +156,42 @@ void grid::particlesMotion(particle & part) {
   }
 }
 
-// if grid_positioning[index] == 0
-void grid::collideWithWallMin(particle & part, int const index) {
-  double const dist = part.position[index] - parameters.min[index];
-  if (dist < 0) {
-    part.position[index]  = parameters.min[index] - dist;
-    part.velocity[index] *= -1.0;
-    part.boundary[index] *= -1.0;
-  }
-}
-
-// if grid_positioning[index] == grid_size[index] - 1
-void grid::collideWithWallMax(particle & part, int const index) {
-  double const dist = parameters.max[index] - part.position[index];
-  if (dist < 0) {
-    part.position[index]  = parameters.max[index] + dist;
-    part.velocity[index] *= -1.0;
-    part.boundary[index] *= -1.0;
-  }
-}
-
 void grid::collideWithWall(particle & part) {
   for (int i = 0; i < 3; i++) {
-    if (part.grid_pos[i] == 0) { collideWithWallMin(part, i); } 
-    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) { collideWithWallMax(part, i); }
+    if (part.grid_pos[i] == 0) {
+    double const dist = part.position[i] - parameters.min[i];
+      if (dist < 0) {
+        part.position[i]  = parameters.min[i] - dist;
+        part.velocity[i] *= -1.0;
+        part.boundary[i] *= -1.0;
+      }
+    }
+    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) {
+      double const dist = parameters.max[i] - part.position[i];
+      if (dist < 0) {
+        part.position[i]  = parameters.max[i] + dist;
+        part.velocity[i] *= -1.0;
+        part.boundary[i] *= -1.0;
+      }
+    }
   }
 }
 
 void grid::processStep() {
   repositionAndInitialize();
-  increaseVal(true);
-  densityTransform();
-  increaseVal(false);
+  for (auto const & surround : grid_neighbor_combinations) {
+    for (size_t i = 0; i < surround.size(); ++i) { 
+      updateBlock(surround[0], surround[i], true);
+    }
+  }
+  for (particle & part : part_dict) {
+    part.density = (part.density + parameters.density_factors[1]) * parameters.density_factors[2];
+  }
+  for (auto const & surround : grid_neighbor_combinations) {
+    for (size_t i = 0; i < surround.size(); ++i) { 
+      updateBlock(surround[0], surround[i], false);
+    }
+  }
   for (particle& part: part_dict) {
     updateAccWithWall(part);
     particlesMotion(part);

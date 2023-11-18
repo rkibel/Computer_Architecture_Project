@@ -2,15 +2,20 @@
 #define PARTICLE_HPP
 
 #include <vector>
+#include <iostream>
+#include <cmath>
 
 struct particle {
-    int id = 0;
+    int id{};
     std::vector<double> position;
     std::vector<double> boundary;
     std::vector<double> velocity;
     std::vector<double> acceleration;
-    double density = 0.0;
-    std::vector<int> grid_pos{0, 0, 0};
+    double density{};
+    std::vector<int> grid_pos;
+
+    bool operator==(const particle& other) const;
+    friend std::ostream& operator<<(std::ostream& os, const particle& part);
 };
 
 #endif  // PARTICLE_HPP

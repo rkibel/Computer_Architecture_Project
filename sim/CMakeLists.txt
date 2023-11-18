@@ -9,6 +9,7 @@ add_library(sim
         grid.hpp
         params.cpp
         params.hpp
+        particle.cpp
         particle.hpp
         progargs.cpp
         progargs.hpp
