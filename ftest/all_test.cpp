@@ -1,37 +1,35 @@
 #include "../sim/grid.hpp"
 #include "../sim/progargs.hpp"
 
-#include <cstdio>
 #include <gtest/gtest.h>
-#include <iostream>
+#include <cstdio>
 #include <span>
-#include <string>
-#include <vector>
 
 class FTest : public testing::Test {
   public:
     void SetUp() override { }
     void TearDown() override { }
+    
     int const step_count = 5;
+
+    static int main_copy(int const argc, std::vector<std::string> & argv) {
+      // Same main functionality but just with vector of strings
+      checkArgNumber(argc);
+      argv.erase(argv.begin());  // In place of removing the first element (ex: run.sh)
+
+      int const nts      = parseInt(argv[0]);
+      grid particle_grid = parseInputFile(argv[1]);
+
+      for (int i = 0; i < nts; ++i) { particle_grid.processStep(); }
+
+      auto const read_ppm = static_cast<float>(particle_grid.parameters.ppm);
+      auto const read_np  = static_cast<int>(particle_grid.parameters.np);
+      // Modifying write file to write to ftest
+      writeFile("ftest/" + argv[2], read_ppm, read_np, particle_grid.part_dict);
+      // writeFile(arguments[2], read_ppm, read_np, particle_grid.part_dict); //Original
+      return 0;
+    }
 };
-
-int main_copy(int const argc, std::vector<std::string> & argv) {
-  // Same main functionality but just with vector of strings
-  checkArgNumber(argc);
-  argv.erase(argv.begin());  // In place of removing the first element (ex: run.sh)
-
-  int const nts      = parseInt(argv[0]);
-  grid particle_grid = parseInputFile(argv[1]);
-
-  for (int i = 0; i < nts; ++i) { particle_grid.processStep(); }
-
-  auto const read_ppm = static_cast<float>(particle_grid.parameters.ppm);
-  auto const read_np  = static_cast<int>(particle_grid.parameters.np);
-  // Modifying write file to write to ftest
-  writeFile("ftest/" + argv[2], read_ppm, read_np, particle_grid.part_dict);
-  // writeFile(arguments[2], read_ppm, read_np, particle_grid.part_dict); //Original
-  return 0;
-}
 
 TEST_F(FTest, TestSmall) {
   for (int i = 1; i < step_count+1; ++i) {
