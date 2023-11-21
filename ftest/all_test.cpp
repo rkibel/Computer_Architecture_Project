@@ -1,15 +1,16 @@
 #include "../sim/grid.hpp"
 #include "../sim/progargs.hpp"
 
-#include <gtest/gtest.h>
 #include <cstdio>
+#include <gtest/gtest.h>
 #include <span>
 
 class FTest : public testing::Test {
   public:
     void SetUp() override { }
+
     void TearDown() override { }
-    
+
     int const step_count = 5;
 
     static int main_copy(int const argc, std::vector<std::string> & argv) {
@@ -26,10 +27,9 @@ class FTest : public testing::Test {
 };
 
 TEST_F(FTest, TestSmall) {
-  for (int i = 1; i < step_count+1; ++i) {
+  for (int i = 1; i < step_count + 1; ++i) {
     std::string const file_name   = "small-" + std::to_string(i) + ".fld";
-    std::vector<std::string> argv = {"run.sh", std::to_string(i), "in/small.fld",
-                                     file_name};
+    std::vector<std::string> argv = {"run.sh", std::to_string(i), "in/small.fld", file_name};
     int const argc                = static_cast<int>(argv.size());
     main_copy(argc, argv);
     EXPECT_TRUE(compare_binary_files("ftest/" + file_name, "out/" + file_name));
@@ -38,10 +38,9 @@ TEST_F(FTest, TestSmall) {
 }
 
 TEST_F(FTest, TestLarge) {
-  for (int i = 1; i < step_count+1; ++i) {
+  for (int i = 1; i < step_count + 1; ++i) {
     std::string const file_name   = "large-" + std::to_string(i) + ".fld";
-    std::vector<std::string> argv = {"run.sh", std::to_string(i), "in/large.fld",
-                                     file_name};
+    std::vector<std::string> argv = {"run.sh", std::to_string(i), "in/large.fld", file_name};
     int const argc                = static_cast<int>(argv.size());
     main_copy(argc, argv);
     EXPECT_TRUE(compare_binary_files("ftest/" + file_name, "out/" + file_name));
@@ -87,12 +86,12 @@ TEST_F(FTest, TestInputDiscrepancies) {
                                     "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv1.size()), argv1), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: 0.\n");
-  std::vector<std::string> argv2 = {"run.sh", "2000",
-                                    "test-in/small-test-negative-particles.fld", "final.fld"};
+  std::vector<std::string> argv2 = {"run.sh", "2000", "test-in/small-test-negative-particles.fld",
+                                    "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv2.size()), argv2), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: -1.\n");
-  std::vector<std::string> argv3 = {"run.sh", "2000",
-                                    "test-in/small-test-particles-mismatch.fld", "final.fld"};
+  std::vector<std::string> argv3 = {"run.sh", "2000", "test-in/small-test-particles-mismatch.fld",
+                                    "final.fld"};
   EXPECT_EXIT(main_copy(static_cast<int>(argv3.size()), argv3), testing::ExitedWithCode(251),
               "Number of particles mismatch. Header: 4750, Found: 4800.");
 }
