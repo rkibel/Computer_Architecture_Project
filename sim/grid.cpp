@@ -18,28 +18,35 @@ grid::grid(std::istream & fileReader) {
 }
 
 bool grid::isOutsideGrid(int i, int j, int k) const {
-  return (i >= parameters.grid_size[0] || i < 0 ||
-          j >= parameters.grid_size[1] || j < 0 ||
+  return (i >= parameters.grid_size[0] || i < 0 || j >= parameters.grid_size[1] || j < 0 ||
           k >= parameters.grid_size[2] || k < 0);
 }
 
 std::vector<std::vector<int>> grid::getNeighbors(int i, int j, int k) const {
   std::vector<std::vector<int>> neighbors;
   neighbors.push_back(std::vector<int>{i, j, k});
-  if (!isOutsideGrid(i+1, j+1, k+1)) { neighbors.push_back(std::vector<int>{i+1, j+1, k+1}); }
-  if (!isOutsideGrid(i+1, j, k+1)) { neighbors.push_back(std::vector<int>{i+1, j, k+1}); }
-  if (!isOutsideGrid(i, j+1, k+1)) { neighbors.push_back(std::vector<int>{i, j+1, k+1}); }
-  if (!isOutsideGrid(i, j, k+1)) { neighbors.push_back(std::vector<int>{i, j, k+1}); }
-  if (!isOutsideGrid(i-1, j, k+1)) { neighbors.push_back(std::vector<int>{i-1, j, k+1}); }
-  if (!isOutsideGrid(i-1, j-1, k+1)) { neighbors.push_back(std::vector<int>{i-1, j-1, k+1}); }
-  if (!isOutsideGrid(i-1, j+1, k+1)) { neighbors.push_back(std::vector<int>{i-1, j+1, k+1}); }
-  if (!isOutsideGrid(i, j-1, k+1)) { neighbors.push_back(std::vector<int>{i, j-1, k+1}); }
-  if (!isOutsideGrid(i+1, j-1, k+1)) { neighbors.push_back(std::vector<int>{i+1, j-1, k+1}); }
-  if (!isOutsideGrid(i+1, j, k)) { neighbors.push_back(std::vector<int>{i+1, j, k}); }
-  if (!isOutsideGrid(i+1, j+1, k)) { neighbors.push_back(std::vector<int>{i+1, j+1, k}); }
-  if (!isOutsideGrid(i, j+1, k)) { neighbors.push_back(std::vector<int>{i, j+1, k}); }
-  if (!isOutsideGrid(i-1, j+1, k)) { neighbors.push_back(std::vector<int>{i-1, j+1, k}); }
-  return neighbors;  
+  if (!isOutsideGrid(i + 1, j + 1, k + 1)) {
+    neighbors.push_back(std::vector<int>{i + 1, j + 1, k + 1});
+  }
+  if (!isOutsideGrid(i + 1, j, k + 1)) { neighbors.push_back(std::vector<int>{i + 1, j, k + 1}); }
+  if (!isOutsideGrid(i, j + 1, k + 1)) { neighbors.push_back(std::vector<int>{i, j + 1, k + 1}); }
+  if (!isOutsideGrid(i, j, k + 1)) { neighbors.push_back(std::vector<int>{i, j, k + 1}); }
+  if (!isOutsideGrid(i - 1, j, k + 1)) { neighbors.push_back(std::vector<int>{i - 1, j, k + 1}); }
+  if (!isOutsideGrid(i - 1, j - 1, k + 1)) {
+    neighbors.push_back(std::vector<int>{i - 1, j - 1, k + 1});
+  }
+  if (!isOutsideGrid(i - 1, j + 1, k + 1)) {
+    neighbors.push_back(std::vector<int>{i - 1, j + 1, k + 1});
+  }
+  if (!isOutsideGrid(i, j - 1, k + 1)) { neighbors.push_back(std::vector<int>{i, j - 1, k + 1}); }
+  if (!isOutsideGrid(i + 1, j - 1, k + 1)) {
+    neighbors.push_back(std::vector<int>{i + 1, j - 1, k + 1});
+  }
+  if (!isOutsideGrid(i + 1, j, k)) { neighbors.push_back(std::vector<int>{i + 1, j, k}); }
+  if (!isOutsideGrid(i + 1, j + 1, k)) { neighbors.push_back(std::vector<int>{i + 1, j + 1, k}); }
+  if (!isOutsideGrid(i, j + 1, k)) { neighbors.push_back(std::vector<int>{i, j + 1, k}); }
+  if (!isOutsideGrid(i - 1, j + 1, k)) { neighbors.push_back(std::vector<int>{i - 1, j + 1, k}); }
+  return neighbors;
 }
 
 void grid::initializeNeighborCombinations() {
@@ -110,11 +117,11 @@ void grid::updateAcceleration(particle & part1, particle & part2) {
 // type = true: update density
 // type = false: update acceleration
 void grid::updateBlock(std::vector<int> const & pos1, std::vector<int> const & pos2,
-                      bool const type) {
-  const block & block1 = part_grid[pos1[0]][pos1[1]][pos1[2]];
-  const block & block2 = part_grid[pos2[0]][pos2[1]][pos2[2]];
+                       bool const type) {
+  block const & block1 = part_grid[pos1[0]][pos1[1]][pos1[2]];
+  block const & block2 = part_grid[pos2[0]][pos2[1]][pos2[2]];
   for (std::size_t i = 0; i < block1.particles.size(); ++i) {
-    const std::size_t loop_start = (pos1 == pos2) ? i+1 : 0;
+    std::size_t const loop_start = (pos1 == pos2) ? i + 1 : 0;
     for (std::size_t j = loop_start; j < block2.particles.size(); ++j) {
       particle & part1 = part_dict[block1.particles[i]];
       particle & part2 = part_dict[block2.particles[j]];
@@ -133,8 +140,7 @@ void grid::updateAccWithWall(particle & part) {
         part.acceleration[i] +=
             constants::stiff_collisions * delt - constants::damping * part.velocity[i];
       }
-    } 
-    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) {
+    } else if (part.grid_pos[i] == parameters.grid_size[i] - 1) {
       double const newcoord       = part.position[i] + part.boundary[i] * constants::delt_t;
       double const delt           = constants::particle_size - (parameters.max[i] - newcoord);
       double const close_position = 1e-10;
@@ -159,14 +165,13 @@ void grid::particlesMotion(particle & part) {
 void grid::collideWithWall(particle & part) {
   for (int i = 0; i < 3; i++) {
     if (part.grid_pos[i] == 0) {
-    double const dist = part.position[i] - parameters.min[i];
+      double const dist = part.position[i] - parameters.min[i];
       if (dist < 0) {
         part.position[i]  = parameters.min[i] - dist;
         part.velocity[i] *= -1.0;
         part.boundary[i] *= -1.0;
       }
-    }
-    else if (part.grid_pos[i] == parameters.grid_size[i] - 1) {
+    } else if (part.grid_pos[i] == parameters.grid_size[i] - 1) {
       double const dist = parameters.max[i] - part.position[i];
       if (dist < 0) {
         part.position[i]  = parameters.max[i] + dist;
@@ -181,9 +186,7 @@ void grid::processStep() {
   repositionAndInitialize();
   // density increment phase
   for (auto const & surround : grid_neighbor_combinations) {
-    for (size_t i = 0; i < surround.size(); ++i) { 
-      updateBlock(surround[0], surround[i], true);
-    }
+    for (size_t i = 0; i < surround.size(); ++i) { updateBlock(surround[0], surround[i], true); }
   }
   // density transformation phase
   for (particle & part : part_dict) {
@@ -191,12 +194,10 @@ void grid::processStep() {
   }
   // acceleration increment phase
   for (auto const & surround : grid_neighbor_combinations) {
-    for (size_t i = 0; i < surround.size(); ++i) { 
-      updateBlock(surround[0], surround[i], false);
-    }
+    for (size_t i = 0; i < surround.size(); ++i) { updateBlock(surround[0], surround[i], false); }
   }
   // simultaneous boundary analysis, motion, and boundary interaction phases
-  for (particle& part: part_dict) {
+  for (particle & part : part_dict) {
     updateAccWithWall(part);
     particlesMotion(part);
     collideWithWall(part);

@@ -1,9 +1,11 @@
 #include "../sim/progargs.hpp"
+
 #include <gtest/gtest.h>
 
 class ProgargsTest : public testing::Test {
   public:
     void SetUp() override { }
+
     void TearDown() override { }
 };
 
@@ -59,23 +61,29 @@ TEST_F(ProgargsTest, parseInputFileTest) {
               "Error: Invalid number of particles: 0.\n");
   std::string const goodInput = "in/small.fld";
   testing::internal::CaptureStdout();
-  EXPECT_EXIT( { parseInputFile(goodInput); exit(0); }, testing::ExitedWithCode(0), "");
-  std::string const expectedOutput = "Number of particles: 4800\nParticles per meter: 204\n"
-   "Smoothing length: 0.00830882\nParticle mass: 0.00011779\nGrid size: 15 x 21 x 15\n"
-   "Number of blocks: 4725\nBlock size: 0.00866667 x 0.00857143 x 0.00866667\n";
+  EXPECT_EXIT(
+      {
+        parseInputFile(goodInput);
+        exit(0);
+      },
+      testing::ExitedWithCode(0), "");
+  std::string const expectedOutput =
+      "Number of particles: 4800\nParticles per meter: 204\n"
+      "Smoothing length: 0.00830882\nParticle mass: 0.00011779\nGrid size: 15 x 21 x 15\n"
+      "Number of blocks: 4725\nBlock size: 0.00866667 x 0.00857143 x 0.00866667\n";
   EXPECT_EQ(testing::internal::GetCapturedStdout(), expectedOutput);
 }
 
 TEST_F(ProgargsTest, writeFileTest) {
-    std::string const goodInput = "in/small.fld";
-    std::string const goodOutput = "utest/output.fld";
-    std::string const badOutput = "directory/";
-    float const ppm = 204;
-    int const numPart = 4800;
-    std::vector<particle> const particles = parseInputFile(goodInput).part_dict;
-    writeFile(goodOutput, ppm, numPart, particles);
-    EXPECT_TRUE(compare_binary_files(goodOutput, goodInput));
-    EXPECT_EQ(remove((goodOutput).c_str()), 0);
-    EXPECT_EXIT(writeFile(badOutput, ppm, numPart, particles), testing::ExitedWithCode(252),
-                "Error: Cannot open " + badOutput + " for writing\n");
+  std::string const goodInput           = "in/small.fld";
+  std::string const goodOutput          = "utest/output.fld";
+  std::string const badOutput           = "directory/";
+  float const ppm                       = 204;
+  int const numPart                     = 4800;
+  std::vector<particle> const particles = parseInputFile(goodInput).part_dict;
+  writeFile(goodOutput, ppm, numPart, particles);
+  EXPECT_TRUE(compare_binary_files(goodOutput, goodInput));
+  EXPECT_EQ(remove((goodOutput).c_str()), 0);
+  EXPECT_EXIT(writeFile(badOutput, ppm, numPart, particles), testing::ExitedWithCode(252),
+              "Error: Cannot open " + badOutput + " for writing\n");
 }

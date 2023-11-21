@@ -7,4 +7,4 @@ struct block {
     std::vector<int> particles;
 };
 
-#endif // BLOCK_HPP
+#endif  // BLOCK_HPP

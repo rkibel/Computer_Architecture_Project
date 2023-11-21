@@ -6,11 +6,13 @@
 class GridTest : public testing::Test {
   public:
     void SetUp() override { }
+
     void TearDown() override { }
-    
+
     int const steps = 5;
 
-    template <typename T> requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
+    template <typename T>
+      requires(std::is_integral_v<T> || std::is_floating_point_v<T>)
     static char * as_writable_buffer(T & value) {
       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
       return reinterpret_cast<char *>(&value);
@@ -30,7 +32,7 @@ class GridTest : public testing::Test {
 
     static particle readParticle(std::istream & is, std::vector<int> & grid_pos) {
       particle part;
-      part.id = static_cast<int>(read_long(is));
+      part.id         = static_cast<int>(read_long(is));
       int const three = 3;
       for (int i = 0; i < three; ++i) { part.position.push_back(read_double(is)); }
       for (int i = 0; i < three; ++i) { part.boundary.push_back(read_double(is)); }
@@ -44,22 +46,22 @@ class GridTest : public testing::Test {
     static bool gridEqualsTrz(grid const & grid, std::string const & trz) {
       std::ifstream input;
       input.open(trz, std::ios::binary);
-      if (!input) { 
-        std::cerr << "Error: unable to open trz " << trz << " for reading."; 
-        return false; 
+      if (!input) {
+        std::cerr << "Error: unable to open trz " << trz << " for reading.";
+        return false;
       }
       std::vector<int> gsize = grid.parameters.grid_size;
-      int const num_blocks = read_int(input);
+      int const num_blocks   = read_int(input);
       for (int i = 0; i < num_blocks; ++i) {
-        std::vector<int> gpos = {i % gsize[0], static_cast<int>(i % (gsize[0] * gsize[1]) / gsize[0]),
-          static_cast<int>(i / (gsize[0] * gsize[1])) };
+        std::vector<int> gpos    = {i % gsize[0],
+                                    static_cast<int>(i % (gsize[0] * gsize[1]) / gsize[0]),
+                                    static_cast<int>(i / (gsize[0] * gsize[1]))};
         long const num_particles = read_long(input);
         for (long j = 0; j < num_particles; ++j) {
           particle const & ref = readParticle(input, gpos);
           particle const & org = grid.part_dict[ref.id];
           if (ref != org) {
-            std::cerr << "Error: particles do not match.\nComputed:\n" << org << "Reference:\n" 
-            << ref;
+            std::cerr << "Error: particles do not match.\nComputed:\n" << org << ref;
             return false;
           }
         }
@@ -75,11 +77,11 @@ class GridTest : public testing::Test {
         }
       }
     }
-    
+
     static void densityTransformation(grid & grid) {
       for (particle & part : grid.part_dict) {
-        part.density = (part.density + grid.parameters.density_factors[1]) * 
-        grid.parameters.density_factors[2];
+        part.density = (part.density + grid.parameters.density_factors[1]) *
+                       grid.parameters.density_factors[2];
       }
     }
 
@@ -92,21 +94,15 @@ class GridTest : public testing::Test {
     }
 
     static void particleCollisions(grid & grid) {
-      for (particle & part : grid.part_dict) { 
-        grid.updateAccWithWall(part); 
-      }
+      for (particle & part : grid.part_dict) { grid.updateAccWithWall(part); }
     }
 
     static void particleMotion(grid & grid) {
-      for (particle & part : grid.part_dict) { 
-        grid::particlesMotion(part);
-      }
+      for (particle & part : grid.part_dict) { grid::particlesMotion(part); }
     }
 
     static void wallCollisions(grid & grid) {
-      for (particle & part : grid.part_dict) {
-        grid.collideWithWall(part);
-      }
+      for (particle & part : grid.part_dict) { grid.collideWithWall(part); }
     }
 };
 

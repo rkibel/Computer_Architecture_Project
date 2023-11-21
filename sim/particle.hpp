@@ -1,9 +1,9 @@
 #ifndef PARTICLE_HPP
 #define PARTICLE_HPP
 
-#include <vector>
-#include <iostream>
 #include <cmath>
+#include <iostream>
+#include <vector>
 
 struct particle {
     int id{};
@@ -14,8 +14,8 @@ struct particle {
     double density{};
     std::vector<int> grid_pos;
 
-    bool operator==(const particle& other) const;
-    friend std::ostream& operator<<(std::ostream& os, const particle& part);
+    bool operator==(particle const & other) const;
+    friend std::ostream & operator<<(std::ostream & os, particle const & part);
 };
 
 #endif  // PARTICLE_HPP
