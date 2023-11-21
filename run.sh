@@ -10,6 +10,6 @@ perf stat -r 5 ./build/fluid/fluid $@
 # sbatch run.sh step_number input_file output_file
 
 # example: 
-# sbatch run.sh 1 reference-input/small.fld final.fld
+# sbatch run.sh 1000 in/large.fld out.fld
 
 # you can also test with as many arguments as you want

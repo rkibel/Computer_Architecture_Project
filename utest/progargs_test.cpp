@@ -48,16 +48,16 @@ TEST_F(ProgargsTest, parseInputFileTest) {
               "Error: Cannot open " + badInput1 + " for reading\n");
   EXPECT_EXIT(parseInputFile(""), testing::ExitedWithCode(253),
               "Error: Cannot open  for reading\n");
-  std::string const badInput2 = "test-input/small-test-particles-mismatch.fld";
+  std::string const badInput2 = "test-in/small-test-particles-mismatch.fld";
   EXPECT_EXIT(parseInputFile(badInput2), testing::ExitedWithCode(251),
               "Error: Number of particles mismatch. Header: 4750, Found: 4800.\n");
-  std::string const badInput3 = "test-input/small-test-negative-particles.fld";
+  std::string const badInput3 = "test-in/small-test-negative-particles.fld";
   EXPECT_EXIT(parseInputFile(badInput3), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: -1.\n");
-  std::string const badInput4 = "test-input/small-test-zero-particles.fld";
+  std::string const badInput4 = "test-in/small-test-zero-particles.fld";
   EXPECT_EXIT(parseInputFile(badInput4), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: 0.\n");
-  std::string const goodInput = "reference-input/small.fld";
+  std::string const goodInput = "in/small.fld";
   testing::internal::CaptureStdout();
   EXPECT_EXIT( { parseInputFile(goodInput); exit(0); }, testing::ExitedWithCode(0), "");
   std::string const expectedOutput = "Number of particles: 4800\nParticles per meter: 204\n"
@@ -67,7 +67,7 @@ TEST_F(ProgargsTest, parseInputFileTest) {
 }
 
 TEST_F(ProgargsTest, writeFileTest) {
-    std::string const goodInput = "reference-input/small.fld";
+    std::string const goodInput = "in/small.fld";
     std::string const goodOutput = "utest/output.fld";
     std::string const badOutput = "directory/";
     float const ppm = 204;

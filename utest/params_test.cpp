@@ -30,18 +30,18 @@ class ParamsTest : public testing::Test {
 };
 
 TEST_F(ParamsTest, TestInitializeInvalid) {
-  inFile.open("test-input/small-test-zero-particles.fld", std::ios::binary);
+  inFile.open("test-in/small-test-zero-particles.fld", std::ios::binary);
   EXPECT_EXIT(parameters.initialize(inFile), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: 0.\n");
   inFile.close();
-  inFile.open("test-input/small-test-negative-particles.fld", std::ios::binary);
+  inFile.open("test-in/small-test-negative-particles.fld", std::ios::binary);
   EXPECT_EXIT(parameters.initialize(inFile), testing::ExitedWithCode(251),
               "Error: Invalid number of particles: -1.\n");
   inFile.close();
 }
 
 TEST_F(ParamsTest, TestInitializeSmall) {
-  inFile.open("reference-input/small.fld", std::ios::binary);
+  inFile.open("in/small.fld", std::ios::binary);
   parameters.initialize(inFile);
   inFile.close();
 
@@ -56,7 +56,7 @@ TEST_F(ParamsTest, TestInitializeSmall) {
 }
 
 TEST_F(ParamsTest, TestInitializeLarge) {
-  inFile.open("reference-input/large.fld", std::ios::binary);
+  inFile.open("in/large.fld", std::ios::binary);
   parameters.initialize(inFile);
   inFile.close();
 

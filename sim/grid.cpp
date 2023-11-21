@@ -179,19 +179,23 @@ void grid::collideWithWall(particle & part) {
 
 void grid::processStep() {
   repositionAndInitialize();
+  // density increment phase
   for (auto const & surround : grid_neighbor_combinations) {
     for (size_t i = 0; i < surround.size(); ++i) { 
       updateBlock(surround[0], surround[i], true);
     }
   }
+  // density transformation phase
   for (particle & part : part_dict) {
     part.density = (part.density + parameters.density_factors[1]) * parameters.density_factors[2];
   }
+  // acceleration increment phase
   for (auto const & surround : grid_neighbor_combinations) {
     for (size_t i = 0; i < surround.size(); ++i) { 
       updateBlock(surround[0], surround[i], false);
     }
   }
+  // simultaneous boundary analysis, motion, and boundary interaction phases
   for (particle& part: part_dict) {
     updateAccWithWall(part);
     particlesMotion(part);

@@ -111,45 +111,45 @@ class GridTest : public testing::Test {
 };
 
 TEST_F(GridTest, SmallTest) {
-  grid small = parseInputFile("reference-input/small.fld");
+  grid small = parseInputFile("in/small.fld");
   for (int i = 1; i < steps + 1; ++i) {
     std::string const stp = std::to_string(i);
     small.repositionAndInitialize();
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/repos-base-" + stp + ".trz"));
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/initacc-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/repos-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/initacc-base-" + stp + ".trz"));
     densityIncrement(small);
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/densinc-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/densinc-base-" + stp + ".trz"));
     densityTransformation(small);
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/denstransf-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/denstransf-base-" + stp + ".trz"));
     accelerationTransformation(small);
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/acctransf-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/acctransf-base-" + stp + ".trz"));
     particleCollisions(small);
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/partcol-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/partcol-base-" + stp + ".trz"));
     particleMotion(small);
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/motion-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/motion-base-" + stp + ".trz"));
     wallCollisions(small);
-    EXPECT_TRUE(gridEqualsTrz(small, "trace/small/boundint-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(small, "trz/small/boundint-base-" + stp + ".trz"));
   }
 }
 
 TEST_F(GridTest, LargeTest) {
-  grid large = parseInputFile("reference-input/large.fld");
+  grid large = parseInputFile("in/large.fld");
   for (int i = 1; i < steps + 1; ++i) {
     std::string const stp = std::to_string(i);
     large.repositionAndInitialize();
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/repos-base-" + stp + ".trz"));
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/initacc-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/repos-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/initacc-base-" + stp + ".trz"));
     densityIncrement(large);
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/densinc-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/densinc-base-" + stp + ".trz"));
     densityTransformation(large);
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/denstransf-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/denstransf-base-" + stp + ".trz"));
     accelerationTransformation(large);
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/acctransf-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/acctransf-base-" + stp + ".trz"));
     particleCollisions(large);
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/partcol-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/partcol-base-" + stp + ".trz"));
     particleMotion(large);
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/motion-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/motion-base-" + stp + ".trz"));
     wallCollisions(large);
-    EXPECT_TRUE(gridEqualsTrz(large, "trace/large/boundint-base-" + stp + ".trz"));
+    EXPECT_TRUE(gridEqualsTrz(large, "trz/large/boundint-base-" + stp + ".trz"));
   }
 }
