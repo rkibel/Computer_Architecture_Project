@@ -1,6 +1,3 @@
-Performance Oriented Programming Project
-Team Number 4
-
 This project contains fluid (main), sim (simulation modules), ftest and utest (self-explanatory),
 and must contain:
 - in/ for large.fld and small.fld
