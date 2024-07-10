@@ -1,3 +1,6 @@
+# Performance-Oriented Fluid Simulation
+### This project is a fluid simulation focused on optimizing performance by computing particle collisions in parallel.
+
 This project contains fluid (main), sim (simulation modules), ftest and utest (self-explanatory),
 and must contain:
 - in/ for large.fld and small.fld
